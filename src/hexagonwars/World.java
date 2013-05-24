@@ -46,20 +46,19 @@ public class World {
 
         this.width = Integer.parseInt(st.nextToken());
         this.height = Integer.parseInt(st.nextToken());
-        
+
         tiles = new Tile[getWidth()][getHeight()];
     }
 
     private void processWorldLine(String line, int x) throws NumberFormatException {
         StringTokenizer st = new StringTokenizer(line, ";");
-        
+
         for (int y = 0; y < getHeight(); y++) {
             /*
              * 0: PLAIN
              * 1: MOUNTAIN
              */
-            
-            // example: tiles[x][y] = new hexagonwars.tiles.Mountain();
+            tiles[x][y] = getType(Integer.parseInt(st.nextToken()));
         }
     }
 
@@ -69,5 +68,21 @@ public class World {
 
     public int getHeight() {
         return this.height;
+    }
+
+    private Tile getType(int type) {
+        Tile tile;
+        switch (type) {
+            case 0:
+                tile = new hexagonwars.tiles.Plain();
+                break;
+            case 1:
+                tile = new hexagonwars.tiles.Mountain();
+                break;
+            default:
+                tile = new hexagonwars.tiles.Plain();
+                break;
+        }
+        return tile;
     }
 }
