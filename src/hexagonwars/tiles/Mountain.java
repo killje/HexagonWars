@@ -10,6 +10,6 @@ import hexagonwars.Tile;
 public class Mountain extends Tile {
 
     public Mountain() {
-        setType(1);
+        this.type = 1;
     }
 }

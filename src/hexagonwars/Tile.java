@@ -7,13 +7,9 @@ package hexagonwars;
  */
 public abstract class Tile {
 
-    private int type;
+    protected int type;
 
     public Tile() {
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public int getType() {
