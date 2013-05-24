@@ -9,8 +9,7 @@ public abstract class Tile {
     
     private int type;
 
-    public Tile(int type) {
-        this.type = type;
+    public Tile() {
     }
     
     public int getType() {
