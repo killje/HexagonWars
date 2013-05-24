@@ -6,5 +6,7 @@ package hexagonwars.entities;
  * @author Timo Smit (s2337789)
  */
 public abstract class Magic extends Unit {
-
+    public Magic(){
+        this.type = hexagonwars.HexagonWars.ENTITY_UNIT_MAGIC;
+    }
 }
