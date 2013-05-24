@@ -27,23 +27,8 @@ public abstract class Tile {
         }
     }
     
-//    public boolean isOccupied(int type) {
-//        if(!isOccupied()) return false;
-//        
-//        if(units.get(0).getType() == type) return true;
-//        
-//        return false;
-//    }
-//    
-//    public boolean isOccupied() {
-//        return !units.isEmpty();
-//    }
-    
     public int isOccupied() {
-        if(this.units.isEmpty()){
-            return 0;
-        }else{
-            return units.get(0).getType();
-        }
+        if(this.units.isEmpty()) return 0;
+        else return units.get(0).getType();
     }
 }
