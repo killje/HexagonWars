@@ -28,7 +28,10 @@ public abstract class Tile {
     }
     
     public int isOccupied() {
-        if(this.units.isEmpty()) return 0;
-        else return units.get(0).getType();
+        if(this.units.isEmpty()){
+            return 0;
+        }else{
+            return units.get(0).getType();
+        }
     }
 }
