@@ -18,7 +18,7 @@ public abstract class Tile {
         entities.add(Entity);
     }
 
-    public void removeUnit(int amount) {
+    public void removeEntity(int amount) {
         for (int i = 0; i < amount; i++) {
             if(entities.isEmpty()) break;
             
