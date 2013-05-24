@@ -8,4 +8,7 @@ import HexagonWars.Tile;
  * @author Timo Smit (s2337789)
  */
 public class Mountain extends HexagonWars.Tile {
+    public Mountain(){
+        setType(1);
+    }
 }

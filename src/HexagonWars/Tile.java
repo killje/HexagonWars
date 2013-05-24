@@ -12,6 +12,10 @@ public abstract class Tile {
     public Tile() {
     }
     
+    public void setType(int type) {
+        this.type = type;
+    }
+    
     public int getType() {
         return this.type;
     }

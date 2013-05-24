@@ -7,4 +7,7 @@ package HexagonWars.Tiles;
  */
 public class Plain extends HexagonWars.Tile {
 
+    public Plain() {
+        setType(0);
+    }
 }
