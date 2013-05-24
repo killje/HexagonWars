@@ -1,6 +1,5 @@
 package hexagonwars;
 
-import hexagonwars.entities.Unit;
 import java.util.ArrayList;
 
 /**
@@ -10,28 +9,28 @@ import java.util.ArrayList;
  */
 public abstract class Tile {
 
-    ArrayList<Unit> units;
+    ArrayList<Entity> entities;
 
     public Tile() {
     }
 
-    public void addUnit(Unit unit) {
-        units.add(unit);
+    public void addEntity(Entity Entity) {
+        entities.add(Entity);
     }
 
     public void removeUnit(int amount) {
         for (int i = 0; i < amount; i++) {
-            if(units.isEmpty()) break;
+            if(entities.isEmpty()) break;
             
-            units.remove(1);
+            entities.remove(1);
         }
     }
     
     public int isOccupied() {
-        if(this.units.isEmpty()){
+        if(this.entities.isEmpty()){
             return 0;
         }else{
-            return units.get(0).getType();
+            return entities.get(0).getType();
         }
     }
 }
