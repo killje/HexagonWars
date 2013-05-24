@@ -11,11 +11,11 @@ public abstract class Unit extends Entity {
     
     public int getType() {
         if (this instanceof Infantry) {
-            return hexagonwars.HexagonWars.ENTITY_INFANTRY;
+            return hexagonwars.HexagonWars.ENTITY_UNIT_INFANTRY;
         } else if (this instanceof Mechanic) {
-            return hexagonwars.HexagonWars.ENTITY_MECHANIC;
+            return hexagonwars.HexagonWars.ENTITY_UNIT_MECHANIC;
         } else if (this instanceof Magic) {
-            return hexagonwars.HexagonWars.ENTITY_MAGIC;
+            return hexagonwars.HexagonWars.ENTITY_UNIT_MAGIC;
         }
         
         return 0;
