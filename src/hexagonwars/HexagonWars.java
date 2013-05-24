@@ -1,5 +1,8 @@
 package hexagonwars;
 
+import java.io.File;
+
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -17,7 +20,7 @@ public class HexagonWars {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        //test
+        File file = new File("D:\\@netbeans projects\\HexagonWars\\src\\hexagonwars\\maps\\firstmap.hwm");
+        World newWorld = new World(file);
     }
 }
