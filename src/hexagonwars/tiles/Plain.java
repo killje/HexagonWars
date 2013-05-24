@@ -10,6 +10,5 @@ import hexagonwars.Tile;
 public class Plain extends Tile {
 
     public Plain() {
-        this.type = 0;
     }
 }

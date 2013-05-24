@@ -1,5 +1,8 @@
 package hexagonwars;
 
+import hexagonwars.entities.Unit;
+import java.util.ArrayList;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -7,12 +10,32 @@ package hexagonwars;
  */
 public abstract class Tile {
 
-    protected int type;
+    ArrayList<Unit> units;
 
     public Tile() {
     }
 
-    public int getType() {
-        return this.type;
+    public void addUnit(Unit unit) {
+        units.add(unit);
+    }
+
+    public void removeUnit(int amount) {
+        for (int i = 0; i < amount; i++) {
+            if(units.isEmpty()) break;
+            
+            units.remove(1);
+        }
+    }
+    
+    public boolean isOccupied(int type) {
+        if(!isOccupied()) return false;
+        
+        if(units.get(0).getType() == type) return true;
+        
+        return false;
+    }
+    
+    public boolean isOccupied() {
+        return !units.isEmpty();
     }
 }

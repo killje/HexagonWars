@@ -9,4 +9,15 @@ import hexagonwars.Entity;
  */
 public abstract class Unit extends Entity {
     
+    public int getType() {
+        if (this instanceof Infantry) {
+            return hexagonwars.HexagonWars.ENTITY_INFANTRY;
+        } else if (this instanceof Mechanic) {
+            return hexagonwars.HexagonWars.ENTITY_MECHANIC;
+        } else if (this instanceof Magic) {
+            return hexagonwars.HexagonWars.ENTITY_MAGIC;
+        }
+        
+        return 0;
+    }
 }
