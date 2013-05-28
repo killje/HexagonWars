@@ -15,7 +15,6 @@ public class World {
 
     public World(File file) {
         read(file);
-        System.out.println(toString());
     }
 
     public int getWidth() {
@@ -52,6 +51,7 @@ public class World {
         } catch (Exception e) {
             System.err.println("ERROR: " + e.getMessage());
         }
+        System.out.println(toString());
     }
 
     @Override
