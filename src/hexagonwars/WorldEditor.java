@@ -49,6 +49,9 @@ public class WorldEditor {
             case HexagonWars.TILE_MOUNTAIN:
                 tile = new hexagonwars.tiles.Mountain();
                 break;
+            case HexagonWars.TILE_WATER:
+                tile = new hexagonwars.tiles.Water();
+                break;
             default:
                 tile = new hexagonwars.tiles.Plain();
                 break;
