@@ -15,7 +15,7 @@ public class World {
 
     public World(File file) {
         read(file);
-        System.out.println("Height: " + getHeight() + "\nWidth: " + getWidth() + "\nTiles:\n" + this.toString());
+        System.out.println(toString());
     }
 
     public int getWidth() {
@@ -26,7 +26,7 @@ public class World {
         return this.height;
     }
 
-    public void read(File file) {
+    private void read(File file) {
         try {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -50,13 +50,13 @@ public class World {
         } catch (IOException e) {
             System.err.println("An error with the I/O was reported, program closing.");
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.err.println("ERROR: " + e.getMessage());
         }
     }
 
     @Override
     public String toString() {
-        String returnString = "";
+        String returnString = "Height: " + getHeight() + "\nWidth: " + getWidth() + "\nTiles:\n";
         for (int i = 0; i < height; i++) {
             //for make up only ( starting y at 1
             returnString = returnString + tiles[i][0].toString();
