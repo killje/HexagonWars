@@ -15,7 +15,7 @@ public class World {
 
     public World(File file) {
         read(file);
-        System.out.println("Height: " + getHeight() + "\nWidth: " + getWidth() + "\nTiles: " + this.toString());
+        System.out.println("Height: " + getHeight() + "\nWidth: " + getWidth() + "\nTiles:\n" + this.toString());
     }
 
     public int getWidth() {
@@ -53,14 +53,17 @@ public class World {
             System.err.println(e.getMessage());
         }
     }
-    
+
     @Override
-    public String toString(){
-        String returnString="";
-        for(int i =0;i<height;i++){
-            for (int j = 0;j<width;j++){
-                returnString = returnString + tiles[i][j].toString();
+    public String toString() {
+        String returnString = "";
+        for (int i = 0; i < height; i++) {
+            //for make up only ( starting y at 1
+            returnString = returnString + tiles[i][0].toString();
+            for (int j = 1; j < width; j++) {
+                returnString = returnString + "\t" + tiles[i][j].toString();
             }
+            returnString = returnString + "\n";
         }
         return returnString;
     }

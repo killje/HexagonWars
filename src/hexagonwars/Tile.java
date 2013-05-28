@@ -34,4 +34,9 @@ public abstract class Tile implements Serializable{
             return entities.get(0).getType();
         }
     }
+    
+    @Override
+    public String toString(){
+        return this.getClass().getSimpleName();
+    }
 }

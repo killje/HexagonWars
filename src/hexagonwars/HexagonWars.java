@@ -21,7 +21,8 @@ public class HexagonWars {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        File file = new File("C:\\Users\\patrick\\uni projects\\OOP\\Final\\HexagonWars\\src\\HexagonWars\\maps\\firstmap.hwm");
+        File file = new File("src\\hexagonwars\\maps\\firstmap.hwm");
+        /*debug*/System.out.println(file.getAbsolutePath());
         World newWorld = new World(file);
 //        WorldEditor editor = new WorldEditor(file);
     }
