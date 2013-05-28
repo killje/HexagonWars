@@ -1,5 +1,6 @@
 package hexagonwars;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public abstract class Tile {
+public abstract class Tile implements Serializable{
 
     ArrayList<Entity> entities;
 

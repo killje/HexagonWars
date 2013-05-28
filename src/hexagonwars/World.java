@@ -1,7 +1,6 @@
 package hexagonwars;
 
 import java.io.*;
-import java.util.StringTokenizer;
 
 /**
  *
@@ -15,51 +14,8 @@ public class World {
     private Tile[][] tiles;
 
     public World(File file) {
-        try {
-            FileReader fr = new FileReader(file);
-            BufferedReader bf = new BufferedReader(fr);
-
-            String inLine = bf.readLine();
-            initializeWorld(inLine);
-
-            inLine = bf.readLine();
-            for (int x = 0; x < getWidth(); x++) {
-                processWorldLine(inLine, x);
-                inLine = bf.readLine();
-            }
-
-            bf.close();
-            fr.close();
-        } catch (FileNotFoundException e) {
-            System.err.println("The desired file was not found.");
-        } catch (IOException e) {
-            System.err.println("An error with the I/O was reported, program closing.");
-        } catch (NumberFormatException e) {
-            System.err.println("The world file did not contain a valid width and/or height.");
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
-    private void initializeWorld(String line) throws NumberFormatException {
-        StringTokenizer st = new StringTokenizer(line, ";");
-
-        this.width = Integer.parseInt(st.nextToken());
-        this.height = Integer.parseInt(st.nextToken());
-
-        tiles = new Tile[getWidth()][getHeight()];
-    }
-
-    private void processWorldLine(String line, int x) throws NumberFormatException {
-        StringTokenizer st = new StringTokenizer(line, ";");
-
-        for (int y = 0; y < getHeight(); y++) {
-            /*
-             * 0: PLAIN
-             * 1: MOUNTAIN
-             */
-            tiles[x][y] = getType(Integer.parseInt(st.nextToken()));
-        }
+        read(file);
+        System.out.println("Height: " + getHeight() + "\nWidth: " + getWidth() + "\nTiles: " + this.toString());
     }
 
     public int getWidth() {
@@ -70,19 +26,42 @@ public class World {
         return this.height;
     }
 
-    private Tile getType(int type) {
-        Tile tile;
-        switch (type) {
-            case HexagonWars.TILE_PLAIN:
-                tile = new hexagonwars.tiles.Plain();
-                break;
-            case HexagonWars.TILE_MOUNTAIN:
-                tile = new hexagonwars.tiles.Mountain();
-                break;
-            default:
-                tile = new hexagonwars.tiles.Plain();
-                break;
+    public void read(File file) {
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            Object object = ois.readObject();
+            if (!(object instanceof WorldFile)) {
+                throw new Exception("An illegal class type was found (" + object.getClass().getName() + ")");
+            }
+
+            WorldFile world = (WorldFile) object;
+            this.height = world.getHeight();
+            this.width = world.getWidth();
+            this.tiles = world.getWorld();
+
+            ois.close();
+            fis.close();
+        } catch (ClassNotFoundException e) {
+            System.err.println("The file could not be read.");
+        } catch (FileNotFoundException e) {
+            System.err.println("The desired file was not found.");
+        } catch (IOException e) {
+            System.err.println("An error with the I/O was reported, program closing.");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
-        return tile;
+    }
+    
+    @Override
+    public String toString(){
+        String returnString="";
+        for(int i =0;i<height;i++){
+            for (int j = 0;j<width;j++){
+                returnString = returnString + tiles[i][j].toString();
+            }
+        }
+        return returnString;
     }
 }
