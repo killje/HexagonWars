@@ -1,6 +1,13 @@
 package hexagonwars;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
 import java.util.StringTokenizer;
 
 /**
@@ -37,7 +44,6 @@ public class WorldEditor {
         } catch (NumberFormatException e) {
             System.out.println("the input is not a number");
         }
-
     }
 
     private Tile getType(int type) {
@@ -57,21 +63,15 @@ public class WorldEditor {
                 break;
         }
         return tile;
-
     }
 
     private void store(File file) {
-        WorldFile saveWorld = new WorldFile();
-        saveWorld.setHeight(this.height);
-        saveWorld.setWidth(this.width);
-        saveWorld.setWorld(this.world);
+        WorldFile saveWorld = createWorldFile();
         try {
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-
             oos.writeObject(saveWorld);
-
 
             oos.close();
             fos.close();
@@ -82,5 +82,13 @@ public class WorldEditor {
         } catch (IOException e) {
             System.err.println("An error with the I/O was reported, program closing.");
         }
+    }
+
+    private WorldFile createWorldFile() {
+        WorldFile saveWorld = new WorldFile();
+        saveWorld.setHeight(this.height);
+        saveWorld.setWidth(this.width);
+        saveWorld.setWorld(this.world);
+        return saveWorld;
     }
 }

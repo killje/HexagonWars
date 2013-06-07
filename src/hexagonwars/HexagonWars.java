@@ -16,6 +16,8 @@ public class HexagonWars {
     public static final int TILE_PLAIN = 1;
     public static final int TILE_MOUNTAIN = 2;
     public static final int TILE_WATER = 3;
+    public static final int FRAME_HEIGHT = 800;
+    public static final int FRAME_WIDTH = 800;
 
     /**
      * @param args the command line arguments
@@ -23,7 +25,10 @@ public class HexagonWars {
     public static void main(String[] args) {
         File file = new File("src\\hexagonwars\\maps\\firstmap.hwm");
         /*debug*/System.out.println(file.getAbsolutePath());
-        World newWorld = new World(file);
+        HWFrame frame = new HWFrame();
+//        World newWorld = new World(file);
 //        WorldEditor editor = new WorldEditor(file);
+        
     }
+    
 }
