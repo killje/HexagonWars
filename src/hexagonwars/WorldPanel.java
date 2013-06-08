@@ -26,8 +26,8 @@ public class WorldPanel extends JPanel {
         int height = world.getHeight();
         int width = world.getWidth();
         setLayout(new GridLayout(width,height));
-        for (int i = 0; i < height; i++) {
-            for (int j = 1; j < width; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 add(new JLabel(tiles[i][j].getClass().toString()));
             }
         }
