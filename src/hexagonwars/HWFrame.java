@@ -33,25 +33,34 @@ public class HWFrame extends JFrame{
     }
 
     public void addMainPanel() {
+        removeAllPanels();
         mainPanel = new MainPanel(this);
         add(mainPanel);
         validate();
     }
     
     public void addEditorPanel() {
+        removeAllPanels();
         mapPanel = new MapEditorPanel(this);
         add(mapPanel);
         validate();
     }
     
     public void addMapEditorPanel() {
+        removeAllPanels();
         mapPanel = new MapEditorPanel(this);
         add(mapPanel);
         validate();
     }
     
-    public void removeAllPanels(){
-        remove(mainPanel);
+    private void removeAllPanels(){
+        for (int i = 0; i < this.getComponents().length; i++) {
+            if (this.getComponents()[i]==mainPanel) {
+                remove(mainPanel);
+            }else if(this.getComponents()[i]==mapPanel){
+                remove(mapPanel);
+            }
+        }
         repaint();
     }
     

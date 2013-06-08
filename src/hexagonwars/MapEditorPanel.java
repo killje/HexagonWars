@@ -25,7 +25,7 @@ public class MapEditorPanel extends JPanel implements Observer {
     HWFrame frame;
     JFormattedTextField inputWidthText;
     JFormattedTextField inputHeightText;
-
+    JPanel panel;
     public MapEditorPanel(HWFrame hwframe) {
         frame = hwframe;
         NumberFormat numberFormat;
@@ -49,7 +49,8 @@ public class MapEditorPanel extends JPanel implements Observer {
     }
 
     private void board(int width, int height) {
-        JPanel panel = new JPanel();
+        
+        remove(panel);
         panel.setLayout(new GridLayout(width, height));
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -57,6 +58,7 @@ public class MapEditorPanel extends JPanel implements Observer {
             }
         }
         add(panel);
+        validate();
         repaint();
     }
 

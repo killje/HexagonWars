@@ -25,7 +25,6 @@ public class ActionClass {
        
         @Override
         public void actionPerformed(ActionEvent ae) {
-            frame.removeAllPanels();
             frame.addEditorPanel();
         }
     }
@@ -34,7 +33,6 @@ public class ActionClass {
        
         @Override
         public void actionPerformed(ActionEvent ae) {
-            frame.removeAllPanels();
             frame.addMapEditorPanel();
         }
     }
