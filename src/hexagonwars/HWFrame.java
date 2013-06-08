@@ -5,7 +5,6 @@
 package hexagonwars;
 
 import java.awt.FlowLayout;
-import java.util.Observable;
 import javax.swing.JFrame;
 
 /**

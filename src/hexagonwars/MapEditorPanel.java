@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -25,7 +24,8 @@ public class MapEditorPanel extends JPanel implements Observer {
     HWFrame frame;
     JFormattedTextField inputWidthText;
     JFormattedTextField inputHeightText;
-    JPanel panel;
+    JPanel panel = new JPanel();
+
     public MapEditorPanel(HWFrame hwframe) {
         frame = hwframe;
         NumberFormat numberFormat;
@@ -35,7 +35,7 @@ public class MapEditorPanel extends JPanel implements Observer {
         numberFormat = NumberFormat.getIntegerInstance();
         inputWidthText = new JFormattedTextField(numberFormat);
         inputWidthText.setColumns(20);
-        
+
         JLabel inputHeightLabel = new JLabel("Height");
         inputHeightText = new JFormattedTextField(numberFormat);
         inputHeightText.setColumns(20);
@@ -46,28 +46,25 @@ public class MapEditorPanel extends JPanel implements Observer {
         add(inputHeightLabel);
         add(inputHeightText);
         add(go);
+        add(panel);
     }
 
     private void board(int width, int height) {
-        
-        remove(panel);
+        panel.removeAll();
         panel.setLayout(new GridLayout(width, height));
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 panel.add(new JLabel(i + ":" + j));
             }
         }
-        add(panel);
-        validate();
         repaint();
+        revalidate();
     }
 
     @Override
     public void update(Observable o, Object o1) {
-        board(Integer.parseInt(inputWidthText.getText()),Integer.parseInt(inputHeightText.getText()));
-        System.out.println("test 2");
-        System.out.println("inputWidthText.getText() = " + inputWidthText.getText());
-        System.out.println("inputHeightText.getText() = " + inputHeightText.getText());
-        
+        if (!inputWidthText.getText().equals("") && !inputHeightText.getText().equals("")) {
+            board(Integer.parseInt(inputWidthText.getText()), Integer.parseInt(inputHeightText.getText()));
+        }
     }
 }

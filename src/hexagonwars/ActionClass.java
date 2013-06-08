@@ -57,7 +57,6 @@ public class ActionClass {
             }
             
             public void sendNotify(){
-                System.out.println("test 1");
                 this.setChanged();
                 this.notifyObservers();
             }
