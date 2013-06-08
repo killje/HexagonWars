@@ -14,6 +14,7 @@ import javax.swing.JPanel;
  * @author Timo Smit (s2337789)
  */
 public class MainPanel extends JPanel{
+    
     HWFrame frame;
     
     public MainPanel(HWFrame hwframe){
@@ -22,7 +23,7 @@ public class MainPanel extends JPanel{
         JButton openEditor = new JButton("Open editor");
         loadMap.addActionListener(frame.getActionClass().new OpenMapAction());
         openEditor.addActionListener(frame.getActionClass().new OpenWorldeditorAction());
-        this.add(loadMap);
+        add(loadMap);
         add(openEditor);
     }
 }

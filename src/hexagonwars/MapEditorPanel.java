@@ -60,6 +60,5 @@ public class MapEditorPanel extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object o1) {
         board(Integer.parseInt(inputWidthText.getText()),Integer.parseInt(inputHeightText.getText()));
-        throw new UnsupportedOperationException("Not supported yet. at: hexagonwars.MapEditorPanel:update();");
     }
 }

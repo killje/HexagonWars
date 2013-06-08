@@ -24,7 +24,6 @@ public class HexagonWars {
      */
     public static void main(String[] args) {
         File file = new File("src\\hexagonwars\\maps\\firstmap.hwm");
-        /*debug*/System.out.println(file.getAbsolutePath());
         HWFrame frame = new HWFrame();
 //        World newWorld = new World(file);
 //        WorldEditor editor = new WorldEditor(file);

@@ -6,6 +6,8 @@
 package hexagonwars;
 
 import java.awt.event.ActionEvent;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.AbstractAction;
 
 /**
@@ -34,6 +36,24 @@ public class ActionClass {
         public void actionPerformed(ActionEvent ae) {
             frame.removeAllPanels();
             frame.addMapEditorPanel();
+        }
+    }
+    
+    public class SetInputSize extends AbstractAction{
+       
+        Notify notify = new Notify();
+        
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            notify.sendNotify();
+        }
+        
+        public class Notify extends Observable {
+            
+            public void sendNotify(){
+                this.setChanged();
+                this.notifyObservers();
+            }
         }
     }
 }

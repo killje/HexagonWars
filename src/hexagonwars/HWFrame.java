@@ -5,6 +5,7 @@
 package hexagonwars;
 
 import java.awt.FlowLayout;
+import java.util.Observable;
 import javax.swing.JFrame;
 
 /**
@@ -12,7 +13,7 @@ import javax.swing.JFrame;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class HWFrame extends JFrame {
+public class HWFrame extends JFrame{
 
     private ActionClass actions = new ActionClass(this);
     private MainPanel mainPanel;
@@ -34,23 +35,24 @@ public class HWFrame extends JFrame {
     public void addMainPanel() {
         mainPanel = new MainPanel(this);
         add(mainPanel);
-        repaint();
+        validate();
     }
     
     public void addEditorPanel() {
-        mainPanel = new MainPanel(this);
-        add(mainPanel);
-        repaint();
+        mapPanel = new MapEditorPanel(this);
+        add(mapPanel);
+        validate();
     }
     
     public void addMapEditorPanel() {
         mapPanel = new MapEditorPanel(this);
         add(mapPanel);
-        repaint();
+        validate();
     }
     
     public void removeAllPanels(){
         remove(mainPanel);
+        repaint();
     }
     
     public ActionClass getActionClass(){
