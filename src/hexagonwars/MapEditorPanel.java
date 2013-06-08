@@ -34,12 +34,13 @@ public class MapEditorPanel extends JPanel implements Observer {
         JLabel inputWidthLabel = new JLabel("Width");
         numberFormat = NumberFormat.getIntegerInstance();
         inputWidthText = new JFormattedTextField(numberFormat);
-        inputWidthText.setSize(200, 20);
+        inputWidthText.setColumns(20);
+        
         JLabel inputHeightLabel = new JLabel("Height");
         inputHeightText = new JFormattedTextField(numberFormat);
-        inputHeightText.setSize(200, 20);
+        inputHeightText.setColumns(20);
         JButton go = new JButton("Go");
-        go.addActionListener(frame.getActionClass().new SetInputSize());
+        go.addActionListener(frame.getActionClass().new SetInputSize(this));
         add(inputWidthLabel);
         add(inputWidthText);
         add(inputHeightLabel);
@@ -55,10 +56,16 @@ public class MapEditorPanel extends JPanel implements Observer {
                 panel.add(new JLabel(i + ":" + j));
             }
         }
+        add(panel);
+        repaint();
     }
 
     @Override
     public void update(Observable o, Object o1) {
         board(Integer.parseInt(inputWidthText.getText()),Integer.parseInt(inputHeightText.getText()));
+        System.out.println("test 2");
+        System.out.println("inputWidthText.getText() = " + inputWidthText.getText());
+        System.out.println("inputHeightText.getText() = " + inputHeightText.getText());
+        
     }
 }

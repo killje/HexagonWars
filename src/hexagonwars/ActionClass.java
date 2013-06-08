@@ -41,7 +41,11 @@ public class ActionClass {
     
     public class SetInputSize extends AbstractAction{
        
-        Notify notify = new Notify();
+        Notify notify;
+        
+        public SetInputSize(Observer o){
+            notify = new Notify(o);
+        }
         
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -50,7 +54,12 @@ public class ActionClass {
         
         public class Notify extends Observable {
             
+            public Notify(Observer o){
+                this.addObserver(o);
+            }
+            
             public void sendNotify(){
+                System.out.println("test 1");
                 this.setChanged();
                 this.notifyObservers();
             }
