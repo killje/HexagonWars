@@ -24,6 +24,10 @@ public class World {
     public int getHeight() {
         return this.height;
     }
+    
+    public Tile[][] getTiles(){
+        return tiles;
+    }
 
     private void read(File file) {
         try {
