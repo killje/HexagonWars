@@ -21,7 +21,7 @@ public class MainPanel extends JPanel{
         frame = hwframe;
         JButton loadMap = new JButton("Open map");
         JButton openEditor = new JButton("Open editor");
-        loadMap.addActionListener(frame.getActionClass().new OpenMapAction());
+        loadMap.addActionListener(frame.getActionClass().new OpenWorldAction());
         openEditor.addActionListener(frame.getActionClass().new OpenWorldeditorAction());
         add(loadMap);
         add(openEditor);

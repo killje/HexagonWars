@@ -29,11 +29,11 @@ public class ActionClass {
         }
     }
     
-    public class OpenMapAction extends AbstractAction{
+    public class OpenWorldAction extends AbstractAction{
        
         @Override
         public void actionPerformed(ActionEvent ae) {
-            frame.addMapEditorPanel();
+            frame.addWorldPanel();
         }
     }
     

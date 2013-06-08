@@ -18,6 +18,7 @@ public class HWFrame extends JFrame {
     private ActionClass actions = new ActionClass(this);
     private MainPanel mainPanel;
     private MapEditorPanel mapPanel;
+    private WorldPanel worldPanel;
 
     public HWFrame() {
         createFrame();
@@ -25,7 +26,7 @@ public class HWFrame extends JFrame {
     }
 
     private void createFrame() {
-        setTitle("Graph editor");
+        setTitle("HexagonWars");
         setSize(HexagonWars.FRAME_WIDTH, HexagonWars.FRAME_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
@@ -46,10 +47,10 @@ public class HWFrame extends JFrame {
         validate();
     }
 
-    public void addMapEditorPanel() {
+    public void addWorldPanel() {
         removeAllPanels();
-        mapPanel = new MapEditorPanel(this);
-        add(mapPanel);
+        worldPanel = new WorldPanel(this);
+        add(worldPanel);
         validate();
     }
 
@@ -59,6 +60,8 @@ public class HWFrame extends JFrame {
                 remove(mainPanel);
             }else if(this.getContentPane().getComponents()[i] == mapPanel){
                 remove(mapPanel);
+            }else if(this.getContentPane().getComponents()[i] == worldPanel) {
+                remove(worldPanel);
             }
         }
         repaint();
