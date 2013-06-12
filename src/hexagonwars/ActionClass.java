@@ -62,4 +62,18 @@ public class ActionClass {
             }
         }
     }
+    
+    public class SaveWorld extends AbstractAction{
+       
+        MapEditorPanel mapEditor;
+        
+        public SaveWorld(MapEditorPanel c){
+            mapEditor = c;
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            mapEditor.saveWorld();
+        }
+    }
 }
