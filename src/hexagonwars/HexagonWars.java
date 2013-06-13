@@ -18,6 +18,10 @@ public class HexagonWars {
     public static final int TILE_WATER = 3;
     public static final int FRAME_HEIGHT = 800;
     public static final int FRAME_WIDTH = 800;
+    public static final int WORLD_TILE_WIDTH = 70;
+    public static final int WORLD_TILE_HEIGHT_MIN = 60;
+    public static final int WORLD_TILE_HEIGHT_MAX = 80;
+    
 
     /**
      * @param args the command line arguments

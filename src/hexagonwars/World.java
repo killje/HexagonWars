@@ -52,10 +52,11 @@ public class World {
             System.err.println("The desired file was not found.");
         } catch (IOException e) {
             System.err.println("An error with the I/O was reported, program closing.");
+            System.err.println(e.getMessage());
+            System.exit(-1);
         } catch (Exception e) {
             System.err.println("ERROR: " + e.getMessage());
         }
-        System.out.println(toString());
     }
 
     @Override

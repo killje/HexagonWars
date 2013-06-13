@@ -1,8 +1,7 @@
 package hexagonwars;
 
-import java.awt.GridLayout;
+import java.awt.Dimension;
 import java.io.File;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -15,21 +14,19 @@ public class WorldPanel extends JPanel {
     HWFrame frame;
     Tile[][] tiles;
     File file;
-    World world;
-    
+
     public WorldPanel(HWFrame hwframe) {
-        
+
         frame = hwframe;
         file = new File("src\\hexagonwars\\maps\\firstmap.hwm");
         World world = new World(file);
-        tiles = world.getTiles();
-        int height = world.getHeight();
-        int width = world.getWidth();
-        setLayout(new GridLayout(width,height));
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                add(new JLabel(tiles[i][j].getClass().toString()));
-            }
-        }
+        
+        DrawWorld worldMap = new DrawWorld(frame, world);
+        this.setMinimumSize(new Dimension(500,500));
+        this.setPreferredSize(new Dimension(500,500));
+        worldMap.setMinimumSize(new Dimension(500,500));
+        worldMap.setPreferredSize(new Dimension(500,500));
+        add(worldMap);
+        
     }
 }

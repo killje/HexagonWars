@@ -1,5 +1,6 @@
 package hexagonwars;
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -8,11 +9,12 @@ import java.util.ArrayList;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public abstract class Tile implements Serializable{
+public abstract class Tile implements Serializable {
 
     ArrayList<Entity> entities;
 
     public Tile() {
+        
     }
 
     public void addEntity(Entity Entity) {
@@ -21,22 +23,30 @@ public abstract class Tile implements Serializable{
 
     public void removeEntity(int amount) {
         for (int i = 0; i < amount; i++) {
-            if(entities.isEmpty()) break;
-            
+            if (entities.isEmpty()) {
+                break;
+            }
+
             entities.remove(1);
         }
     }
-    
+
     public int isOccupied() {
-        if(this.entities.isEmpty()){
+        if (this.entities.isEmpty()) {
             return 0;
-        }else{
+        } else {
             return entities.get(0).getType();
         }
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.getClass().getSimpleName();
     }
+
+    public Image getImage() {
+        return new HWImage(1,1,this.getClass().getSimpleName()).getImage();
+    }
+
+    
 }
