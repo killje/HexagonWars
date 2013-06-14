@@ -17,7 +17,6 @@ import java.util.Observer;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;

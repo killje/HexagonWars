@@ -15,16 +15,16 @@ public class DrawWorld extends JPanel {
 
     private HWFrame frame;
     private World world;
-    int xOut;
-    int yOut;
-    Tile[][] r;
+    private int worldWidth;
+    private int worldHeight;
+    private Tile[][] r;
 
     public DrawWorld(HWFrame hwFrame, World worldInput) {
         frame = hwFrame;
         world = worldInput;
         r = world.getTiles();
-        yOut = world.getHeight();
-        xOut = world.getWidth();
+        worldHeight = world.getHeight();
+        worldWidth = world.getWidth();
     }
 
     /**
@@ -44,11 +44,13 @@ public class DrawWorld extends JPanel {
 
     private void drawWorld(Graphics g) {
         int i, j;
-        for (j = 0; j < yOut; j++) {
-            for (i = 0; i < xOut; i++) {
+        for (j = 0; j < worldHeight; j++) {
+            for (i = 0; i < worldWidth; i++) {
                 g.drawImage(r[i][j].getImage(),
-                        i * HexagonWars.WORLD_TILE_WIDTH + j % 2 * (HexagonWars.WORLD_TILE_WIDTH / 2),
-                        j * HexagonWars.WORLD_TILE_HEIGHT_MIN,
+                        i * (int)(HexagonWars.WORLD_TILE_WIDTH *HexagonWars.zoom) + j % 2 * (int)(HexagonWars.WORLD_TILE_WIDTH / 2*HexagonWars.zoom),
+                        j * (int)(HexagonWars.WORLD_TILE_HEIGHT_MIN*HexagonWars.zoom),
+                        (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.zoom),
+                        (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.zoom),
                         null);
             }
         }
@@ -56,47 +58,53 @@ public class DrawWorld extends JPanel {
 
     public void clicked(MouseEvent me) {
         System.out.println(getTile(me.getPoint()));
+        
     }
 
     private Tile getTile(Point p) {
-        int x = (int) p.getX();
-        int y = (int) p.getY();
+        int x = (int) (p.getX());
+        int y = (int) (p.getY());
         int tileX;
         int tileY;
         boolean uneven = false;
-        tileY = y / HexagonWars.WORLD_TILE_HEIGHT_MIN;
-        y = y % HexagonWars.WORLD_TILE_HEIGHT_MIN;
+        final int zoomTileHeightMin = (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * HexagonWars.zoom);
+        final int zoomTileWidth = (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.zoom);
+        final int zoomTileUpperHeight = (int)(HexagonWars.WORLD_TILE_UPPERHEIGHT*HexagonWars.zoom);
+        
+        
+        tileY = y /zoomTileHeightMin;
+        y = y % zoomTileHeightMin;
         if (tileY % 2 == 1) {
             uneven = true;
         }
-        // check if there is a offset
+        // check if there is a offset because of its row
         if (uneven) {
-            tileX = (x - (HexagonWars.WORLD_TILE_WIDTH / 2)) / HexagonWars.WORLD_TILE_WIDTH;
-            x = (x - (HexagonWars.WORLD_TILE_WIDTH / 2)) % HexagonWars.WORLD_TILE_WIDTH;
+            tileX = (x - (zoomTileWidth / 2)) / zoomTileWidth;
+            x = (x - (zoomTileWidth/ 2)) % zoomTileWidth;
         } else {
-            tileX = x / HexagonWars.WORLD_TILE_WIDTH;
-            x = x % HexagonWars.WORLD_TILE_WIDTH;
+            tileX = x / zoomTileWidth;
+            x = x % zoomTileWidth;
         }
         //check if it is in a area with a sloped side
-        if (y <= HexagonWars.WORLD_TILE_UPPERHEIGHT) {
-            if (x <= HexagonWars.WORLD_TILE_WIDTH / 2) {
+        if (y <= zoomTileUpperHeight) {
+            if (x <= zoomTileWidth / 2) {
                 if (inHex(x, y, true)) {
                     return r[tileX][tileY];
                 } else {
                     if (uneven) {
-                        return r[tileX][tileY-1];
-                    }else{
-                        return r[tileX-1][tileY-1];
+                        return r[tileX][tileY - 1];
+                    } else {
+                        return r[tileX - 1][tileY - 1];
                     }
                 }
-            }else{
-                if  (inHex(x - HexagonWars.WORLD_TILE_WIDTH / 2, y, false)) {
+            } else {
+                if (inHex(x - zoomTileWidth / 2, y, false)) {
                     return r[tileX][tileY];
-                }else{
+                } else {
                     if (uneven) {
-                        return r[tileX+1][tileY-1];
+                        return r[tileX + 1][tileY - 1];
                     } else {
-                        return r[tileX][tileY-1];
+                        return r[tileX][tileY - 1];
                     }
                 }
             }
@@ -107,13 +115,13 @@ public class DrawWorld extends JPanel {
     private Boolean inHex(int x, int y, boolean up) {
         int x0, x1, y0, y1;
         x0 = 0;
-        x1 = HexagonWars.WORLD_TILE_WIDTH / 2;
+        x1 = (int)(HexagonWars.WORLD_TILE_WIDTH*HexagonWars.zoom) / 2;
         if (up) {
-            y0 = HexagonWars.WORLD_TILE_UPPERHEIGHT;
+            y0 = (int)(HexagonWars.WORLD_TILE_UPPERHEIGHT*HexagonWars.zoom);
             y1 = 0;
         } else {
             y0 = 0;
-            y1 = HexagonWars.WORLD_TILE_UPPERHEIGHT;
+            y1 = (int)(HexagonWars.WORLD_TILE_UPPERHEIGHT*HexagonWars.zoom);
         }
 
         int dx = Math.abs(x1 - x0);
