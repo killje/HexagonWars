@@ -34,7 +34,7 @@ public class WorldEditor {
             for (int i = 0; i < height; i++) {
                 st = new StringTokenizer(br.readLine(), ";");
                 for (int j = 0; j < width; j++) {
-                    world[i][j] = getType(Integer.parseInt(st.nextToken()));
+                    world[i][j] = Tile.getType(Integer.parseInt(st.nextToken()));
                 }
             }
             store(file);
@@ -46,24 +46,7 @@ public class WorldEditor {
         }
     }
 
-    private Tile getType(int type) {
-        Tile tile;
-        switch (type) {
-            case HexagonWars.TILE_PLAIN:
-                tile = new hexagonwars.tiles.Plain();
-                break;
-            case HexagonWars.TILE_MOUNTAIN:
-                tile = new hexagonwars.tiles.Mountain();
-                break;
-            case HexagonWars.TILE_WATER:
-                tile = new hexagonwars.tiles.Water();
-                break;
-            default:
-                tile = new hexagonwars.tiles.Plain();
-                break;
-        }
-        return tile;
-    }
+    
 
     private void store(File file) {
         WorldFile saveWorld = createWorldFile();

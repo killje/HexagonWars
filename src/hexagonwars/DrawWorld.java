@@ -1,6 +1,7 @@
 package hexagonwars;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -25,6 +26,8 @@ public class DrawWorld extends JPanel {
         r = world.getTiles();
         worldHeight = world.getHeight();
         worldWidth = world.getWidth();
+        this.setMinimumSize(new Dimension(800,800));
+        this.setSize(800, 800);
     }
 
     /**

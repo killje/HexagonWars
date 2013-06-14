@@ -48,5 +48,22 @@ public abstract class Tile implements Serializable {
         return new HWImage(1,1,this.getClass().getSimpleName()).getImage();
     }
 
-    
+    public static Tile getType(int type) {
+        Tile tile;
+        switch (type) {
+            case HexagonWars.TILE_PLAIN:
+                tile = new hexagonwars.tiles.Plain();
+                break;
+            case HexagonWars.TILE_MOUNTAIN:
+                tile = new hexagonwars.tiles.Mountain();
+                break;
+            case HexagonWars.TILE_WATER:
+                tile = new hexagonwars.tiles.Water();
+                break;
+            default:
+                tile = new hexagonwars.tiles.Plain();
+                break;
+        }
+        return tile;
+    }
 }

@@ -4,6 +4,8 @@
  */
 package hexagonwars;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,6 +37,7 @@ public class MapEditorPanel extends JPanel implements Observer {
     private JPanel board = new JPanel();
     private JButton save = new JButton("Save");
     private int boardWidth, boardHeight;
+    private WorldEditorDrawWorld newWorld;
 
     public MapEditorPanel(HWFrame hwframe) {
         frame = hwframe;
@@ -48,10 +51,12 @@ public class MapEditorPanel extends JPanel implements Observer {
         numberFormat = NumberFormat.getIntegerInstance();
         inputWidthText = new JFormattedTextField(numberFormat);
         inputWidthText.setColumns(20);
-
+        inputWidthText.setValue(5);
         JLabel inputHeightLabel = new JLabel("Height");
         inputHeightText = new JFormattedTextField(numberFormat);
         inputHeightText.setColumns(20);
+        inputHeightText.setValue(5);
+
         JButton go = new JButton("Go");
         go.addActionListener(frame.getActionClass().new SetInputSize(this));
 
@@ -70,15 +75,21 @@ public class MapEditorPanel extends JPanel implements Observer {
 
     private void board() {
         board.removeAll();
-        board.setLayout(new GridLayout(boardHeight, boardWidth));
-        NumberFormat numberFormat = NumberFormat.getIntegerInstance();
-        for (int i = 0; i < boardHeight; i++) {
-            for (int j = 0; j < boardWidth; j++) {
-                JFormattedTextField textField = new JFormattedTextField(numberFormat);
-                textField.setColumns(2);
-                board.add(textField);
+        board.setLayout(new FlowLayout());
+        board.setMinimumSize(new Dimension(800, 800));
+        board.setSize(800, 800);
+
+        World world = new World(boardWidth, boardHeight);
+        Tile[][] tiles = new Tile[boardWidth][boardHeight];
+        for (int i = 0; i < boardWidth; i++) {
+            for (int j = 0; j < boardHeight; j++) {
+                tiles[i][j] = Tile.getType(HexagonWars.TILE_PLAIN);
             }
         }
+        world.setWorld(tiles);
+        newWorld = new WorldEditorDrawWorld(frame, world);
+        board.add(newWorld);
+
         save.setEnabled(true);
         repaint();
         revalidate();
