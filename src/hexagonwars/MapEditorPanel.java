@@ -84,11 +84,15 @@ public class MapEditorPanel extends JPanel implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object o1) {
-        if (!inputWidthText.getText().equals("") && !inputHeightText.getText().equals("") && Integer.parseInt(inputWidthText.getText()) > 0 && Integer.parseInt(inputHeightText.getText()) > 0) {
-            boardWidth = Integer.parseInt(inputWidthText.getText());
-            boardHeight = Integer.parseInt(inputHeightText.getText());
-            board();
+    public void update(Observable o, Object arg) {
+        if (arg instanceof ActionClass.SaveWorld) {
+            saveWorld();
+        } else {
+            if (!inputWidthText.getText().equals("") && !inputHeightText.getText().equals("") && Integer.parseInt(inputWidthText.getText()) > 0 && Integer.parseInt(inputHeightText.getText()) > 0) {
+                boardWidth = Integer.parseInt(inputWidthText.getText());
+                boardHeight = Integer.parseInt(inputHeightText.getText());
+                board();
+            }
         }
     }
 
@@ -98,15 +102,15 @@ public class MapEditorPanel extends JPanel implements Observer {
         String path = JOptionPane.showInputDialog(null, "Path Name:", "src/graph/saveFiles/test.txt");
         path = path.replace("/", "//");
         File file = new File(path);
-        
+
         WorldFile saveWorld = new WorldFile();
         saveWorld.setHeight(boardHeight);
         saveWorld.setWidth(boardWidth);
-        
+
         store(file);
     }
-    
-    private void store(File file){
+
+    private void store(File file) {
         try {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();

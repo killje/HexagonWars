@@ -14,7 +14,7 @@ import javax.swing.JFrame;
  */
 public class HWFrame extends JFrame {
 
-    private ActionClass actions = new ActionClass(this);
+    private ActionClass actions = new ActionClass();
     private MainPanel mainPanel;
     private MapEditorPanel mapPanel;
     private WorldPanel worldPanel;
