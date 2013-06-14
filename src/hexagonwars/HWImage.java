@@ -10,6 +10,9 @@ import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 
@@ -19,28 +22,35 @@ import javax.imageio.ImageIO;
  * @author Timo Smit (s2337789)
  */
 public class HWImage {
+
     private Image image;
-    public  HWImage(int imX, int imY, String file){
-        image = getTile(imX,imY,file);
+
+    public HWImage(int imX, int imY, String file) {
+        image = getTile(imX, imY, file);
     }
-    
+
     private Image getTile(int imX, int imY, String filename) {
         Image img;
         imX = (imX - 1) * HexagonWars.WORLD_TILE_WIDTH;
         imY = (imY - 1) * HexagonWars.WORLD_TILE_HEIGHT_MAX;
-        File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "images" + File.separator + filename + ".png");
-        System.out.println(file);
+
+
         BufferedImage image;
         try {
+            File file = new File(Tile.class.getResource("images" + File.separator + filename + ".png").toURI());
             image = ImageIO.read(file);
             image = image.getSubimage(imX, imY, HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX);
             img = makeColorTransparent(image, new Color(255, 0, 255), new Color(127, 0, 55));
-        } catch (IOException ex) {
-            System.out.println(ex);
+        } catch (URISyntaxException e) {
+            System.err.println("problems converting resources");
+            System.err.println(e.getStackTrace());
             System.exit(1);
-            BufferedImage bi = new BufferedImage(HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX, BufferedImage.TYPE_INT_RGB);
-            bi.setRGB(255, 255, 255);
-            img = bi.getSubimage(0, 0, HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX);
+            return null;
+        } catch (IOException ex) {
+            System.err.println("The program has encountered a problem when opeing file");
+            System.err.println(ex);
+            System.exit(1);
+            return null;
         }
         return img;
     }
@@ -66,8 +76,8 @@ public class HWImage {
         return Toolkit.getDefaultToolkit().createImage(ip);
 
     }
-    
-    public Image getImage(){
+
+    public Image getImage() {
         return image;
     }
 }
