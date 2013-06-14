@@ -1,6 +1,7 @@
 package hexagonwars;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 /**
  *
@@ -28,7 +29,6 @@ public class HexagonWars {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        File file = new File("src\\hexagonwars\\maps\\firstmap.hwm");
         HWFrame frame = new HWFrame();
 //        World newWorld = new World(file);
 //        WorldEditor editor = new WorldEditor(file);

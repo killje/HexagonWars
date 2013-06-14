@@ -2,6 +2,7 @@ package hexagonwars;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.nio.file.Paths;
 import javax.swing.JPanel;
 
 /**
@@ -18,7 +19,7 @@ public class WorldPanel extends JPanel {
     public WorldPanel(HWFrame hwframe) {
 
         frame = hwframe;
-        file = new File("src\\hexagonwars\\maps\\firstmap.hwm");
+        file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");
         World world = new World(file);
         
         DrawWorld worldMap = new DrawWorld(frame, world);
