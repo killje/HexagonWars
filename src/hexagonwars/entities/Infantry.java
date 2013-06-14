@@ -6,7 +6,8 @@ package hexagonwars.entities;
  * @author Timo Smit (s2337789)
  */
 public abstract class Infantry extends Unit {
-    public Infantry(){
+
+    public Infantry() {
         this.type = hexagonwars.HexagonWars.ENTITY_UNIT_INFANTRY;
     }
 }

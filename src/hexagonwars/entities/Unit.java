@@ -8,5 +8,20 @@ import hexagonwars.Entity;
  * @author Timo Smit (s2337789)
  */
 public abstract class Unit extends Entity {
-    
+
+    protected int attackDamage;
+    protected int attackRatio;
+    protected int defenseStrength;
+
+    public int getAttackDamage() {
+        return attackDamage;
+    }
+
+    public int getAttackRatio() {
+        return attackRatio;
+    }
+
+    public int getDefenseStrength() {
+        return defenseStrength;
+    }
 }
