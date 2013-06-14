@@ -6,6 +6,8 @@
 package hexagonwars;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.AbstractAction;
@@ -74,6 +76,40 @@ public class ActionClass {
         @Override
         public void actionPerformed(ActionEvent ae) {
             mapEditor.saveWorld();
+        }
+    }
+    
+    public class WorldPointer implements MouseListener{
+       
+        DrawWorld drawWorld;
+        
+        public WorldPointer(DrawWorld dw){
+            drawWorld = dw;
+        }
+        
+        @Override
+        public void mouseClicked(MouseEvent me) {
+            drawWorld.clicked(me);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent me) {
+            //not supported yet
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent me) {
+            //not supported yet
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent me) {
+            // not supported
+        }
+
+        @Override
+        public void mouseExited(MouseEvent me) {
+            // not supported
         }
     }
 }

@@ -22,10 +22,10 @@ public class WorldPanel extends JPanel {
         World world = new World(file);
         
         DrawWorld worldMap = new DrawWorld(frame, world);
-        this.setMinimumSize(new Dimension(500,500));
-        this.setPreferredSize(new Dimension(500,500));
-        worldMap.setMinimumSize(new Dimension(500,500));
-        worldMap.setPreferredSize(new Dimension(500,500));
+        this.setMinimumSize(new Dimension(800,800));
+        this.setPreferredSize(new Dimension(800,800));
+        worldMap.setMinimumSize(new Dimension(800,800));
+        worldMap.setPreferredSize(new Dimension(800,800));
         add(worldMap);
         
     }

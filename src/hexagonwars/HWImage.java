@@ -35,14 +35,14 @@ public class HWImage {
         BufferedImage image1;
         try {
             image1 = ImageIO.read(file1);
-            image1 = image1.getSubimage(imX, imY, 70, 80);
+            image1 = image1.getSubimage(imX, imY, HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX);
             img = makeColorTransparent(image1, new Color(255, 0, 255), new Color(127, 0, 55));
         } catch (IOException ex) {
             System.out.println(ex);
             System.exit(1);
-            BufferedImage bi = new BufferedImage(70, 80, BufferedImage.TYPE_INT_RGB);
+            BufferedImage bi = new BufferedImage(HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX, BufferedImage.TYPE_INT_RGB);
             bi.setRGB(255, 255, 255);
-            img = bi.getSubimage(0, 0, 70, 80);
+            img = bi.getSubimage(0, 0, HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX);
         }
         return img;
     }
