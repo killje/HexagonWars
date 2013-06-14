@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.ObjectOutputStream;
+import java.nio.file.Paths;
 import java.text.NumberFormat;
 import java.util.Observable;
 import java.util.Observer;
@@ -97,10 +98,7 @@ public class MapEditorPanel extends JPanel implements Observer {
     }
 
     public void saveWorld() {
-        System.out.println("it works, muhahahaha");
-
-        String path = JOptionPane.showInputDialog(null, "Path Name:", "src/graph/saveFiles/test.txt");
-        path = path.replace("/", "//");
+        String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
         File file = new File(path);
 
         WorldFile saveWorld = new WorldFile();
