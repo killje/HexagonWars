@@ -10,6 +10,7 @@ import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 
 /**
@@ -23,20 +24,17 @@ public class HWImage {
         image = getTile(imX,imY,file);
     }
     
-    private Image getTile(int imX, int imY, String file) {
+    private Image getTile(int imX, int imY, String filename) {
         Image img;
         imX = (imX - 1) * HexagonWars.WORLD_TILE_WIDTH;
         imY = (imY - 1) * HexagonWars.WORLD_TILE_HEIGHT_MAX;
-        String filepath = Tile.class.getResource("images/" + file + ".png").toExternalForm();
-        filepath = filepath.replace("file:/", "");
-        filepath = filepath.replace("/", "\\");
-        filepath = filepath.replace("%20", " ");
-        File file1 = new File(filepath);
-        BufferedImage image1;
+        File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "images" + File.separator + filename + ".png");
+        System.out.println(file);
+        BufferedImage image;
         try {
-            image1 = ImageIO.read(file1);
-            image1 = image1.getSubimage(imX, imY, HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX);
-            img = makeColorTransparent(image1, new Color(255, 0, 255), new Color(127, 0, 55));
+            image = ImageIO.read(file);
+            image = image.getSubimage(imX, imY, HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX);
+            img = makeColorTransparent(image, new Color(255, 0, 255), new Color(127, 0, 55));
         } catch (IOException ex) {
             System.out.println(ex);
             System.exit(1);
