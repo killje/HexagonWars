@@ -47,10 +47,10 @@ public class DrawWorld extends JPanel {
         for (j = 0; j < worldHeight; j++) {
             for (i = 0; i < worldWidth; i++) {
                 g.drawImage(r[i][j].getImage(),
-                        i * (int)(HexagonWars.WORLD_TILE_WIDTH *HexagonWars.zoom) + j % 2 * (int)(HexagonWars.WORLD_TILE_WIDTH / 2*HexagonWars.zoom),
-                        j * (int)(HexagonWars.WORLD_TILE_HEIGHT_MIN*HexagonWars.zoom),
-                        (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.zoom),
-                        (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.zoom),
+                        i * (int)(HexagonWars.WORLD_TILE_WIDTH *HexagonWars.PLACEHOLDER_ZOOM) + j % 2 * (int)(HexagonWars.WORLD_TILE_WIDTH / 2*HexagonWars.PLACEHOLDER_ZOOM)-HexagonWars.PLACEHOLDER_CAMARA_X,
+                        j * (int)(HexagonWars.WORLD_TILE_HEIGHT_MIN*HexagonWars.PLACEHOLDER_ZOOM)-HexagonWars.PLACEHOLDER_CAMARA_X,
+                        (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM),
+                        (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM),
                         null);
             }
         }
@@ -62,14 +62,14 @@ public class DrawWorld extends JPanel {
     }
 
     private Tile getTile(Point p) {
-        int x = (int) (p.getX());
-        int y = (int) (p.getY());
+        int x = (int) p.getX()+HexagonWars.PLACEHOLDER_CAMARA_X;
+        int y = (int) p.getY()+HexagonWars.PLACEHOLDER_CAMARA_X;
         int tileX;
         int tileY;
         boolean uneven = false;
-        final int zoomTileHeightMin = (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * HexagonWars.zoom);
-        final int zoomTileWidth = (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.zoom);
-        final int zoomTileUpperHeight = (int)(HexagonWars.WORLD_TILE_UPPERHEIGHT*HexagonWars.zoom);
+        final int zoomTileHeightMin = (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * HexagonWars.PLACEHOLDER_ZOOM);
+        final int zoomTileWidth = (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM);
+        final int zoomTileUpperHeight = (int)(HexagonWars.WORLD_TILE_UPPERHEIGHT*HexagonWars.PLACEHOLDER_ZOOM);
         
         
         tileY = y /zoomTileHeightMin;
@@ -115,13 +115,13 @@ public class DrawWorld extends JPanel {
     private Boolean inHex(int x, int y, boolean up) {
         int x0, x1, y0, y1;
         x0 = 0;
-        x1 = (int)(HexagonWars.WORLD_TILE_WIDTH*HexagonWars.zoom) / 2;
+        x1 = (int)(HexagonWars.WORLD_TILE_WIDTH*HexagonWars.PLACEHOLDER_ZOOM) / 2;
         if (up) {
-            y0 = (int)(HexagonWars.WORLD_TILE_UPPERHEIGHT*HexagonWars.zoom);
+            y0 = (int)(HexagonWars.WORLD_TILE_UPPERHEIGHT*HexagonWars.PLACEHOLDER_ZOOM);
             y1 = 0;
         } else {
             y0 = 0;
-            y1 = (int)(HexagonWars.WORLD_TILE_UPPERHEIGHT*HexagonWars.zoom);
+            y1 = (int)(HexagonWars.WORLD_TILE_UPPERHEIGHT*HexagonWars.PLACEHOLDER_ZOOM);
         }
 
         int dx = Math.abs(x1 - x0);
