@@ -25,6 +25,10 @@ public class World {
         return this.height;
     }
     
+    public Tile getTile(int x, int y) {
+        return tiles[x][y];
+    }
+    
     public Tile[][] getTiles(){
         return tiles;
     }
