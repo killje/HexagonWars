@@ -22,6 +22,7 @@ public class HexagonWars {
     public static final int WORLD_TILE_HEIGHT_MAX = 122;
     public static final int WORLD_TILE_UPPERHEIGHT = WORLD_TILE_HEIGHT_MAX - WORLD_TILE_HEIGHT_MIN;
     public static final int WORLD_TILE_SIDE = WORLD_TILE_HEIGHT_MIN - WORLD_TILE_UPPERHEIGHT;
+    public static double zoom =1;
 
     /**
      * @param args the command line arguments
