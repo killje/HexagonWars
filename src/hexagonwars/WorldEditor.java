@@ -29,12 +29,12 @@ public class WorldEditor {
             st = new StringTokenizer(br.readLine(), " ");
             height = Integer.parseInt(st.nextToken());
             width = Integer.parseInt(st.nextToken());
-            world = new Tile[height][width];
+            world = new Tile[width][height];
             System.out.print("please specify the tiles seperated by \";\"\nthe given world is " + height + " by " + width + "\n");
-            for (int i = 0; i < height; i++) {
+            for (int y = 0; y < height; y++) {
                 st = new StringTokenizer(br.readLine(), ";");
-                for (int j = 0; j < width; j++) {
-                    world[i][j] = Tile.getType(Integer.parseInt(st.nextToken()));
+                for (int x = 0; x < width; x++) {
+                    world[x][y] = Tile.getType(Integer.parseInt(st.nextToken()));
                 }
             }
             store(file);

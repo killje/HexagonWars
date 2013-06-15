@@ -33,6 +33,7 @@ public class HexagonWars {
     public static void main(String[] args) {
         HWFrame frame = new HWFrame();
 //        World newWorld = new World(file);
+//        File file = new File("src\\hexagonwars\\maps\\firstmap.hwm");//for debug
 //        WorldEditor editor = new WorldEditor(file);
 
     }

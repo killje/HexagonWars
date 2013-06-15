@@ -75,11 +75,11 @@ public class World {
     @Override
     public String toString() {
         String returnString = "Height: " + getHeight() + "\nWidth: " + getWidth() + "\nTiles:\n";
-        for (int i = 0; i < height; i++) {
+        for (int y = 0; y < height; y++) {
             //for make up only ( starting y at 1
-            returnString = returnString + tiles[i][0].toString();
-            for (int j = 1; j < width; j++) {
-                returnString = returnString + "\t" + tiles[i][j].toString();
+            returnString = returnString + tiles[y][0].toString();
+            for (int x = 1; x < width; x++) {
+                returnString = returnString + "\t" + tiles[x][y].toString();
             }
             returnString = returnString + "\n";
         }

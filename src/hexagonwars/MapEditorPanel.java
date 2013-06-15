@@ -5,8 +5,6 @@
 package hexagonwars;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,7 +32,6 @@ public class MapEditorPanel extends JPanel implements Observer {
     private HWFrame frame;
     private JFormattedTextField inputWidthText;
     private JFormattedTextField inputHeightText;
-    private JPanel board = new JPanel();
     private JButton save = new JButton("Save");
     private int boardWidth, boardHeight;
     private WorldEditorDrawWorld newWorld;
@@ -42,11 +39,11 @@ public class MapEditorPanel extends JPanel implements Observer {
     public MapEditorPanel(HWFrame hwframe) {
         frame = hwframe;
         NumberFormat numberFormat;
-
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setPreferredSize(new Dimension(800,800));
+        this.setMinimumSize(new Dimension(800,800));
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
-        buttons.setSize(300, 30);
         JLabel inputWidthLabel = new JLabel("Width");
         numberFormat = NumberFormat.getIntegerInstance();
         inputWidthText = new JFormattedTextField(numberFormat);
@@ -68,17 +65,15 @@ public class MapEditorPanel extends JPanel implements Observer {
         buttons.add(inputHeightLabel);
         buttons.add(inputHeightText);
         buttons.add(go);
+        buttons.add(save);
         add(buttons);
-        add(board);
-        add(save);
+        buttons.setMaximumSize(new Dimension(800,26));
     }
 
     private void board() {
-        board.removeAll();
-        board.setLayout(new FlowLayout());
-        board.setMinimumSize(new Dimension(800, 800));
-        board.setSize(800, 800);
-
+        if (newWorld != null) {
+            remove(newWorld);
+        }
         World world = new World(boardWidth, boardHeight);
         Tile[][] tiles = new Tile[boardWidth][boardHeight];
         for (int i = 0; i < boardWidth; i++) {
@@ -88,8 +83,10 @@ public class MapEditorPanel extends JPanel implements Observer {
         }
         world.setWorld(tiles);
         newWorld = new WorldEditorDrawWorld(frame, world);
-        board.add(newWorld);
-
+        add(newWorld);
+        
+        System.out.println(world);
+        
         save.setEnabled(true);
         repaint();
         revalidate();

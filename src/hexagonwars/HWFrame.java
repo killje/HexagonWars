@@ -4,6 +4,7 @@
  */
 package hexagonwars;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
 
@@ -30,6 +31,7 @@ public class HWFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setVisible(true);
+        setSize(900,900);
     }
 
     public void addMainPanel() {

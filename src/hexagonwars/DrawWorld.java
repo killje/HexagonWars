@@ -2,6 +2,7 @@ package hexagonwars;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -27,7 +28,7 @@ public class DrawWorld extends JPanel {
         worldHeight = world.getHeight();
         worldWidth = world.getWidth();
         this.setMinimumSize(new Dimension(800,800));
-        this.setSize(800, 800);
+        this.setPreferredSize(new Dimension(800,800));
     }
 
     /**
@@ -46,12 +47,12 @@ public class DrawWorld extends JPanel {
     }
 
     private void drawWorld(Graphics g) {
-        int i, j;
-        for (j = 0; j < worldHeight; j++) {
-            for (i = 0; i < worldWidth; i++) {
-                g.drawImage(r[i][j].getImage(),
-                        i * (int)(HexagonWars.WORLD_TILE_WIDTH *HexagonWars.PLACEHOLDER_ZOOM) + j % 2 * (int)(HexagonWars.WORLD_TILE_WIDTH / 2*HexagonWars.PLACEHOLDER_ZOOM)-HexagonWars.PLACEHOLDER_CAMARA_X,
-                        j * (int)(HexagonWars.WORLD_TILE_HEIGHT_MIN*HexagonWars.PLACEHOLDER_ZOOM)-HexagonWars.PLACEHOLDER_CAMARA_X,
+        int x, y;
+        for (y = 0; y < worldHeight; y++) {
+            for (x = 0; x < worldWidth; x++) {
+                g.drawImage(r[x][y].getImage(),
+                        y * (int)(HexagonWars.WORLD_TILE_WIDTH *HexagonWars.PLACEHOLDER_ZOOM) + x % 2 * (int)(HexagonWars.WORLD_TILE_WIDTH / 2*HexagonWars.PLACEHOLDER_ZOOM)-HexagonWars.PLACEHOLDER_CAMARA_X,
+                        x * (int)(HexagonWars.WORLD_TILE_HEIGHT_MIN*HexagonWars.PLACEHOLDER_ZOOM)-HexagonWars.PLACEHOLDER_CAMARA_X,
                         (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM),
                         (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM),
                         null);
