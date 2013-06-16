@@ -19,7 +19,7 @@ public class WorldPanel extends JPanel {
     public WorldPanel(HWFrame hwframe) {
 
         frame = hwframe;
-        file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");
+        file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
         World world = new World(file);
         
         DrawWorld worldMap = new DrawWorld(frame, world);
