@@ -24,6 +24,7 @@ public class DrawWorld extends JPanel implements Observer {
     private Tile[][] r;
     private Tile selectedTile;
     private WorldPointer listner;
+    private Notify notify = new Notify(); 
 
     public DrawWorld(HWFrame hwFrame, World worldInput) {
         frame = hwFrame;
@@ -56,7 +57,7 @@ public class DrawWorld extends JPanel implements Observer {
     }
 
     public void addListner(Observer o) {
-        listner.addObserver(o);
+        notify.addObserver(o);
     }
 
     private void drawWorld(Graphics g) {
@@ -76,6 +77,7 @@ public class DrawWorld extends JPanel implements Observer {
     protected void clicked(MouseEvent me) {
         System.out.println(getTile(me.getPoint()));
         selectedTile = getTile(me.getPoint());
+        notify.sendNotify(this);
     }
 
     private Tile getTile(Point p) {
@@ -179,6 +181,14 @@ public class DrawWorld extends JPanel implements Observer {
     public void update(Observable o, Object o1) {
         if (o1 instanceof MouseEvent) {
             clicked((MouseEvent) o1);
+        }
+    }
+    
+    public class Notify extends Observable {
+
+        public void sendNotify(Object arg) {
+            this.setChanged();
+            this.notifyObservers(arg);
         }
     }
 }

@@ -86,8 +86,6 @@ public class MapEditorPanel extends JPanel implements Observer {
         tilePanel.setMaximumSize(new Dimension(600, 90));
         tilePanel.addListner(this);
         add(tilePanel);
-        repaint();
-        revalidate();
     }
 
     private void board() {
@@ -101,6 +99,7 @@ public class MapEditorPanel extends JPanel implements Observer {
                 tiles[i][j] = Tile.getType(HexagonWars.TILE_PLAIN);
             }
         }
+        
         world.setWorld(tiles);
         newWorld = new WorldEditorDrawWorld(frame, world);
         add(newWorld);
@@ -121,7 +120,8 @@ public class MapEditorPanel extends JPanel implements Observer {
                 boardHeight = Integer.parseInt(inputHeightText.getText());
                 board();
             }
-        } else if (arg instanceof MouseEvent) {
+        } else if (arg instanceof DrawWorld) {
+            System.out.println("test");
             selectedTile = tilePanel.getSelectedTile();
         }
     }

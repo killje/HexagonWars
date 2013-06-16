@@ -84,10 +84,6 @@ public class ActionClass {
         public WorldPointer(Observer o) {
             notify = new Notify(o);
         }
-        
-        public void addObserver(Observer o){
-            notify.addObserver(o);
-        }
 
         @Override
         public void mouseClicked(MouseEvent me) {
