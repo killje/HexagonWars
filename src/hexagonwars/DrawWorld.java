@@ -22,9 +22,9 @@ public class DrawWorld extends JPanel implements Observer {
     private int worldWidth;
     private int worldHeight;
     private Tile[][] r;
-    private Tile selectedTile;
+    private Point selectedTileCoordinate;
     private WorldPointer listner;
-    private Notify notify = new Notify(); 
+    private Notify notify = new Notify();
 
     public DrawWorld(HWFrame hwFrame, World worldInput) {
         frame = hwFrame;
@@ -35,6 +35,7 @@ public class DrawWorld extends JPanel implements Observer {
         worldWidth = world.getWidth();
         this.setMinimumSize(new Dimension(800, 600));
         this.setPreferredSize(new Dimension(800, 600));
+        this.addMouseListener(listner);
     }
 
     /**
@@ -49,19 +50,31 @@ public class DrawWorld extends JPanel implements Observer {
         drawWorld(g);
         Color color1 = new Color(255, 255, 0);
         g.setColor(color1);
-        this.addMouseListener(listner);
     }
 
-    public Tile getSelectedTile() {
-        return selectedTile;
+    public Point getSelectedTileCoordinate() {
+        return selectedTileCoordinate;
     }
 
     public void addListner(Observer o) {
+        notify.deleteObservers();
         notify.addObserver(o);
     }
-    
-    void removeListner(Observer o) {
+
+    public void removeListner(Observer o) {
         notify.deleteObserver(o);
+    }
+
+    public void setTile(int x, int y, Tile tile) {
+        r[x][y] = tile;
+    }
+
+    public Tile getTile(int x, int y) {
+        return r[x][y];
+    }
+
+    public Tile[][] getWorld() {
+        return r;
     }
 
     private void drawWorld(Graphics g) {
@@ -79,12 +92,11 @@ public class DrawWorld extends JPanel implements Observer {
     }
 
     protected void clicked(MouseEvent me) {
-        System.out.println(getTile(me.getPoint()));
-        selectedTile = getTile(me.getPoint());
+        selectedTileCoordinate = getTileCoordinate(me.getPoint());
         notify.sendNotify(this);
     }
 
-    private Tile getTile(Point p) {
+    private Point getTileCoordinate(Point p) {
         int x = (int) p.getX() + HexagonWars.PLACEHOLDER_CAMARA_X;
         int y = (int) p.getY() + HexagonWars.PLACEHOLDER_CAMARA_X;
         int tileX;
@@ -112,27 +124,27 @@ public class DrawWorld extends JPanel implements Observer {
         if (y <= zoomTileUpperHeight) {
             if (x <= zoomTileWidth / 2) {
                 if (inHex(x, y, true)) {
-                    return r[tileX][tileY];
+                    return new Point(tileX, tileY);
                 } else {
                     if (uneven) {
-                        return r[tileX][tileY - 1];
+                        return new Point(tileX, tileY - 1);
                     } else {
-                        return r[tileX - 1][tileY - 1];
+                        return new Point(tileX - 1, tileY - 1);
                     }
                 }
             } else {
                 if (inHex(x - zoomTileWidth / 2, y, false)) {
-                    return r[tileX][tileY];
+                    return new Point(tileX, tileY);
                 } else {
                     if (uneven) {
-                        return r[tileX + 1][tileY - 1];
+                        return new Point(tileX + 1, tileY - 1);
                     } else {
-                        return r[tileX][tileY - 1];
+                        return new Point(tileX, tileY - 1);
                     }
                 }
             }
         }
-        return r[tileX][tileY];
+        return new Point(tileX, tileY);
     }
 
     private Boolean inHex(int x, int y, boolean up) {
@@ -187,7 +199,7 @@ public class DrawWorld extends JPanel implements Observer {
             clicked((MouseEvent) o1);
         }
     }
-    
+
     public class Notify extends Observable {
 
         public void sendNotify(Object arg) {

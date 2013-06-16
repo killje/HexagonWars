@@ -5,6 +5,7 @@
 package hexagonwars;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,7 +38,7 @@ public class MapEditorPanel extends JPanel implements Observer {
     private int boardWidth, boardHeight;
     private WorldEditorDrawWorld newWorld;
     private WorldEditorDrawWorld tilePanel;
-    private Tile selectedTile;
+    private Point selectedTileCoordinate;
 
     public MapEditorPanel(HWFrame hwframe) {
         frame = hwframe;
@@ -91,6 +92,7 @@ public class MapEditorPanel extends JPanel implements Observer {
     private void board() {
         if (newWorld != null) {
             remove(newWorld);
+            newWorld.removeListner(this);
         }
         World world = new World(boardWidth, boardHeight);
         Tile[][] tiles = new Tile[boardWidth][boardHeight];
@@ -99,7 +101,7 @@ public class MapEditorPanel extends JPanel implements Observer {
                 tiles[i][j] = Tile.getType(HexagonWars.TILE_PLAIN);
             }
         }
-        
+
         world.setWorld(tiles);
         newWorld = new WorldEditorDrawWorld(frame, world);
         newWorld.addListner(this);
@@ -122,8 +124,13 @@ public class MapEditorPanel extends JPanel implements Observer {
                 board();
             }
         } else if (arg == tilePanel) {
-            selectedTile = tilePanel.getSelectedTile();
+            selectedTileCoordinate = tilePanel.getSelectedTileCoordinate();
+            System.out.println(selectedTileCoordinate);
         } else if (arg == newWorld) {
+            Point worldTile = newWorld.getSelectedTileCoordinate();
+            newWorld.setTile(worldTile.x, worldTile.y, tilePanel.getTile(selectedTileCoordinate.x, selectedTileCoordinate.y));
+            repaint();
+            validate();
         }
     }
 
@@ -150,8 +157,11 @@ public class MapEditorPanel extends JPanel implements Observer {
             }
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(null);
+            WorldFile saveWorld = new WorldFile();
+            saveWorld.setHeight(boardHeight);
+            saveWorld.setWidth(boardWidth);
+            saveWorld.setWorld(newWorld.getWorld());
+            oos.writeObject(saveWorld);
 
             oos.close();
             fos.close();
