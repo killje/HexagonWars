@@ -83,8 +83,8 @@ public class MapEditorPanel extends JPanel implements Observer {
         tiles[2][0] = Tile.getType(HexagonWars.TILE_WATER);
         world.setWorld(tiles);
         tilePanel = new WorldEditorDrawWorld(frame, world);
-        tilePanel.setPreferredSize(new Dimension(600, 90));
-        tilePanel.setMaximumSize(new Dimension(600, 90));
+        tilePanel.setPreferredSize(new Dimension(HexagonWars.WORLD_TILE_WIDTH*3, HexagonWars.WORLD_TILE_HEIGHT_MAX));
+        tilePanel.setMaximumSize(new Dimension(HexagonWars.WORLD_TILE_WIDTH*3, HexagonWars.WORLD_TILE_HEIGHT_MAX));
         tilePanel.addListner(this);
         add(tilePanel);
     }
