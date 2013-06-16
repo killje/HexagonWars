@@ -12,7 +12,7 @@ public class WorldEditorDrawWorld extends DrawWorld {
     public WorldEditorDrawWorld(HWFrame hwFrame, World worldInput) {
         super(hwFrame, worldInput);
     }
-    
+
     @Override
     public void clicked(MouseEvent me) {
         super.clicked(me);

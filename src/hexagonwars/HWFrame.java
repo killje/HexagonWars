@@ -31,7 +31,7 @@ public class HWFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setVisible(true);
-        setSize(900,900);
+        setSize(900, 900);
     }
 
     public void addMainPanel() {
@@ -59,9 +59,9 @@ public class HWFrame extends JFrame {
         for (int i = 0; i < this.getContentPane().getComponents().length; i++) {
             if (this.getContentPane().getComponents()[i] == mainPanel) {
                 remove(mainPanel);
-            }else if(this.getContentPane().getComponents()[i] == mapPanel){
+            } else if (this.getContentPane().getComponents()[i] == mapPanel) {
                 remove(mapPanel);
-            }else if(this.getContentPane().getComponents()[i] == worldPanel) {
+            } else if (this.getContentPane().getComponents()[i] == worldPanel) {
                 remove(worldPanel);
             }
         }

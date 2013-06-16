@@ -13,15 +13,15 @@ public class World {
     private int height;
     private Tile[][] tiles;
 
-    public World(int w,int h) {
+    public World(int w, int h) {
         width = w;
         height = h;
     }
-    
+
     public World(File file) {
         read(file);
     }
-    
+
     public int getWidth() {
         return this.width;
     }
@@ -29,16 +29,16 @@ public class World {
     public int getHeight() {
         return this.height;
     }
-    
+
     public Tile getTile(int x, int y) {
         return tiles[x][y];
     }
-    
-    public Tile[][] getTiles(){
+
+    public Tile[][] getTiles() {
         return tiles;
     }
-    
-    public void setWorld(Tile[][] tiles){
+
+    public void setWorld(Tile[][] tiles) {
         this.tiles = tiles;
     }
 

@@ -21,11 +21,11 @@ public class WorldPanel extends JPanel {
         frame = hwframe;
         file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
         World world = new World(file);
-        
+
         DrawWorld worldMap = new DrawWorld(frame, world);
-        this.setMinimumSize(new Dimension(800,800));
-        this.setPreferredSize(new Dimension(800,800));
+        this.setMinimumSize(new Dimension(800, 800));
+        this.setPreferredSize(new Dimension(800, 800));
         add(worldMap);
-        
+
     }
 }

@@ -14,7 +14,6 @@ public abstract class Tile implements Serializable {
     ArrayList<Entity> entities;
 
     public Tile() {
-        
     }
 
     public void addEntity(Entity Entity) {
@@ -45,7 +44,7 @@ public abstract class Tile implements Serializable {
     }
 
     public Image getImage() {
-        return new HWImage(1,1,this.getClass().getSimpleName()).getImage();
+        return new HWImage(1, 1, this.getClass().getSimpleName()).getImage();
     }
 
     public static Tile getType(int type) {

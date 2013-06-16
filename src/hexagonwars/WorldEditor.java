@@ -46,8 +46,6 @@ public class WorldEditor {
         }
     }
 
-    
-
     private void store(File file) {
         WorldFile saveWorld = createWorldFile();
         try {

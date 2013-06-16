@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class WorldFile implements Serializable{
+public class WorldFile implements Serializable {
 
     private int height;
     private int width;
@@ -15,28 +15,28 @@ public class WorldFile implements Serializable{
 
     public void WorldFile() {
     }
-    
-    public int getHeight(){
+
+    public int getHeight() {
         return this.height;
     }
-    
-    public int getWidth(){
+
+    public int getWidth() {
         return this.width;
     }
-    
-    public Tile[][] getWorld(){
+
+    public Tile[][] getWorld() {
         return this.tiles;
     }
-    
-    public void setHeight(int height){
+
+    public void setHeight(int height) {
         this.height = height;
     }
-    
-    public void setWidth(int width){
+
+    public void setWidth(int width) {
         this.width = width;
     }
-    
-    public void setWorld(Tile[][] world){
+
+    public void setWorld(Tile[][] world) {
         this.tiles = world;
     }
 }
