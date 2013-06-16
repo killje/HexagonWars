@@ -5,6 +5,7 @@
 package hexagonwars;
 
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -35,13 +36,15 @@ public class MapEditorPanel extends JPanel implements Observer {
     private JButton save = new JButton("Save");
     private int boardWidth, boardHeight;
     private WorldEditorDrawWorld newWorld;
+    private WorldEditorDrawWorld tilePanel;
+    private Tile selectedTile;
 
     public MapEditorPanel(HWFrame hwframe) {
         frame = hwframe;
         NumberFormat numberFormat;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setPreferredSize(new Dimension(800,800));
-        this.setMinimumSize(new Dimension(800,800));
+        this.setPreferredSize(new Dimension(800, 800));
+        this.setMinimumSize(new Dimension(800, 800));
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
         JLabel inputWidthLabel = new JLabel("Width");
@@ -66,8 +69,25 @@ public class MapEditorPanel extends JPanel implements Observer {
         buttons.add(inputHeightText);
         buttons.add(go);
         buttons.add(save);
+        buttons.setMaximumSize(new Dimension(800, 26));
         add(buttons);
-        buttons.setMaximumSize(new Dimension(800,26));
+        tileChoser();
+    }
+
+    private void tileChoser() {
+        World world = new World(3, 1);
+        Tile[][] tiles = new Tile[3][1];
+        tiles[0][0] = Tile.getType(HexagonWars.TILE_PLAIN);
+        tiles[1][0] = Tile.getType(HexagonWars.TILE_MOUNTAIN);
+        tiles[2][0] = Tile.getType(HexagonWars.TILE_WATER);
+        world.setWorld(tiles);
+        tilePanel = new WorldEditorDrawWorld(frame, world);
+        tilePanel.setPreferredSize(new Dimension(600, 90));
+        tilePanel.setMaximumSize(new Dimension(600, 90));
+        tilePanel.addListner(this);
+        add(tilePanel);
+        repaint();
+        revalidate();
     }
 
     private void board() {
@@ -84,9 +104,8 @@ public class MapEditorPanel extends JPanel implements Observer {
         world.setWorld(tiles);
         newWorld = new WorldEditorDrawWorld(frame, world);
         add(newWorld);
-        
-        System.out.println(world);
-        
+
+
         save.setEnabled(true);
         repaint();
         revalidate();
@@ -96,12 +115,14 @@ public class MapEditorPanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (arg instanceof ActionClass.SaveWorld) {
             saveWorld();
-        } else {
+        } else if (arg instanceof ActionClass.SetInputSize) {
             if (!inputWidthText.getText().equals("") && !inputHeightText.getText().equals("") && Integer.parseInt(inputWidthText.getText()) > 0 && Integer.parseInt(inputHeightText.getText()) > 0) {
                 boardWidth = Integer.parseInt(inputWidthText.getText());
                 boardHeight = Integer.parseInt(inputHeightText.getText());
                 board();
             }
+        } else if (arg instanceof MouseEvent) {
+            selectedTile = tilePanel.getSelectedTile();
         }
     }
 

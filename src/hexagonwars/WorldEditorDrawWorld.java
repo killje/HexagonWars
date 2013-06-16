@@ -15,6 +15,6 @@ public class WorldEditorDrawWorld extends DrawWorld {
     
     @Override
     public void clicked(MouseEvent me) {
-        
+        super.clicked(me);
     }
 }

@@ -79,16 +79,19 @@ public class ActionClass {
 
     public class WorldPointer implements MouseListener {
 
-        DrawWorld drawWorld;
+        Notify notify;
 
-        public WorldPointer(DrawWorld dw) {
-            drawWorld = dw;
+        public WorldPointer(Observer o) {
+            notify = new Notify(o);
         }
         
+        public void addObserver(Observer o){
+            notify.addObserver(o);
+        }
 
         @Override
         public void mouseClicked(MouseEvent me) {
-            drawWorld.clicked(me);
+            notify.sendNotify(me);
         }
 
         @Override
