@@ -207,4 +207,11 @@ public class DrawWorld extends JPanel implements Observer {
             this.notifyObservers(arg);
         }
     }
+    
+    public void setWorld(World worldInput){
+        world = worldInput;
+        r = world.getTiles();
+        worldHeight = world.getHeight();
+        worldWidth = world.getWidth();
+    }
 }

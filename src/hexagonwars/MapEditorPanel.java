@@ -6,7 +6,6 @@ package hexagonwars;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -83,8 +82,8 @@ public class MapEditorPanel extends JPanel implements Observer {
         tiles[2][0] = Tile.getType(HexagonWars.TILE_WATER);
         world.setWorld(tiles);
         tilePanel = new WorldEditorDrawWorld(frame, world);
-        tilePanel.setPreferredSize(new Dimension(HexagonWars.WORLD_TILE_WIDTH*3, HexagonWars.WORLD_TILE_HEIGHT_MAX));
-        tilePanel.setMaximumSize(new Dimension(HexagonWars.WORLD_TILE_WIDTH*3, HexagonWars.WORLD_TILE_HEIGHT_MAX));
+        tilePanel.setPreferredSize(new Dimension(HexagonWars.WORLD_TILE_WIDTH * 3, HexagonWars.WORLD_TILE_HEIGHT_MAX));
+        tilePanel.setMaximumSize(new Dimension(HexagonWars.WORLD_TILE_WIDTH * 3, HexagonWars.WORLD_TILE_HEIGHT_MAX));
         tilePanel.addListner(this);
         add(tilePanel);
     }
@@ -111,27 +110,6 @@ public class MapEditorPanel extends JPanel implements Observer {
         save.setEnabled(true);
         repaint();
         validate();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (arg instanceof ActionClass.SaveWorld) {
-            saveWorld();
-        } else if (arg instanceof ActionClass.SetInputSize) {
-            if (!inputWidthText.getText().equals("") && !inputHeightText.getText().equals("") && Integer.parseInt(inputWidthText.getText()) > 0 && Integer.parseInt(inputHeightText.getText()) > 0) {
-                boardWidth = Integer.parseInt(inputWidthText.getText());
-                boardHeight = Integer.parseInt(inputHeightText.getText());
-                board();
-            }
-        } else if (arg == tilePanel) {
-            selectedTileCoordinate = tilePanel.getSelectedTileCoordinate();
-            System.out.println(selectedTileCoordinate);
-        } else if (arg == newWorld) {
-            Point worldTile = newWorld.getSelectedTileCoordinate();
-            newWorld.setTile(worldTile.x, worldTile.y, tilePanel.getTile(selectedTileCoordinate.x, selectedTileCoordinate.y));
-            repaint();
-            validate();
-        }
     }
 
     public void saveWorld() {
@@ -172,6 +150,26 @@ public class MapEditorPanel extends JPanel implements Observer {
         } catch (IOException e) {
             System.err.println("An error with the I/O was reported, program closing.");
             System.exit(-1);
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg instanceof ActionClass.SaveWorld) {
+            saveWorld();
+        } else if (arg instanceof ActionClass.SetInputSize) {
+            if (!inputWidthText.getText().equals("") && !inputHeightText.getText().equals("") && Integer.parseInt(inputWidthText.getText()) > 0 && Integer.parseInt(inputHeightText.getText()) > 0) {
+                boardWidth = Integer.parseInt(inputWidthText.getText());
+                boardHeight = Integer.parseInt(inputHeightText.getText());
+                board();
+            }
+        } else if (arg == tilePanel) {
+            selectedTileCoordinate = tilePanel.getSelectedTileCoordinate();
+        } else if (arg == newWorld) {
+            Point worldTile = newWorld.getSelectedTileCoordinate();
+            newWorld.setTile(worldTile.x, worldTile.y, tilePanel.getTile(selectedTileCoordinate.x, selectedTileCoordinate.y));
+            repaint();
+            validate();
         }
     }
 }
