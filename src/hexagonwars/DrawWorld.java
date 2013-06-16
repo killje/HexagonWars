@@ -59,6 +59,10 @@ public class DrawWorld extends JPanel implements Observer {
     public void addListner(Observer o) {
         notify.addObserver(o);
     }
+    
+    void removeListner(Observer o) {
+        notify.deleteObserver(o);
+    }
 
     private void drawWorld(Graphics g) {
         int x, y;

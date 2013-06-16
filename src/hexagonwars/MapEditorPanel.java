@@ -102,12 +102,13 @@ public class MapEditorPanel extends JPanel implements Observer {
         
         world.setWorld(tiles);
         newWorld = new WorldEditorDrawWorld(frame, world);
+        newWorld.addListner(this);
         add(newWorld);
 
 
         save.setEnabled(true);
         repaint();
-        revalidate();
+        validate();
     }
 
     @Override
@@ -120,9 +121,9 @@ public class MapEditorPanel extends JPanel implements Observer {
                 boardHeight = Integer.parseInt(inputHeightText.getText());
                 board();
             }
-        } else if (arg instanceof DrawWorld) {
-            System.out.println("test");
+        } else if (arg == tilePanel) {
             selectedTile = tilePanel.getSelectedTile();
+        } else if (arg == newWorld) {
         }
     }
 
