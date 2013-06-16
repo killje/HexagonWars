@@ -75,11 +75,12 @@ public class MapEditorPanel extends JPanel implements Observer {
     }
 
     private void tileChoser() {
-        World world = new World(3, 1);
-        Tile[][] tiles = new Tile[3][1];
+        World world = new World(4, 1);
+        Tile[][] tiles = new Tile[4][1];
         tiles[0][0] = Tile.getType(HexagonWars.TILE_PLAIN);
         tiles[1][0] = Tile.getType(HexagonWars.TILE_MOUNTAIN);
         tiles[2][0] = Tile.getType(HexagonWars.TILE_WATER);
+        tiles[3][0] = Tile.getType(HexagonWars.TILE_GOLD);
         world.setWorld(tiles);
         tilePanel = new WorldEditorDrawWorld(frame, world);
         tilePanel.setPreferredSize(new Dimension(HexagonWars.WORLD_TILE_WIDTH * 3, HexagonWars.WORLD_TILE_HEIGHT_MAX));
