@@ -76,6 +76,14 @@ public class DrawWorld extends JPanel implements Observer {
     public Tile[][] getWorld() {
         return r;
     }
+    
+    public int worldHeight(){
+        return worldHeight;
+    }
+    
+    public int worldWidth(){
+        return worldWidth;
+    }
 
     private void drawWorld(Graphics g) {
         int x, y;

@@ -116,10 +116,6 @@ public class MapEditorPanel extends JPanel implements Observer {
         String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
         File file = new File(path);
 
-        WorldFile saveWorld = new WorldFile();
-        saveWorld.setHeight(boardHeight);
-        saveWorld.setWidth(boardWidth);
-
         store(file);
     }
 

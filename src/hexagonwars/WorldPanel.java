@@ -4,6 +4,11 @@ import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
@@ -26,12 +31,11 @@ public class WorldPanel extends JPanel implements Observer {
 
     HWFrame frame;
     Tile[][] tiles;
-    File file;
     GameWorld worldMap;
 
     public WorldPanel(HWFrame hwframe) {
         frame = hwframe;
-        file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
+         File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
         World world = new World(file);
 
         worldMap = new GameWorld(frame, world);
@@ -82,12 +86,50 @@ public class WorldPanel extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object o1) {
         if (o1 instanceof ActionClass.SaveWorld) {
+            saveWorld();
         } else if (o1 instanceof ActionClass.OpenWorld) {
             String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
             World world = new World(new File(path));
             worldMap.setWorld(world);
             repaint();
             revalidate();
+        }
+    }
+    
+    public void saveWorld() {
+        String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
+        File file = new File(path);
+
+        store(file);
+    }
+
+    private void store(File file) {
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } else {
+                if (JOptionPane.showConfirmDialog(null, "Are you sure you want to override " + file.getName() + "?") != 0) {
+                    return;
+                }
+            }
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            WorldFile saveWorld = new WorldFile();
+            saveWorld.setHeight(worldMap.worldHeight());
+            saveWorld.setWidth(worldMap.worldWidth());
+            saveWorld.setWorld(worldMap.getWorld());
+            oos.writeObject(saveWorld);
+
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("The desired file was not found.");
+        } catch (NotSerializableException e) {
+            System.err.println("The saved object is not serializable at: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("An error with the I/O was reported, program closing.");
+            System.exit(-1);
         }
     }
 }
