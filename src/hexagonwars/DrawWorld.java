@@ -40,7 +40,7 @@ public class DrawWorld extends JPanel implements Observer {
 
     /**
      *
-     * @param im as bufferdImage; this is the image you wand the transparent
+     * @param im as bufferdImage; this is the image you want the transparent
      * color in
      * @param color as Color; this is the color you wand to make transparent
      * @return image with color replaced with transparency in im
