@@ -1,42 +1,45 @@
 package hexagonwars;
 
-import hexagonwars.ActionClass.WorldPointer;
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.JPanel;
 
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class DrawWorld extends JPanel implements Observer {
+public class DrawWorld extends Component{
 
-    private HWFrame frame;
     private World world;
     private int worldWidth;
     private int worldHeight;
     private Tile[][] r;
     private Point selectedTileCoordinate;
-    private WorldPointer listner;
     private Notify notify = new Notify();
+    private String action = null;
 
-    public DrawWorld(HWFrame hwFrame, World worldInput) {
-        frame = hwFrame;
-        listner = frame.getActionClass().new WorldPointer(this);
+    public DrawWorld(World world, String select) {
+        this(world);
+        action = select;
+    }
+    
+    public DrawWorld(World worldInput) {
         world = worldInput;
         r = world.getTiles();
         worldHeight = world.getHeight();
         worldWidth = world.getWidth();
-        this.setMinimumSize(new Dimension(800, 600));
-        this.setPreferredSize(new Dimension(800, 600));
-        this.addMouseListener(listner);
+        this.addMouseListener(new WorldPointer());
+        this.setPreferredSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM),(int)(worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM)));
+        this.setMaximumSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM),(int)(worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM)));
+        this.setMinimumSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM),(int)(worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM)));
     }
+
+    
 
     /**
      *
@@ -45,24 +48,10 @@ public class DrawWorld extends JPanel implements Observer {
      * @param color as Color; this is the color you wand to make transparent
      * @return image with color replaced with transparency in im
      */
-    @Override
-    public void paint(Graphics g) {
-        drawWorld(g);
-        Color color1 = new Color(255, 255, 0);
-        g.setColor(color1);
-    }
+    
 
     public Point getSelectedTileCoordinate() {
         return selectedTileCoordinate;
-    }
-
-    public void addListner(Observer o) {
-        notify.deleteObservers();
-        notify.addObserver(o);
-    }
-
-    public void removeListner(Observer o) {
-        notify.deleteObserver(o);
     }
 
     public void setTile(int x, int y, Tile tile) {
@@ -85,23 +74,9 @@ public class DrawWorld extends JPanel implements Observer {
         return worldWidth;
     }
 
-    private void drawWorld(Graphics g) {
-        int x, y;
-        for (y = 0; y < worldHeight; y++) {
-            for (x = 0; x < worldWidth; x++) {
-                g.drawImage(r[x][y].getImage(),
-                        x * (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM) + y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * HexagonWars.PLACEHOLDER_ZOOM) - HexagonWars.PLACEHOLDER_CAMARA_X,
-                        y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * HexagonWars.PLACEHOLDER_ZOOM) - HexagonWars.PLACEHOLDER_CAMARA_X,
-                        (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM),
-                        (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM),
-                        null);
-            }
-        }
-    }
-
     protected void clicked(MouseEvent me) {
         selectedTileCoordinate = getTileCoordinate(me.getPoint());
-        notify.sendNotify(this);
+        notify.sendNotify(action);
     }
 
     private Point getTileCoordinate(Point p) {
@@ -201,25 +176,54 @@ public class DrawWorld extends JPanel implements Observer {
 
     }
 
-    @Override
-    public void update(Observable o, Object o1) {
-        if (o1 instanceof MouseEvent) {
-            clicked((MouseEvent) o1);
-        }
-    }
-
-    public class Notify extends Observable {
-
-        public void sendNotify(Object arg) {
-            this.setChanged();
-            this.notifyObservers(arg);
-        }
-    }
-    
     public void setWorld(World worldInput){
         world = worldInput;
         r = world.getTiles();
         worldHeight = world.getHeight();
         worldWidth = world.getWidth();
+    }
+    
+    private class WorldPointer implements MouseListener{
+
+        @Override
+        public void mouseClicked(MouseEvent me) {
+            clicked(me);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent me) {
+            // not implemented
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent me) {
+            // not implemented
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent me) {
+            // not implemented
+        }
+
+        @Override
+        public void mouseExited(MouseEvent me) {
+            // not implemented
+        }
+    }
+    
+    private class Notify extends Observable{
+        
+        private void sendNotify(Object arg){
+            this.setChanged();
+            this.notifyObservers(arg);
+        }
+    }
+    
+    public void addObserver(Observer o){
+        notify.addObserver(o);
+    }
+    
+    public void deleteObserver(Observer o){
+        notify.deleteObserver(o);
     }
 }

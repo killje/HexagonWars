@@ -15,7 +15,6 @@ import javax.swing.JFrame;
  */
 public class HWFrame extends JFrame {
 
-    private ActionClass actions = new ActionClass();
     private MainPanel mainPanel;
     private MapEditorPanel mapPanel;
     private WorldPanel worldPanel;
@@ -43,14 +42,14 @@ public class HWFrame extends JFrame {
 
     public void addEditorPanel() {
         removeAllPanels();
-        mapPanel = new MapEditorPanel(this);
+        mapPanel = new MapEditorPanel();
         add(mapPanel);
         validate();
     }
 
     public void addWorldPanel() {
         removeAllPanels();
-        worldPanel = new WorldPanel(this);
+        worldPanel = new WorldPanel();
         add(worldPanel);
         validate();
     }
@@ -66,9 +65,5 @@ public class HWFrame extends JFrame {
             }
         }
         repaint();
-    }
-
-    public ActionClass getActionClass() {
-        return actions;
     }
 }

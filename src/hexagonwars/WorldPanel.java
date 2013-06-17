@@ -1,7 +1,10 @@
 package hexagonwars;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Event;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.AbstractAction;
+import javax.swing.BoxLayout;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
@@ -27,33 +31,32 @@ import javax.swing.KeyStroke;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class WorldPanel extends JPanel implements Observer {
+public class WorldPanel extends JPanel implements Observer{
 
-    HWFrame frame;
     Tile[][] tiles;
-    GameWorld worldMap;
+    DrawWorld worldMap;
 
-    public WorldPanel(HWFrame hwframe) {
-        frame = hwframe;
-         File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
+    public WorldPanel() {
+        File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
         World world = new World(file);
 
-        worldMap = new GameWorld(frame, world);
-
-        this.setMinimumSize(new Dimension(800, 800));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new Dimension(800, 800));
+        this.setMinimumSize(new Dimension(800, 800));
+        worldMap = new DrawWorld(world);
+        worldMap.addObserver(this);
         add(addMenuBar());
         add(worldMap);
     }
 
     private JMenuBar addMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-
+        menuBar.setMaximumSize(new Dimension(50, 25));
         JMenu menuFile = addMenu("File", KeyEvent.VK_F);
-        menuFile.add(addMenuItem("Load", KeyEvent.VK_L, KeyEvent.VK_O, frame.getActionClass().new OpenWorld(this)));
-        menuFile.add(addMenuItem("Save", KeyEvent.VK_S, KeyEvent.VK_S, frame.getActionClass().new SaveWorld(this)));
+        menuFile.add(addMenuItem("Load", KeyEvent.VK_L, KeyEvent.VK_O, new OpenWorld()));
+        menuFile.add(addMenuItem("Save", KeyEvent.VK_S, KeyEvent.VK_S, new SaveWorld()));
         menuFile.addSeparator();
-        menuFile.add(addMenuItem("Quit", KeyEvent.VK_Q, frame.getActionClass().new QuitAction()));
+        menuFile.add(addMenuItem("Quit", KeyEvent.VK_Q, new QuitAction()));
         menuBar.add(menuFile);
 
         return menuBar;
@@ -83,19 +86,6 @@ public class WorldPanel extends JPanel implements Observer {
         return addMenuItem(name, shortKey, actionListener);
     }
 
-    @Override
-    public void update(Observable o, Object o1) {
-        if (o1 instanceof ActionClass.SaveWorld) {
-            saveWorld();
-        } else if (o1 instanceof ActionClass.OpenWorld) {
-            String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
-            World world = new World(new File(path));
-            worldMap.setWorld(world);
-            repaint();
-            revalidate();
-        }
-    }
-    
     public void saveWorld() {
         String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
         File file = new File(path);
@@ -130,6 +120,64 @@ public class WorldPanel extends JPanel implements Observer {
         } catch (IOException e) {
             System.err.println("An error with the I/O was reported, program closing.");
             System.exit(-1);
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object o1) {
+        System.out.println("click!");
+    }
+
+    private class OpenWorld extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
+            World world = new World(new File(path));
+            worldMap.setWorld(world);
+            repaint();
+            revalidate();
+        }
+    }
+
+    private class SaveWorld extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            saveWorld();
+        }
+    }
+
+    private class QuitAction extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        Color color1 = new Color(255, 255, 0);
+        g.setColor(color1);
+        if (worldMap != null) {
+            drawWorld(g, worldMap, 100);
+        }
+
+    }
+
+    private void drawWorld(Graphics g, DrawWorld world, int panelShift) {
+        int x, y;
+        for (y = 0; y < world.worldHeight(); y++) {
+            for (x = 0; x < world.worldWidth(); x++) {
+                g.drawImage(world.getWorld()[x][y].getImage(),
+                        x * (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM) + y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * HexagonWars.PLACEHOLDER_ZOOM) - HexagonWars.PLACEHOLDER_CAMARA_X,
+                        y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * HexagonWars.PLACEHOLDER_ZOOM) - HexagonWars.PLACEHOLDER_CAMARA_X + panelShift,
+                        (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM),
+                        (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM),
+                        null);
+            }
         }
     }
 }

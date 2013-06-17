@@ -11,7 +11,7 @@ package hexagonwars;
  */
 public class GameWorld extends DrawWorld {
 
-    public GameWorld(HWFrame hwFrame, World world) {
-        super(hwFrame, world);
+    public GameWorld(World world) {
+        super(world);
     }
 }

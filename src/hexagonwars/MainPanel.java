@@ -5,8 +5,8 @@
 
 package hexagonwars;
 
-import java.util.Observable;
-import java.util.Observer;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class MainPanel extends JPanel implements Observer{
+public class MainPanel extends JPanel {
     
     HWFrame frame;
     
@@ -23,17 +23,26 @@ public class MainPanel extends JPanel implements Observer{
         frame = hwframe;
         JButton loadMap = new JButton("Open map");
         JButton openEditor = new JButton("Open editor");
-        loadMap.addActionListener(frame.getActionClass().new OpenWorldAction(this));
-        openEditor.addActionListener(frame.getActionClass().new OpenWorldeditorAction(this));
+        loadMap.addActionListener(new OpenWorldAction());
+        openEditor.addActionListener(new OpenWorldeditorAction());
         add(loadMap);
         add(openEditor);
     }
+    
+    
+    private class OpenWorldAction extends AbstractAction{
 
-    @Override
-    public void update(Observable o, Object arg) {
-        if (arg instanceof ActionClass.OpenWorldAction) {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
             frame.addWorldPanel();
-        }else if(arg instanceof ActionClass.OpenWorldeditorAction){
+        }
+        
+    }
+    
+    private class OpenWorldeditorAction extends AbstractAction{
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
             frame.addEditorPanel();
         }
     }

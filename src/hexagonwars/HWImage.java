@@ -10,10 +10,7 @@ import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 
 /**
