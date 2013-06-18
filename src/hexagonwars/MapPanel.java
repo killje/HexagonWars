@@ -12,6 +12,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,14 +31,15 @@ import javax.swing.JPanel;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public abstract class MapPanel extends JPanel {
+public abstract class MapPanel extends JPanel{
 
     private ArrayList<DrawWorld> worlds = new ArrayList<>();
 
     public MapPanel() {
         addMouseListener(new WorldPointer());
+        addMouseWheelListener(new ZoomListner());
         setLayout(new FlowLayout(FlowLayout.LEFT));
-        this.setPreferredSize(new Dimension(800, 800));
+        setPreferredSize(new Dimension(800, 800));
     }
 
     protected abstract void tileClick(DrawWorld world, Point TileCoordinate);
@@ -85,7 +88,7 @@ public abstract class MapPanel extends JPanel {
         g.setColor(color1);
         for (int i = 0; i < worlds.size(); i++) {
             DrawWorld world = worlds.get(i);
-            drawWorld(g, world, world.getXLocation(), world.getYLocation());
+            drawWorld(g, world, (int) (world.getXLocation() * HexagonWars.PLACEHOLDER_ZOOM), (int) (world.getYLocation() * HexagonWars.PLACEHOLDER_ZOOM));
             if (prefWorldWidth < (int) ((world.worldWidth() * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * HexagonWars.PLACEHOLDER_ZOOM) + world.getXLocation()) {
                 prefWorldWidth = (int) ((world.worldWidth() * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * HexagonWars.PLACEHOLDER_ZOOM) + world.getXLocation();
             }
@@ -274,6 +277,18 @@ public abstract class MapPanel extends JPanel {
         @Override
         public void mouseExited(MouseEvent me) {
             // not implemented
+        }
+    }
+
+    private class ZoomListner implements MouseWheelListener {
+
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent mwe) {
+            if (HexagonWars.PLACEHOLDER_ZOOM + (mwe.getPreciseWheelRotation() * 0.05) >= 0.1 && HexagonWars.PLACEHOLDER_ZOOM + (mwe.getPreciseWheelRotation() * 0.05) <= 1.9) {
+                HexagonWars.PLACEHOLDER_ZOOM += (mwe.getPreciseWheelRotation() * 0.05);
+                repaint();
+                validate();
+            }
         }
     }
 

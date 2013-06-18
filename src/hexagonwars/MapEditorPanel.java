@@ -68,7 +68,7 @@ public class MapEditorPanel extends MapPanel {
         tiles[2][0] = Tile.getType(HexagonWars.TILE_WATER);
         tiles[3][0] = Tile.getType(HexagonWars.TILE_GOLD);
         world.setWorld(tiles);
-        tileSelector = addWorld(world, 50, 30);
+        tileSelector = addWorld(world, 70, 30);
     }
 
     private void newBoard() {
