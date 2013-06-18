@@ -11,6 +11,7 @@ import java.awt.image.RGBImageFilter;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
@@ -20,17 +21,14 @@ import javax.imageio.ImageIO;
  */
 public class HWImage {
 
-    private Image image;
+    
+    private static ArrayList<ImageName> images = new ArrayList<>();
 
-    public HWImage(int imX, int imY, String file) {
-        image = getTile(imX, imY, file);
-    }
-
-    private Image getTile(int imX, int imY, String filename) {
+    private static ImageName getTile(int imX, int imY, String filename) {
         Image img;
+        ImageName newImage;
         imX = (imX - 1) * HexagonWars.WORLD_TILE_WIDTH;
         imY = (imY - 1) * HexagonWars.WORLD_TILE_HEIGHT_MAX;
-
 
         BufferedImage image;
         try {
@@ -49,10 +47,11 @@ public class HWImage {
             System.exit(1);
             return null;
         }
-        return img;
+        newImage = new ImageName(filename,img);
+        return newImage;
     }
 
-    private Image makeColorTransparent(BufferedImage im, final Color color, final Color color2) {
+    private static Image makeColorTransparent(BufferedImage im, final Color color, final Color color2) {
         ImageFilter filter = new RGBImageFilter() {
             // the color we are looking for... Alpha bits are set to opaque
             public int transparentRGB = color.getRGB() | 0xFF000000;
@@ -74,7 +73,14 @@ public class HWImage {
 
     }
 
-    public Image getImage() {
-        return image;
+    public static Image getImage(int imX, int imY,String imageName) {
+        for (ImageName image: images) {
+            if (image.getName().equals(imageName)) {
+                return image.getImage();
+            }
+        }
+        ImageName image = getTile(imX, imY, imageName);
+        images.add(image);
+        return image.getImage();
     }
 }

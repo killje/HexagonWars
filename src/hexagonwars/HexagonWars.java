@@ -1,8 +1,5 @@
 package hexagonwars;
 
-import java.io.File;
-import java.nio.file.Paths;
-
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -33,9 +30,5 @@ public class HexagonWars {
      */
     public static void main(String[] args) {
         HWFrame frame = new HWFrame();
-//        World newWorld = new World(file);
-//        File file = new File("src\\hexagonwars\\maps\\firstmap.hwm");//for debug
-//        WorldEditor editor = new WorldEditor(file);
-
     }
 }

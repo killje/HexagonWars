@@ -44,7 +44,7 @@ public abstract class Tile implements Serializable {
     }
 
     public Image getImage() {
-        return new HWImage(1, 1, this.getClass().getSimpleName()).getImage();
+        return HWImage.getImage(1, 1, this.getClass().getSimpleName());
     }
 
     public static Tile getType(int type) {
