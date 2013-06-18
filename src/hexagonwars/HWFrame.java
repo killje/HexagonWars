@@ -4,9 +4,10 @@
  */
 package hexagonwars;
 
-import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -18,6 +19,7 @@ public class HWFrame extends JFrame {
     private MainPanel mainPanel;
     private MapEditorPanel mapPanel;
     private WorldPanel worldPanel;
+    private JPanel currentPanel;
 
     public HWFrame() {
         createFrame();
@@ -28,7 +30,7 @@ public class HWFrame extends JFrame {
         setTitle("HexagonWars");
         setSize(HexagonWars.FRAME_WIDTH, HexagonWars.FRAME_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
+        setLayout(new FlowLayout(FlowLayout.LEFT));
         setVisible(true);
         setSize(900, 900);
     }
@@ -36,6 +38,7 @@ public class HWFrame extends JFrame {
     public void addMainPanel() {
         removeAllPanels();
         mainPanel = new MainPanel(this);
+        currentPanel = mainPanel;
         add(mainPanel);
         validate();
     }
@@ -43,6 +46,7 @@ public class HWFrame extends JFrame {
     public void addEditorPanel() {
         removeAllPanels();
         mapPanel = new MapEditorPanel();
+        currentPanel = mapPanel;
         add(mapPanel);
         validate();
     }
@@ -50,6 +54,7 @@ public class HWFrame extends JFrame {
     public void addWorldPanel() {
         removeAllPanels();
         worldPanel = new WorldPanel();
+        currentPanel = worldPanel;
         add(worldPanel);
         validate();
     }

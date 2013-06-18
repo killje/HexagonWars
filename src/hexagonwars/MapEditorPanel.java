@@ -4,16 +4,13 @@
  */
 package hexagonwars;
 
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.text.NumberFormat;
 import javax.swing.AbstractAction;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  *
@@ -35,12 +32,7 @@ public class MapEditorPanel extends MapPanel {
     }
     
     private void init(){
-        JPanel buttons = new JPanel();
         NumberFormat numberFormat;
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setPreferredSize(new Dimension(800, 800));
-        this.setMinimumSize(new Dimension(800, 800));
-        buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
         JLabel inputWidthLabel = new JLabel("Width");
         numberFormat = NumberFormat.getIntegerInstance();
         inputWidthText = new JFormattedTextField(numberFormat);
@@ -54,17 +46,15 @@ public class MapEditorPanel extends MapPanel {
         JButton go = new JButton("Go");
         go.addActionListener(new SetInputSize());
 
-        save.addActionListener(new SaveWorld());
+        save.addActionListener(new SaveWorld(newWorld));
         save.setEnabled(false);
 
-        buttons.add(inputWidthLabel);
-        buttons.add(inputWidthText);
-        buttons.add(inputHeightLabel);
-        buttons.add(inputHeightText);
-        buttons.add(go);
-        buttons.add(save);
-        buttons.setMaximumSize(new Dimension(800, 26));
-        add(buttons);
+        add(inputWidthLabel);
+        add(inputWidthText);
+        add(inputHeightLabel);
+        add(inputHeightText);
+        add(go);
+        add(save);
         tileChoser();
         repaint();
         revalidate();
@@ -78,7 +68,7 @@ public class MapEditorPanel extends MapPanel {
         tiles[2][0] = Tile.getType(HexagonWars.TILE_WATER);
         tiles[3][0] = Tile.getType(HexagonWars.TILE_GOLD);
         world.setWorld(tiles);
-        tileSelector = addWorld(world, 0, 30);
+        tileSelector = addWorld(world, 50, 30);
     }
 
     private void newBoard() {

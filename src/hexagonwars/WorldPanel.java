@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.nio.file.Paths;
 import javax.swing.AbstractAction;
-import javax.swing.BoxLayout;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
@@ -29,12 +28,8 @@ public class WorldPanel extends MapPanel{
         File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
         World world = new World(file);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setPreferredSize(new Dimension(800, 800));
-        this.setMinimumSize(new Dimension(800, 800));
-        worldMap = addWorld(world, 0, 30);
+        worldMap = addWorld(world, 50, 30);
         add(addMenuBar());
-        add(worldMap);
     }
 
     private JMenuBar addMenuBar() {
@@ -42,7 +37,7 @@ public class WorldPanel extends MapPanel{
         menuBar.setMaximumSize(new Dimension(50, 25));
         JMenu menuFile = addMenu("File", KeyEvent.VK_F);
         menuFile.add(addMenuItem("Load", KeyEvent.VK_L, KeyEvent.VK_O, new OpenWorld(worldMap)));
-        menuFile.add(addMenuItem("Save", KeyEvent.VK_S, KeyEvent.VK_S, new SaveWorld()));
+        menuFile.add(addMenuItem("Save", KeyEvent.VK_S, KeyEvent.VK_S, new SaveWorld(worldMap)));
         menuFile.addSeparator();
         menuFile.add(addMenuItem("Quit", KeyEvent.VK_Q, new QuitAction()));
         menuBar.add(menuFile);
