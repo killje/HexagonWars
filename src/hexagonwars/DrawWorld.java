@@ -72,18 +72,18 @@ public class DrawWorld extends Component {
     public boolean inWorld(int x, int y) {
         if (x >= worldLocationX
                 && y >= worldLocationY
-                && x < (int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM)
-                && y < (int) (worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM)) {
+                && x < (int) ((worldWidth * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * HexagonWars.PLACEHOLDER_ZOOM)+worldLocationX
+                && y < (int) ((worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * HexagonWars.PLACEHOLDER_ZOOM)+worldLocationY) {
             return true;
         }
         return false;
     }
-    
-    public int getXLocation(){
+
+    public int getXLocation() {
         return worldLocationX;
     }
-    
-    public int getYLocation(){
+
+    public int getYLocation() {
         return worldLocationY;
     }
 }

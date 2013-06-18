@@ -39,6 +39,8 @@ public abstract class MapPanel extends JPanel {
         this.setPreferredSize(new Dimension(800, 800));
     }
 
+    protected abstract void tileClick(DrawWorld world, Point TileCoordinate);
+
     protected DrawWorld addWorld(World world, int x, int y) {
         DrawWorld newWorld = new DrawWorld(world, x, y);
         worlds.add(newWorld);
@@ -61,50 +63,16 @@ public abstract class MapPanel extends JPanel {
         String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
         File file = new File(path);
 
-        store(file,world);
+        store(file, world);
     }
 
-    private void store(File file,DrawWorld world) {
-        try {
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            } else {
-                if (JOptionPane.showConfirmDialog(null, "Are you sure you want to override " + file.getName() + "?") != 0) {
-                    return;
-                }
+    protected void clicked(MouseEvent me) {
+        for (DrawWorld world : worlds) {
+            if (world.inWorld(me.getX(), me.getY())) {
+                Point pointInWorld = new Point(me.getX() - world.getXLocation(), me.getY() - world.getYLocation());
+                Point TileCoordinate = getTileCoordinate(pointInWorld);
+                tileClick(world, TileCoordinate);
             }
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            WorldFile saveWorld = new WorldFile();
-            saveWorld.setHeight(world.worldHeight());
-            saveWorld.setWidth(world.worldWidth());
-            saveWorld.setWorld(world.getWorld());
-            oos.writeObject(saveWorld);
-
-            oos.close();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            System.err.println("The desired file was not found.");
-        } catch (NotSerializableException e) {
-            System.err.println("The saved object is not serializable at: " + e.getMessage());
-        } catch (IOException e) {
-            System.err.println("An error with the I/O was reported, program closing.");
-            System.exit(-1);
-        }
-    }
-
-    protected class SaveWorld extends AbstractAction {
-
-        DrawWorld world;
-
-        protected SaveWorld(DrawWorld worldToSave) {
-            this.world = worldToSave;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            saveWorld(world);
         }
     }
 
@@ -141,46 +109,35 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
-    private class WorldPointer implements MouseListener {
-
-        @Override
-        public void mouseClicked(MouseEvent me) {
-            System.out.println(me.getPoint());
-            clicked(me);
-        }
-
-        @Override
-        public void mousePressed(MouseEvent me) {
-            // not implemented
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent me) {
-            // not implemented
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent me) {
-            // not implemented
-        }
-
-        @Override
-        public void mouseExited(MouseEvent me) {
-            // not implemented
-        }
-    }
-
-    protected void clicked(MouseEvent me) {
-        for (DrawWorld world : worlds) {
-            if (world.inWorld(me.getX(), me.getY())) {
-                Point pointInWorld = new Point(me.getX() - world.getXLocation(), me.getY() - world.getYLocation());
-                Point TileCoordinate = getTileCoordinate(pointInWorld);
-                tileClick(world, TileCoordinate);
+    private void store(File file, DrawWorld world) {
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } else {
+                if (JOptionPane.showConfirmDialog(null, "Are you sure you want to override " + file.getName() + "?") != 0) {
+                    return;
+                }
             }
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            WorldFile saveWorld = new WorldFile();
+            saveWorld.setHeight(world.worldHeight());
+            saveWorld.setWidth(world.worldWidth());
+            saveWorld.setWorld(world.getWorld());
+            oos.writeObject(saveWorld);
+
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("The desired file was not found.");
+        } catch (NotSerializableException e) {
+            System.err.println("The saved object is not serializable at: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("An error with the I/O was reported, program closing.");
+            System.exit(-1);
         }
     }
-
-    protected abstract void tileClick(DrawWorld world, Point TileCoordinate);
 
     private Point getTileCoordinate(Point p) {
         int x = (int) p.getX() + HexagonWars.PLACEHOLDER_CAMARA_X;
@@ -275,6 +232,48 @@ public abstract class MapPanel extends JPanel {
             return false;
         } else {
             return true;
+        }
+    }
+
+    protected class SaveWorld extends AbstractAction {
+
+        DrawWorld world;
+
+        protected SaveWorld(DrawWorld worldToSave) {
+            this.world = worldToSave;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            saveWorld(world);
+        }
+    }
+
+    private class WorldPointer implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent me) {
+            clicked(me);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent me) {
+            // not implemented
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent me) {
+            // not implemented
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent me) {
+            // not implemented
+        }
+
+        @Override
+        public void mouseExited(MouseEvent me) {
+            // not implemented
         }
     }
 
