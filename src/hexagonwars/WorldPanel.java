@@ -29,6 +29,7 @@ public class WorldPanel extends MapPanel{
         World world = new World(file);
 
         worldMap = addWorld(world, 50, 30);
+        worldMap.setReferenceName("worldMap");
         add(addMenuBar());
     }
 
@@ -37,7 +38,7 @@ public class WorldPanel extends MapPanel{
         menuBar.setMaximumSize(new Dimension(50, 25));
         JMenu menuFile = addMenu("File", KeyEvent.VK_F);
         menuFile.add(addMenuItem("Load", KeyEvent.VK_L, KeyEvent.VK_O, new OpenWorld(worldMap)));
-        menuFile.add(addMenuItem("Save", KeyEvent.VK_S, KeyEvent.VK_S, new SaveWorld(worldMap)));
+        menuFile.add(addMenuItem("Save", KeyEvent.VK_S, KeyEvent.VK_S, new SaveWorld("worldMap")));
         menuFile.addSeparator();
         menuFile.add(addMenuItem("Quit", KeyEvent.VK_Q, new QuitAction()));
         menuBar.add(menuFile);

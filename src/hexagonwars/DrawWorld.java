@@ -18,6 +18,7 @@ public class DrawWorld extends Component {
     private Point selectedTileCoordinate;
     private int worldLocationX;
     private int worldLocationY;
+    private String referenceName;
 
     public DrawWorld(World worldInput, int x, int y) {
         worldLocationX = x;
@@ -30,6 +31,14 @@ public class DrawWorld extends Component {
         this.setMaximumSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM), (int) (worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM)));
         this.setMinimumSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM), (int) (worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM)));
         
+    }
+    
+    public void setReferenceName(String name){
+        referenceName = name;
+    }
+    
+    public String getRefrenceName(){
+        return referenceName;
     }
 
     /**

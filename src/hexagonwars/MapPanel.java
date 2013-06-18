@@ -64,7 +64,7 @@ public abstract class MapPanel extends JPanel{
     protected void clicked(MouseEvent me) {
         for (DrawWorld world : worlds) {
             if (world.inWorld(me.getX(), me.getY())) {
-                Point pointInWorld = new Point(me.getX() - world.getXLocation(), me.getY() - world.getYLocation());
+                Point pointInWorld = new Point(me.getX() - (int)(world.getXLocation()*HexagonWars.PLACEHOLDER_ZOOM), me.getY() - (int)(world.getYLocation()*HexagonWars.PLACEHOLDER_ZOOM));
                 Point TileCoordinate = getTileCoordinate(pointInWorld);
                 tileClick(world, TileCoordinate);
             }
@@ -224,15 +224,19 @@ public abstract class MapPanel extends JPanel{
 
     protected class SaveWorld extends AbstractAction {
 
-        DrawWorld world;
+        String referenceName;
 
-        protected SaveWorld(DrawWorld worldToSave) {
-            this.world = worldToSave;
+        protected SaveWorld(String referenceName) {
+            this.referenceName = referenceName;
         }
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            saveWorld(world);
+            for(DrawWorld world : worlds){
+                if (world.getRefrenceName()!=null&&world.getRefrenceName().equals(referenceName)) {
+                    saveWorld(world);
+                }
+            }
         }
     }
 

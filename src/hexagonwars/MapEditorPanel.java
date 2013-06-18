@@ -45,8 +45,7 @@ public class MapEditorPanel extends MapPanel {
 
         JButton go = new JButton("Go");
         go.addActionListener(new SetInputSize());
-
-        save.addActionListener(new SaveWorld(newWorld));
+        save.addActionListener(new SaveWorld("worldMap"));
         save.setEnabled(false);
 
         add(inputWidthLabel);
@@ -80,10 +79,10 @@ public class MapEditorPanel extends MapPanel {
                 tiles[i][j] = Tile.getType(HexagonWars.TILE_PLAIN);
             }
         }
-
+        
         world.setWorld(tiles);
         newWorld = addWorld(world, 0, 200);
-
+        newWorld.setReferenceName("worldMap");
         save.setEnabled(true);
         repaint();
         validate();
