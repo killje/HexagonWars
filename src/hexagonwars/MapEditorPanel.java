@@ -4,27 +4,15 @@
  */
 package hexagonwars;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectOutputStream;
-import java.nio.file.Paths;
 import java.text.NumberFormat;
-import java.util.Observable;
-import java.util.Observer;
 import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -32,7 +20,7 @@ import javax.swing.JPanel;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class MapEditorPanel extends JPanel implements Observer {
+public class MapEditorPanel extends MapPanel {
 
     private JFormattedTextField inputWidthText;
     private JFormattedTextField inputHeightText;
@@ -43,6 +31,10 @@ public class MapEditorPanel extends JPanel implements Observer {
     private Point selectedTileCoordinate;
 
     public MapEditorPanel() {
+        init();
+    }
+    
+    private void init(){
         JPanel buttons = new JPanel();
         NumberFormat numberFormat;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -86,16 +78,11 @@ public class MapEditorPanel extends JPanel implements Observer {
         tiles[2][0] = Tile.getType(HexagonWars.TILE_WATER);
         tiles[3][0] = Tile.getType(HexagonWars.TILE_GOLD);
         world.setWorld(tiles);
-        tileSelector = new DrawWorld(world, "select");
-        tileSelector.addObserver(this);
-        add(tileSelector);
+        tileSelector = addWorld(world, 0, 30);
     }
 
-    private void board() {
-        if (newWorld != null) {
-            remove(newWorld);
-            newWorld.deleteObserver(this);
-        }
+    private void newBoard() {
+        removeWorld(newWorld);
         World world = new World(boardWidth, boardHeight);
         Tile[][] tiles = new Tile[boardWidth][boardHeight];
         for (int i = 0; i < boardWidth; i++) {
@@ -105,65 +92,23 @@ public class MapEditorPanel extends JPanel implements Observer {
         }
 
         world.setWorld(tiles);
-        newWorld = new DrawWorld(world, "place");
-        newWorld.addObserver(this);
-        add(newWorld);
+        newWorld = addWorld(world, 0, 200);
 
         save.setEnabled(true);
         repaint();
         validate();
     }
 
-    public void saveWorld() {
-        String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
-        File file = new File(path);
-
-        store(file);
-    }
-
-    private void store(File file) {
-        try {
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            } else {
-                if (JOptionPane.showConfirmDialog(null, "Are you sure you want to override " + file.getName() + "?") != 0) {
-                    return;
-                }
-            }
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            WorldFile saveWorld = new WorldFile();
-            saveWorld.setHeight(boardHeight);
-            saveWorld.setWidth(boardWidth);
-            saveWorld.setWorld(newWorld.getWorld());
-            oos.writeObject(saveWorld);
-
-            oos.close();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            System.err.println("The desired file was not found.");
-        } catch (NotSerializableException e) {
-            System.err.println("The saved object is not serializable at: " + e.getMessage());
-        } catch (IOException e) {
-            System.err.println("An error with the I/O was reported, program closing.");
-            System.exit(-1);
-        }
-    }
-
     @Override
-    public void update(Observable o, Object arg) {
-        if (arg instanceof String) {
-            String doAction = (String) arg;
-            System.out.println("doAction = " + doAction);
-            if (doAction.equals("select")) {
-                selectedTileCoordinate = tileSelector.getSelectedTileCoordinate();
-            } else if (doAction.equals("place")) {
-                Point worldTile = newWorld.getSelectedTileCoordinate();
-                newWorld.setTile(worldTile.x, worldTile.y, tileSelector.getTile(selectedTileCoordinate.x, selectedTileCoordinate.y));
-                repaint();
-                validate();
-            }
+    protected void tileClick(DrawWorld world, Point TileCoordinate) {
+        if (world == newWorld) {
+            Point worldTile = TileCoordinate;
+            Tile tile = tileSelector.getTile(selectedTileCoordinate.x, selectedTileCoordinate.y);
+            newWorld.setTile(worldTile.x, worldTile.y, tile);
+            repaint();
+            validate();
+        }else{
+            selectedTileCoordinate = TileCoordinate;
         }
     }
 
@@ -174,43 +119,7 @@ public class MapEditorPanel extends JPanel implements Observer {
             if (!inputWidthText.getText().equals("") && !inputHeightText.getText().equals("") && Integer.parseInt(inputWidthText.getText()) > 0 && Integer.parseInt(inputHeightText.getText()) > 0) {
                 boardWidth = Integer.parseInt(inputWidthText.getText());
                 boardHeight = Integer.parseInt(inputHeightText.getText());
-                board();
-            }
-        }
-    }
-
-    private class SaveWorld extends AbstractAction {
-
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            saveWorld();
-        }
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        Color color1 = new Color(255, 255, 0);
-        g.setColor(color1);
-        if (tileSelector != null) {
-            drawWorld(g, tileSelector, 30);
-        }
-        if (newWorld != null) {
-            drawWorld(g, newWorld, 200);
-        }
-
-    }
-
-    private void drawWorld(Graphics g, DrawWorld world, int panelShift) {
-        int x, y;
-        for (y = 0; y < world.worldHeight(); y++) {
-            for (x = 0; x < world.worldWidth(); x++) {
-                g.drawImage(world.getWorld()[x][y].getImage(),
-                        x * (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM) + y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * HexagonWars.PLACEHOLDER_ZOOM) - HexagonWars.PLACEHOLDER_CAMARA_X,
-                        y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * HexagonWars.PLACEHOLDER_ZOOM) - HexagonWars.PLACEHOLDER_CAMARA_X + panelShift,
-                        (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM),
-                        (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM),
-                        null);
+                newBoard();
             }
         }
     }
