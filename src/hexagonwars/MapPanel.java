@@ -5,7 +5,6 @@
 package hexagonwars;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -39,7 +38,6 @@ public abstract class MapPanel extends JPanel{
         addMouseListener(new WorldPointer());
         addMouseWheelListener(new ZoomListner());
         setLayout(new FlowLayout(FlowLayout.LEFT));
-        setPreferredSize(new Dimension(800, 800));
     }
 
     protected abstract void tileClick(DrawWorld world, Point TileCoordinate);
@@ -47,12 +45,6 @@ public abstract class MapPanel extends JPanel{
     protected DrawWorld addWorld(World world, int x, int y) {
         DrawWorld newWorld = new DrawWorld(world, x, y);
         worlds.add(newWorld);
-        if (this.getPreferredSize().width < (int) ((newWorld.worldWidth() * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * HexagonWars.PLACEHOLDER_ZOOM) + newWorld.getXLocation()) {
-            this.getPreferredSize().width = (int) ((newWorld.worldWidth() * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * HexagonWars.PLACEHOLDER_ZOOM) + newWorld.getXLocation();
-        }
-        if (this.getPreferredSize().height < (int) ((newWorld.worldHeight() * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * HexagonWars.PLACEHOLDER_ZOOM) + newWorld.getYLocation()) {
-            this.getPreferredSize().height = (int) ((newWorld.worldHeight() * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * HexagonWars.PLACEHOLDER_ZOOM) + newWorld.getYLocation();
-        }
         return newWorld;
     }
 
@@ -78,25 +70,17 @@ public abstract class MapPanel extends JPanel{
             }
         }
     }
-
+    
     @Override
     public void paint(Graphics g) {
-        int prefWorldWidth = 0;
-        int prefWorldHeight = 0;
         super.paint(g);
         Color color1 = new Color(255, 255, 0);
         g.setColor(color1);
         for (int i = 0; i < worlds.size(); i++) {
             DrawWorld world = worlds.get(i);
             drawWorld(g, world, (int) (world.getXLocation() * HexagonWars.PLACEHOLDER_ZOOM), (int) (world.getYLocation() * HexagonWars.PLACEHOLDER_ZOOM));
-            if (prefWorldWidth < (int) ((world.worldWidth() * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * HexagonWars.PLACEHOLDER_ZOOM) + world.getXLocation()) {
-                prefWorldWidth = (int) ((world.worldWidth() * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * HexagonWars.PLACEHOLDER_ZOOM) + world.getXLocation();
-            }
-            if (prefWorldHeight < (int) ((world.worldHeight() * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * HexagonWars.PLACEHOLDER_ZOOM) + world.getYLocation()) {
-                prefWorldHeight = (int) ((world.worldHeight() * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * HexagonWars.PLACEHOLDER_ZOOM) + world.getYLocation();
-            }
+            
         }
-        this.setPreferredSize(new Dimension(prefWorldWidth, prefWorldHeight));
     }
 
     private void drawWorld(Graphics g, DrawWorld world, int panelShiftX, int panelShiftY) {

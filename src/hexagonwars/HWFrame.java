@@ -4,8 +4,12 @@
  */
 package hexagonwars;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -24,6 +28,15 @@ public class HWFrame extends JFrame {
     public HWFrame() {
         createFrame();
         addMainPanel();
+        this.getRootPane().addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                currentPanel.setPreferredSize(new Dimension(getWidth(), getHeight()));
+                currentPanel.setMinimumSize(new Dimension(getWidth(), getHeight()));
+                currentPanel.repaint();
+                currentPanel.revalidate();
+            }
+        });
     }
 
     private void createFrame() {
@@ -38,6 +51,8 @@ public class HWFrame extends JFrame {
     public void addMainPanel() {
         removeAllPanels();
         mainPanel = new MainPanel(this);
+        mainPanel.setPreferredSize(new Dimension(getWidth(), getHeight()));
+        mainPanel.setMinimumSize(new Dimension(getWidth(), getHeight()));
         currentPanel = mainPanel;
         add(mainPanel);
         validate();
@@ -46,6 +61,8 @@ public class HWFrame extends JFrame {
     public void addEditorPanel() {
         removeAllPanels();
         mapPanel = new MapEditorPanel();
+        mapPanel.setPreferredSize(new Dimension(getWidth(), getHeight()));
+        mapPanel.setMinimumSize(new Dimension(getWidth(), getHeight()));
         currentPanel = mapPanel;
         add(mapPanel);
         validate();
@@ -54,6 +71,8 @@ public class HWFrame extends JFrame {
     public void addWorldPanel() {
         removeAllPanels();
         worldPanel = new WorldPanel();
+        worldPanel.setPreferredSize(new Dimension(getWidth(), getHeight()));
+        worldPanel.setMinimumSize(new Dimension(getWidth(), getHeight()));
         currentPanel = worldPanel;
         add(worldPanel);
         validate();
