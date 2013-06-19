@@ -62,12 +62,13 @@ public class MapEditorPanel extends MapPanel {
     private void tileChoser() {
         World world = new World(4, 1);
         Tile[][] tiles = new Tile[4][1];
-        tiles[0][0] = Tile.getType(HexagonWars.TILE_PLAIN);
-        tiles[1][0] = Tile.getType(HexagonWars.TILE_MOUNTAIN);
-        tiles[2][0] = Tile.getType(HexagonWars.TILE_WATER);
-        tiles[3][0] = Tile.getType(HexagonWars.TILE_GOLD);
+        tiles[0][0] = Tile.getType(World.PLAIN);
+        tiles[1][0] = Tile.getType(World.MOUNTAIN);
+        tiles[2][0] = Tile.getType(World.WATER);
+        tiles[3][0] = Tile.getType(World.GOLD);
         world.setWorld(tiles);
-        tileSelector = addWorld(world, 70, 30);
+        tileSelector = addWorld(world, 70, 40);
+        tileSelector.setZoomEnabled(false);
     }
 
     private void newBoard() {
@@ -76,12 +77,12 @@ public class MapEditorPanel extends MapPanel {
         Tile[][] tiles = new Tile[boardWidth][boardHeight];
         for (int i = 0; i < boardWidth; i++) {
             for (int j = 0; j < boardHeight; j++) {
-                tiles[i][j] = Tile.getType(HexagonWars.TILE_PLAIN);
+                tiles[i][j] = Tile.getType(World.PLAIN);
             }
         }
         
         world.setWorld(tiles);
-        newWorld = addWorld(world, 0, 200);
+        newWorld = addWorld(world, 0, 180);
         newWorld.setReferenceName("worldMap");
         save.setEnabled(true);
         repaint();

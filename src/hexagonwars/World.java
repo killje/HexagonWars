@@ -8,7 +8,12 @@ import java.io.*;
  * @author Timo Smit (s2337789)
  */
 public class World {
-
+    
+    public static final int PLAIN = 1;
+    public static final int MOUNTAIN = 2;
+    public static final int WATER = 3;
+    public static final int GOLD = 4;
+    
     private int width;
     private int height;
     private Tile[][] tiles;

@@ -19,6 +19,8 @@ public class DrawWorld extends Component {
     private int worldLocationX;
     private int worldLocationY;
     private String referenceName;
+    private double zoomLevel = 1;
+    private boolean zoomEnabled = true;
 
     public DrawWorld(World worldInput, int x, int y) {
         worldLocationX = x;
@@ -30,14 +32,14 @@ public class DrawWorld extends Component {
         this.setPreferredSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM), (int) (worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM)));
         this.setMaximumSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM), (int) (worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM)));
         this.setMinimumSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM), (int) (worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM)));
-        
+
     }
-    
-    public void setReferenceName(String name){
+
+    public void setReferenceName(String name) {
         referenceName = name;
     }
-    
-    public String getRefrenceName(){
+
+    public String getRefrenceName() {
         return referenceName;
     }
 
@@ -82,8 +84,8 @@ public class DrawWorld extends Component {
     public boolean inWorld(int x, int y) {
         if (x >= worldLocationX
                 && y >= worldLocationY
-                && x < (int) ((worldWidth * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * HexagonWars.PLACEHOLDER_ZOOM)+worldLocationX
-                && y < (int) ((worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * HexagonWars.PLACEHOLDER_ZOOM)+worldLocationY) {
+                && x < (int) ((worldWidth * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * HexagonWars.PLACEHOLDER_ZOOM) + worldLocationX
+                && y < (int) ((worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * HexagonWars.PLACEHOLDER_ZOOM) + worldLocationY) {
             return true;
         }
         return false;
@@ -95,5 +97,29 @@ public class DrawWorld extends Component {
 
     public int getYLocation() {
         return worldLocationY;
+    }
+
+    public boolean inWorld(Point point) {
+        return inWorld(point.x, point.y);
+    }
+
+    public void changeZoomLevel(double zoomChange) {
+        if (zoomEnabled) {
+            zoomLevel -= zoomChange;
+        }
+    }
+
+    public void resetZoomLevel() {
+        if (zoomEnabled) {
+            zoomLevel = 1;
+        }
+    }
+
+    public double getZoomLevel() {
+        return zoomLevel;
+    }
+    
+    public void setZoomEnabled(boolean b){
+        zoomEnabled = b;
     }
 }

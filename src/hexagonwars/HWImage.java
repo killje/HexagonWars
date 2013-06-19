@@ -21,20 +21,19 @@ import javax.imageio.ImageIO;
  */
 public class HWImage {
 
-    
     private static ArrayList<ImageName> images = new ArrayList<>();
 
-    private static ImageName getTile(int imX, int imY, String filename) {
+    private static ImageName getTile(int imX, int imY, int width, int height, String filename) {
         Image img;
         ImageName newImage;
-        imX = (imX - 1) * HexagonWars.WORLD_TILE_WIDTH;
-        imY = (imY - 1) * HexagonWars.WORLD_TILE_HEIGHT_MAX;
+        imX = (imX - 1) * width;
+        imY = (imY - 1) * height;
 
         BufferedImage image;
         try {
             File file = new File(Tile.class.getResource("images" + File.separator + filename + ".png").toURI());
             image = ImageIO.read(file);
-            image = image.getSubimage(imX, imY, HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX);
+            image = image.getSubimage(imX, imY, width, height);
             img = makeColorTransparent(image, new Color(255, 0, 255), new Color(127, 0, 55));
         } catch (URISyntaxException e) {
             System.err.println("problems converting resources");
@@ -47,7 +46,7 @@ public class HWImage {
             System.exit(1);
             return null;
         }
-        newImage = new ImageName(filename,img);
+        newImage = new ImageName(filename, img);
         return newImage;
     }
 
@@ -73,13 +72,13 @@ public class HWImage {
 
     }
 
-    public static Image getImage(int imX, int imY,String imageName) {
-        for (ImageName image: images) {
+    public static Image getImage(int imX, int imY, int width, int height, String imageName) {
+        for (ImageName image : images) {
             if (image.getName().equals(imageName)) {
                 return image.getImage();
             }
         }
-        ImageName image = getTile(imX, imY, imageName);
+        ImageName image = getTile(imX, imY, width, height, imageName);
         images.add(image);
         return image.getImage();
     }

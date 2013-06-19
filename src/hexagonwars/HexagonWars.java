@@ -10,10 +10,6 @@ public class HexagonWars {
     public static final int ENTITY_UNIT_INFANTRY = 1;
     public static final int ENTITY_UNIT_MECHANIC = 2;
     public static final int ENTITY_UNIT_MAGIC = 3;
-    public static final int TILE_PLAIN = 1;
-    public static final int TILE_MOUNTAIN = 2;
-    public static final int TILE_WATER = 3;
-    public static final int TILE_GOLD = 4;
     public static final int FRAME_HEIGHT = 800;
     public static final int FRAME_WIDTH = 800;
     public static final int WORLD_TILE_WIDTH = 140;

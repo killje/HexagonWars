@@ -30,7 +30,7 @@ import javax.swing.JPanel;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public abstract class MapPanel extends JPanel{
+public abstract class MapPanel extends JPanel {
 
     private ArrayList<DrawWorld> worlds = new ArrayList<>();
 
@@ -64,13 +64,13 @@ public abstract class MapPanel extends JPanel{
     protected void clicked(MouseEvent me) {
         for (DrawWorld world : worlds) {
             if (world.inWorld(me.getX(), me.getY())) {
-                Point pointInWorld = new Point(me.getX() - (int)(world.getXLocation()*HexagonWars.PLACEHOLDER_ZOOM), me.getY() - (int)(world.getYLocation()*HexagonWars.PLACEHOLDER_ZOOM));
+                Point pointInWorld = new Point(me.getX() - (int) (world.getXLocation() * world.getZoomLevel()), me.getY() - (int) (world.getYLocation() * world.getZoomLevel()));
                 Point TileCoordinate = getTileCoordinate(pointInWorld);
                 tileClick(world, TileCoordinate);
             }
         }
     }
-    
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -78,8 +78,7 @@ public abstract class MapPanel extends JPanel{
         g.setColor(color1);
         for (int i = 0; i < worlds.size(); i++) {
             DrawWorld world = worlds.get(i);
-            drawWorld(g, world, (int) (world.getXLocation() * HexagonWars.PLACEHOLDER_ZOOM), (int) (world.getYLocation() * HexagonWars.PLACEHOLDER_ZOOM));
-            
+            drawWorld(g, world, (int) (world.getXLocation()), (int) (world.getYLocation()));
         }
     }
 
@@ -87,10 +86,10 @@ public abstract class MapPanel extends JPanel{
         for (int y = 0; y < world.worldHeight(); y++) {
             for (int x = 0; x < world.worldWidth(); x++) {
                 g.drawImage(world.getWorld()[x][y].getImage(),
-                        x * (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM) + y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * HexagonWars.PLACEHOLDER_ZOOM) - HexagonWars.PLACEHOLDER_CAMARA_X + panelShiftX,
-                        y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * HexagonWars.PLACEHOLDER_ZOOM) - HexagonWars.PLACEHOLDER_CAMARA_X + panelShiftY,
-                        (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM),
-                        (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * HexagonWars.PLACEHOLDER_ZOOM),
+                        x * (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()) + y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * world.getZoomLevel()) - HexagonWars.PLACEHOLDER_CAMARA_X + panelShiftX,
+                        y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * world.getZoomLevel()) - HexagonWars.PLACEHOLDER_CAMARA_X + panelShiftY,
+                        (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()),
+                        (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * world.getZoomLevel()),
                         null);
             }
         }
@@ -232,8 +231,8 @@ public abstract class MapPanel extends JPanel{
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            for(DrawWorld world : worlds){
-                if (world.getRefrenceName()!=null&&world.getRefrenceName().equals(referenceName)) {
+            for (DrawWorld world : worlds) {
+                if (world.getRefrenceName() != null && world.getRefrenceName().equals(referenceName)) {
                     saveWorld(world);
                 }
             }
@@ -272,10 +271,14 @@ public abstract class MapPanel extends JPanel{
 
         @Override
         public void mouseWheelMoved(MouseWheelEvent mwe) {
-            if (HexagonWars.PLACEHOLDER_ZOOM + (mwe.getPreciseWheelRotation() * 0.05) >= 0.1 && HexagonWars.PLACEHOLDER_ZOOM + (mwe.getPreciseWheelRotation() * 0.05) <= 1.9) {
-                HexagonWars.PLACEHOLDER_ZOOM += (mwe.getPreciseWheelRotation() * 0.05);
-                repaint();
-                validate();
+            for (DrawWorld world : worlds) {
+                if (world.inWorld(mwe.getPoint())) {
+                    if (world.getZoomLevel() - (mwe.getPreciseWheelRotation() * 0.05) >= 0.1 && world.getZoomLevel() - (mwe.getPreciseWheelRotation() * 0.05) <= 1.9) {
+                        world.changeZoomLevel(mwe.getPreciseWheelRotation() * 0.05);
+                        repaint();
+                        validate();
+                    }
+                }
             }
         }
     }
