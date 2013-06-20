@@ -69,18 +69,7 @@ public class MapEditorPanel extends MapPanel {
         world.setWorld(tiles);
         tileSelector = addWorld(world, 70, 40);
         tileSelector.setZoomEnabled(false);
-        Entity entity = new hexagonwars.entities.Worker();
-        entity.ui.addIcon("test");
-        entity.ui.addIcon("test");
-        entity.ui.addIcon("test");
-        entity.ui.addIcon("test");
-        entity.ui.addIcon("test");
-        entity.ui.addIcon("test");
-        entity.ui.addIcon("test");
-        entity.ui.addIcon("test");
-        entity.ui.addIcon("test");
-        entity.ui.addIcon("test");
-        tileSelector.getWorld()[0][0].addEntity(entity);
+        tileSelector.getWorld()[0][0].addEntity(new hexagonwars.entities.Worker());
     }
 
     private void newBoard() {

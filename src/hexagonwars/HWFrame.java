@@ -29,8 +29,8 @@ public class HWFrame extends JFrame {
         this.getRootPane().addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                currentPanel.setPreferredSize(new Dimension(getContentPane().getWidth(), getContentPane().getHeight()));
-                currentPanel.setMinimumSize(new Dimension(getContentPane().getWidth(), getContentPane().getHeight()));
+                currentPanel.setPreferredSize(new Dimension(getWidth(), getHeight()));
+                currentPanel.setMinimumSize(new Dimension(getWidth(), getHeight()));
                 currentPanel.repaint();
                 currentPanel.revalidate();
             }
@@ -49,8 +49,8 @@ public class HWFrame extends JFrame {
     public void addMainPanel() {
         removeAllPanels();
         mainPanel = new MainPanel(this);
-        mainPanel.setPreferredSize(new Dimension(getContentPane().getWidth(), getContentPane().getHeight()));
-        mainPanel.setMinimumSize(new Dimension(getContentPane().getWidth(), getContentPane().getHeight()));
+        mainPanel.setPreferredSize(new Dimension(getWidth(), getHeight()));
+        mainPanel.setMinimumSize(new Dimension(getWidth(), getHeight()));
         currentPanel = mainPanel;
         add(mainPanel);
         validate();
@@ -59,8 +59,8 @@ public class HWFrame extends JFrame {
     public void addEditorPanel() {
         removeAllPanels();
         mapPanel = new MapEditorPanel();
-        mapPanel.setPreferredSize(new Dimension(getContentPane().getWidth(), getContentPane().getHeight()));
-        mapPanel.setMinimumSize(new Dimension(getContentPane().getWidth(), getContentPane().getHeight()));
+        mapPanel.setPreferredSize(new Dimension(getWidth(), getHeight()));
+        mapPanel.setMinimumSize(new Dimension(getWidth(), getHeight()));
         currentPanel = mapPanel;
         add(mapPanel);
         validate();
@@ -69,8 +69,8 @@ public class HWFrame extends JFrame {
     public void addWorldPanel() {
         removeAllPanels();
         worldPanel = new WorldPanel();
-        worldPanel.setPreferredSize(new Dimension(getContentPane().getWidth(), getContentPane().getHeight()));
-        worldPanel.setMinimumSize(new Dimension(getContentPane().getWidth(), getContentPane().getHeight()));
+        worldPanel.setPreferredSize(new Dimension(getWidth(), getHeight()));
+        worldPanel.setMinimumSize(new Dimension(getWidth(), getHeight()));
         currentPanel = worldPanel;
         add(worldPanel);
         validate();

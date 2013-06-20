@@ -12,6 +12,5 @@ package hexagonwars.entities;
 public class Worker extends Unit{
 
     public Worker() {
-        this.type = 1;
     }
 }
