@@ -14,4 +14,12 @@ public class Producer extends Building{
     public Producer(){
         // TODO code application logic here
     }
+
+    @Override
+    public void upgrade() {
+    }
+
+    @Override
+    public void upgrade(int upgrade) {
+    }
 }

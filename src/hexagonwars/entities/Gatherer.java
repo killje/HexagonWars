@@ -14,4 +14,12 @@ public class Gatherer extends Building{
     public Gatherer(){
         // TODO code application logic here
     }
+
+    @Override
+    public void upgrade() {
+    }
+
+    @Override
+    public void upgrade(int upgrade) {
+    }
 }

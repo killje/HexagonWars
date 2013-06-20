@@ -31,6 +31,15 @@ public class UserInterface {
         this.health = health;
     }
 
+    public void removeAction(UIAction action) {
+        for (int i = 0; i < actionList.size(); i++) {
+            ImageWithAction actionImage = actionList.get(i);
+            if (actionImage.getAction().equals(action)) {
+                actionList.remove(i);
+            }
+        }
+    }
+
     public void addAction(String actionName, UIAction action) {
         actionList.add(new ImageWithAction(HWImage.getImage(1, 1, ICON_WIDTH, ICON_HEIGHT, actionName), action));
     }
