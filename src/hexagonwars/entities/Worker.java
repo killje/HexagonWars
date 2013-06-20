@@ -15,7 +15,7 @@ import hexagonwars.NewUIAction;
 public class Worker extends Unit{
 
     public Worker() {
-        type = 1;
+        type = ENTITY_UNIT_WORKER;
         addUI();
     }
 

@@ -4,22 +4,23 @@
  */
 package hexagonwars.entities;
 
-import hexagonwars.UpgradeAction;
+import hexagonwars.ProduceAction;
+
 
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class GoldMine extends Gatherer {
+public class Castle extends Building{
 
-    public GoldMine() {
-        type = ENTITY_BUILDING_GATHERER_GOLDMINE;
+    public Castle(){
+        type = ENTITY_BUILDING_CASTLE;
         addUI();
     }
 
     private void addUI() {
-        UpgradeAction action = new UpgradeAction();
-        addUIElement("UPGRADE_GOLDMINE", action);
+        ProduceAction action = new ProduceAction(new Worker());
+        addUIElement("PRODUCE_WORKER", action);
     }
 }
