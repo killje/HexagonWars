@@ -13,7 +13,7 @@ public abstract class Entity {
 
     protected int type = 0;
     protected int health;
-    protected UserInterface ui = new UserInterface(getClass().getSimpleName());
+    protected Interface ui = new Interface(getClass().getSimpleName());
     
     public void damage(int damage) {
         health -= damage;
@@ -40,7 +40,7 @@ public abstract class Entity {
         ArrayList<ImageWithAction> list = ui.getActions();
         for (int i = 0; i < list.size(); i++) {
             ImageWithAction imageWithAction = list.get(i);
-                g.drawImage(imageWithAction.getIcon(), rect.x+200+x*UserInterface.ICON_WIDTH, rect.y+y*UserInterface.ICON_HEIGHT+1, null);
+                g.drawImage(imageWithAction.getIcon(), rect.x+200+x*Interface.ICON_WIDTH, rect.y+y*Interface.ICON_HEIGHT+1, null);
             if (x<5) {
                 x++;
             }else{
