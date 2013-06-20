@@ -13,9 +13,13 @@ import hexagonwars.entities.Building;
  */
 public class BuildAction extends UIAction{
 
-    Building building;
+    private Building building;
     
     public BuildAction(Building building){
         this.building = building;
+    }
+    
+    public Building getBuilding(){
+        return building;
     }
 }

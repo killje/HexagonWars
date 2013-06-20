@@ -33,7 +33,7 @@ public abstract class Entity {
         ui.addAction(actionName, action);
     }
     
-    void drawUI(Graphics g, Rectangle rect) {
+    public void drawUI(Graphics g, Rectangle rect) {
         int x = 0;
         int y = 0;
         g.drawRect(rect.x, rect.y, rect.width, rect.height);
@@ -51,7 +51,7 @@ public abstract class Entity {
         }
     }
     
-    void clicked(Point p) {
+    public void clicked(Point p, Tile tile) {
         int x, y;
         Point actionPoint = new Point();
         if (p.x >= 200 && p.y >= 1) {
@@ -60,16 +60,16 @@ public abstract class Entity {
             x = actionPoint.x / UserInterface.ICON_WIDTH;
             y = actionPoint.y / UserInterface.ICON_HEIGHT;
             int elementIndex = y * 6 + x;
-                System.out.println(ui.getActions().size());
             if (ui.getActions().size() > elementIndex) {
                 ArrayList<ImageWithAction> list = ui.getActions();
                 UIAction action = list.get(elementIndex).getAction();
                 if (action instanceof NewUIAction) {
                     NewUIAction newUIAction = (NewUIAction) action;
                     ui = newUIAction.getUI();
-                    System.out.println("new ui");
                 }else if (action instanceof BuildAction) {
                     BuildAction buildAction = (BuildAction) action;
+                    tile.removeAllEntities();
+                    tile.addEntity(buildAction.getBuilding());
                 }else if (action instanceof DummyAction) {
                     DummyAction dummyAction = (DummyAction) action;
                 }

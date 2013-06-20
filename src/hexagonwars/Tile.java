@@ -11,32 +11,37 @@ import java.io.Serializable;
 public abstract class Tile implements Serializable {
 
     private Entity entity;
-    private int entitiesAmounth=0;
+    private int entitiesAmounth = 0;
 
     public Tile() {
     }
 
     public void addEntity(Entity Entity) {
         if (entity == null) {
-            entity= Entity;
-            entitiesAmounth=1;
-        }else{
+            entity = Entity;
+            entitiesAmounth = 1;
+        } else {
             entitiesAmounth++;
         }
     }
 
     public void removeEntity(int amount) {
         for (int i = 0; i < amount; i++) {
-            if (entitiesAmounth<=0) {
-                entity =null;
+            if (entitiesAmounth <= 0) {
+                entity = null;
                 break;
             }
             entitiesAmounth--;
         }
     }
 
+    public void removeAllEntities() {
+        entity = null;
+        entitiesAmounth = 0;
+    }
+
     public int isOccupied() {
-        if (entitiesAmounth<=0) {
+        if (entitiesAmounth <= 0) {
             return 0;
         } else {
             return entity.getType();
@@ -51,8 +56,8 @@ public abstract class Tile implements Serializable {
     public Image getImage() {
         return HWImage.getImage(1, 1, HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX, this.getClass().getSimpleName());
     }
-    
-    public Entity getEntity(){
+
+    public Entity getEntity() {
         return entity;
     }
 

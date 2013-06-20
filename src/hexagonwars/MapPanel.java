@@ -70,7 +70,7 @@ public abstract class MapPanel extends JPanel {
                 Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
                 if (rect.contains(me.getPoint())) {
                     Point p = new Point(me.getPoint().x - getSize().width + 506, me.getPoint().y - getSize().height + 207);
-                    selectedTile.getEntity().clicked(p);
+                    selectedTile.getEntity().clicked(p, selectedTile);
                     repaint();
                     validate();
                     return;
