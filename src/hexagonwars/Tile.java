@@ -11,7 +11,7 @@ import java.io.Serializable;
 public abstract class Tile implements Serializable {
 
     private Entity entity;
-    private int entitiesAmounth = 0;
+    private int entitiesAmount = 0;
 
     public Tile() {
     }
@@ -19,29 +19,28 @@ public abstract class Tile implements Serializable {
     public void addEntity(Entity Entity) {
         if (entity == null) {
             entity = Entity;
-            entitiesAmounth = 1;
+            entitiesAmount = 1;
         } else {
-            entitiesAmounth++;
+            entitiesAmount++;
         }
     }
 
     public void removeEntity(int amount) {
-        for (int i = 0; i < amount; i++) {
-            if (entitiesAmounth <= 0) {
-                entity = null;
-                break;
-            }
-            entitiesAmounth--;
+        entitiesAmount -= amount;
+        
+        if (entitiesAmount <= 0) {
+            entity = null;
+            amount = 0;
         }
     }
 
     public void removeAllEntities() {
         entity = null;
-        entitiesAmounth = 0;
+        entitiesAmount = 0;
     }
 
     public int isOccupied() {
-        if (entitiesAmounth <= 0) {
+        if (entitiesAmount <= 0) {
             return 0;
         } else {
             return entity.getType();
