@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -33,6 +34,7 @@ import javax.swing.JPanel;
 public abstract class MapPanel extends JPanel {
 
     private ArrayList<DrawWorld> worlds = new ArrayList<>();
+    private Tile selectedTile;
 
     public MapPanel() {
         addMouseListener(new WorldPointer());
@@ -62,23 +64,41 @@ public abstract class MapPanel extends JPanel {
     }
 
     protected void clicked(MouseEvent me) {
+        boolean hasFoundTile = false;
         for (DrawWorld world : worlds) {
             if (world.inWorld(me.getX(), me.getY())) {
                 Point pointInWorld = new Point(me.getX() - (int) (world.getXLocation() * world.getZoomLevel()), me.getY() - (int) (world.getYLocation() * world.getZoomLevel()));
                 Point TileCoordinate = getTileCoordinate(pointInWorld, world);
                 tileClick(world, TileCoordinate);
+                selectedTile = world.getTile(TileCoordinate.x, TileCoordinate.y);
+                hasFoundTile = true;
+                repaint();
+                validate();
             }
+        }
+        if (!hasFoundTile) {
+            selectedTile = null;
         }
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        Color black = new Color(0,0,0);
         Color color1 = new Color(255, 255, 0);
         g.setColor(color1);
         for (int i = 0; i < worlds.size(); i++) {
             DrawWorld world = worlds.get(i);
             drawWorld(g, world, (int) (world.getXLocation()), (int) (world.getYLocation()));
+        }
+        if (selectedTile != null) {;
+            if (selectedTile.isOccupied() != 0) {
+                g.setColor(black);
+                Entity entity = selectedTile.getFirstEntity();
+                Rectangle rect = new Rectangle(getSize().width - 500, getSize().height - 200, 494 , 194);
+                System.out.println(getSize());
+                entity.drawUI(g, rect);
+            }
         }
     }
 
@@ -152,7 +172,7 @@ public abstract class MapPanel extends JPanel {
         //check if it is in a area with a sloped side
         if (y <= zoomTileUpperHeight) {
             if (x <= zoomTileWidth / 2) {
-                if (inHex(x, y, true,world)) {
+                if (inHex(x, y, true, world)) {
                     return new Point(tileX, tileY);
                 } else {
                     if (uneven) {
@@ -162,7 +182,7 @@ public abstract class MapPanel extends JPanel {
                     }
                 }
             } else {
-                if (inHex(x - zoomTileWidth / 2, y, false,world)) {
+                if (inHex(x - zoomTileWidth / 2, y, false, world)) {
                     return new Point(tileX, tileY);
                 } else {
                     if (uneven) {
@@ -176,7 +196,7 @@ public abstract class MapPanel extends JPanel {
         return new Point(tileX, tileY);
     }
 
-    private Boolean inHex(int x, int y, boolean up,DrawWorld world) {
+    private Boolean inHex(int x, int y, boolean up, DrawWorld world) {
         int x0, x1, y0, y1;
         x0 = 0;
         x1 = (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()) / 2;

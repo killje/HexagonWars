@@ -25,7 +25,6 @@ public abstract class Tile implements Serializable {
             if (entities.isEmpty()) {
                 break;
             }
-
             entities.remove(1);
         }
     }
@@ -36,6 +35,10 @@ public abstract class Tile implements Serializable {
         } else {
             return entities.get(0).getType();
         }
+    }
+    
+    public Entity getFirstEntity(){
+        return entities.get(0);
     }
 
     @Override
