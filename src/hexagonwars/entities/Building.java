@@ -12,4 +12,7 @@ public abstract class Building extends Entity {
     protected Unit spawnUnit;
     protected int spawnAmount;
     protected int spawnInterval;
+    
+    public abstract void upgrade();
+    public abstract void upgrade(int upgrade);
 }

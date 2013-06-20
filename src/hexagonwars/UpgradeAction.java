@@ -4,6 +4,8 @@
  */
 package hexagonwars;
 
+import hexagonwars.entities.Building;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -13,5 +15,13 @@ public class UpgradeAction extends UIAction{
 
     public UpgradeAction(){
         // TODO code application logic here
+    }
+    
+    public UpgradeAction(Building building) {
+        building.upgrade();
+    }
+
+    public UpgradeAction(Building building, int upgrade) {
+        building.upgrade(upgrade);
     }
 }
