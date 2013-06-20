@@ -1,11 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hexagonwars;
 
-import java.awt.Image;
-import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -18,41 +12,26 @@ public class UserInterface {
     public static final int ICON_WIDTH = 50;
     public static final int ICON_HEIGHT = 50;
     private String name;
-    private ArrayList<ImageWithLocation> icons = new ArrayList<>();
+    private ArrayList<ImageWithAction> actionList = new ArrayList<>();
+    private int health;
 
     public UserInterface(String name) {
         this.name = name;
     }
 
-    public void addIcon(String iconName,Point p) {
-        icons.add(new ImageWithLocation(HWImage.getImage(1, 1, ICON_WIDTH, ICON_HEIGHT, iconName),p));
-    }
-
-    public ArrayList<ImageWithLocation> getIcons() {
-        return icons;
+    public ArrayList<ImageWithAction> getActions() {
+        return actionList;
     }
 
     public String getName() {
         return name;
     }
 
-    public class ImageWithLocation {
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
-        Point point;
-        Image image;
-
-        private ImageWithLocation(Image image, Point p) {
-            point = p;
-            this.image = image;
-        }
-        
-        public Image getImage(){
-            return image;
-        }
-        
-        public Point getLocation(){
-            return point;
-        }
-            
+    public void addAction(String actionName, UIAction action) {
+        actionList.add(new ImageWithAction(HWImage.getImage(1, 1, ICON_WIDTH, ICON_HEIGHT, actionName), action));
     }
 }
