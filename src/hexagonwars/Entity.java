@@ -22,9 +22,8 @@ public abstract class Entity {
     public static final int ENTITY_UNIT_MECHANIC_BATTERINGRAM = 7;
     // BUILDINGS
     public static final int ENTITY_BUILDING_CASTLE = 101;
-    public static final int ENTITY_BUILDING_CONSTRUCTION = 102;
-    public static final int ENTITY_BUILDING_GATHERER_SAWMILL = 103;
-    public static final int ENTITY_BUILDING_GATHERER_GOLDMINE = 104;
+    public static final int ENTITY_BUILDING_GATHERER_SAWMILL = 121;
+    public static final int ENTITY_BUILDING_GATHERER_GOLDMINE = 122;
     public static final int ENTITY_BUILDING_PRODUCER_BARRACKS = 151;
     public static final int ENTITY_BUILDING_PRODUCER_STABLE = 152;
     public static final int ENTITY_BUILDING_PRODUCER_WIZARDTOWER = 153;
