@@ -4,6 +4,7 @@
  */
 package hexagonwars;
 
+import hexagonwars.entities.Worker;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.text.NumberFormat;
@@ -69,7 +70,8 @@ public class MapEditorPanel extends MapPanel {
         world.setWorld(tiles);
         tileSelector = addWorld(world, 70, 40);
         tileSelector.setZoomEnabled(false);
-        tileSelector.getWorld()[0][0].addEntity(new hexagonwars.entities.Worker());
+        Worker worker = new hexagonwars.entities.Worker();
+        tileSelector.getWorld()[0][0].addEntity(worker);
     }
 
     private void newBoard() {

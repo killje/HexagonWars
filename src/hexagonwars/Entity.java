@@ -1,5 +1,9 @@
 package hexagonwars;
 
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -22,5 +26,27 @@ public abstract class Entity {
 
     public int getHealth() {
         return this.health;
+    }
+    
+    protected void addUIElement(String actionName, UIAction action){
+        ui.addAction(actionName, action);
+    }
+
+    void drawUI(Graphics g, Rectangle rect) {
+        int x = 0;
+        int y = 0;
+        g.drawRect(rect.x, rect.y, rect.width, rect.height);
+        g.drawLine(rect.x+199, rect.y, rect.x+199, rect.y+rect.height);
+        ArrayList<ImageWithAction> list = ui.getActions();
+        for (int i = 0; i < list.size(); i++) {
+            ImageWithAction imageWithAction = list.get(i);
+                g.drawImage(imageWithAction.getIcon(), rect.x+200+x*UserInterface.ICON_WIDTH, rect.y+y*UserInterface.ICON_HEIGHT+1, null);
+            if (x<5) {
+                x++;
+            }else{
+                x=0;
+                y++;
+            }
+        }
     }
 }

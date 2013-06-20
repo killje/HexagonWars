@@ -2,7 +2,6 @@ package hexagonwars;
 
 import java.awt.Image;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *
@@ -11,30 +10,36 @@ import java.util.ArrayList;
  */
 public abstract class Tile implements Serializable {
 
-    ArrayList<Entity> entities = new ArrayList<>();
+    Entity entity;
+    int entitiesAmounth=0;
 
     public Tile() {
     }
 
     public void addEntity(Entity Entity) {
-        entities.add(Entity);
+        if (entity == null) {
+            entity= Entity;
+            entitiesAmounth=1;
+        }else{
+            entitiesAmounth++;
+        }
     }
 
     public void removeEntity(int amount) {
         for (int i = 0; i < amount; i++) {
-            if (entities.isEmpty()) {
+            if (entitiesAmounth<=0) {
+                entity =null;
                 break;
             }
-
-            entities.remove(1);
+            entitiesAmounth--;
         }
     }
 
     public int isOccupied() {
-        if (this.entities.isEmpty()) {
+        if (entitiesAmounth<=0) {
             return 0;
         } else {
-            return entities.get(0).getType();
+            return entity.getType();
         }
     }
 
@@ -45,6 +50,10 @@ public abstract class Tile implements Serializable {
 
     public Image getImage() {
         return HWImage.getImage(1, 1, HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX, this.getClass().getSimpleName());
+    }
+    
+    public Entity getEntity(){
+        return entity;
     }
 
     public static Tile getType(int type) {

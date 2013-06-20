@@ -4,6 +4,9 @@
  */
 package hexagonwars.entities;
 
+import hexagonwars.DummyAction;
+import hexagonwars.NewUIAction;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -12,5 +15,13 @@ package hexagonwars.entities;
 public class Worker extends Unit{
 
     public Worker() {
+        type = 1;
+        addUI();
+    }
+
+    private void addUI() {
+        NewUIAction action = new NewUIAction(ui.getName());
+        action.addIcon("test2",new DummyAction());
+        addUIElement("test",action);
     }
 }
