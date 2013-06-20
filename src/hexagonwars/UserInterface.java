@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hexagonwars;
 
 import java.util.ArrayList;
@@ -36,6 +32,6 @@ public class UserInterface {
     }
 
     public void addAction(String actionName, UIAction action) {
-        actionList.add(new ImageWithAction(HWImage.getImage(1, 1, ICON_WIDTH, ICON_HEIGHT, actionName),action));
+        actionList.add(new ImageWithAction(HWImage.getImage(1, 1, ICON_WIDTH, ICON_HEIGHT, actionName), action));
     }
 }
