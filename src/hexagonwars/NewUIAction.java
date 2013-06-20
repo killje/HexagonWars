@@ -11,10 +11,10 @@ package hexagonwars;
  */
 public class NewUIAction extends UIAction {
 
-    protected Interface ui;
+    protected UserInterface ui;
 
     public NewUIAction(String uiName) {
-        ui = new Interface(uiName);
+        ui = new UserInterface(uiName);
     }
     
     public void addIcon(String iconName,UIAction action){
