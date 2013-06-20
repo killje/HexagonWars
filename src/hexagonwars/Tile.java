@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public abstract class Tile implements Serializable {
 
-    ArrayList<Entity> entities;
+    ArrayList<Entity> entities = new ArrayList<>();
 
     public Tile() {
     }

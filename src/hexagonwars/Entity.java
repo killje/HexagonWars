@@ -9,9 +9,11 @@ public abstract class Entity {
 
     protected int type = 0;
     protected int health;
+    protected UserInterface ui = new UserInterface(getClass().getSimpleName());
     
     public void damage(int damage) {
-        this.health -= damage;
+        health -= damage;
+        ui.setHealth(health);
     }
 
     public int getType() {

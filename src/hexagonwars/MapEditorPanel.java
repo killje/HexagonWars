@@ -69,6 +69,7 @@ public class MapEditorPanel extends MapPanel {
         world.setWorld(tiles);
         tileSelector = addWorld(world, 70, 40);
         tileSelector.setZoomEnabled(false);
+        tileSelector.getWorld()[0][0].addEntity(new hexagonwars.entities.Worker());
     }
 
     private void newBoard() {

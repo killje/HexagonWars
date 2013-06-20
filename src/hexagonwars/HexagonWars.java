@@ -17,7 +17,7 @@ public class HexagonWars {
     public static final int WORLD_TILE_HEIGHT_MAX = 122;
     public static final int WORLD_TILE_UPPERHEIGHT = WORLD_TILE_HEIGHT_MAX - WORLD_TILE_HEIGHT_MIN;
     public static final int WORLD_TILE_SIDE = WORLD_TILE_HEIGHT_MIN - WORLD_TILE_UPPERHEIGHT;
-    public static double PLACEHOLDER_ZOOM = 1;
+//    public static double PLACEHOLDER_ZOOM = 1;
     public static int PLACEHOLDER_CAMARA_X = 0;
     public static int PLACEHOLDER_CAMARA_Y = 0;
 

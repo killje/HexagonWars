@@ -65,7 +65,7 @@ public abstract class MapPanel extends JPanel {
         for (DrawWorld world : worlds) {
             if (world.inWorld(me.getX(), me.getY())) {
                 Point pointInWorld = new Point(me.getX() - (int) (world.getXLocation() * world.getZoomLevel()), me.getY() - (int) (world.getYLocation() * world.getZoomLevel()));
-                Point TileCoordinate = getTileCoordinate(pointInWorld);
+                Point TileCoordinate = getTileCoordinate(pointInWorld, world);
                 tileClick(world, TileCoordinate);
             }
         }
@@ -125,15 +125,15 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
-    private Point getTileCoordinate(Point p) {
+    private Point getTileCoordinate(Point p, DrawWorld world) {
         int x = (int) p.getX() + HexagonWars.PLACEHOLDER_CAMARA_X;
-        int y = (int) p.getY() + HexagonWars.PLACEHOLDER_CAMARA_X;
+        int y = (int) p.getY() + HexagonWars.PLACEHOLDER_CAMARA_Y;
         int tileX;
         int tileY;
         boolean uneven = false;
-        final int zoomTileHeightMin = (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * HexagonWars.PLACEHOLDER_ZOOM);
-        final int zoomTileWidth = (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM);
-        final int zoomTileUpperHeight = (int) (HexagonWars.WORLD_TILE_UPPERHEIGHT * HexagonWars.PLACEHOLDER_ZOOM);
+        final int zoomTileHeightMin = (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * world.getZoomLevel());
+        final int zoomTileWidth = (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel());
+        final int zoomTileUpperHeight = (int) (HexagonWars.WORLD_TILE_UPPERHEIGHT * world.getZoomLevel());
 
 
         tileY = y / zoomTileHeightMin;
@@ -152,7 +152,7 @@ public abstract class MapPanel extends JPanel {
         //check if it is in a area with a sloped side
         if (y <= zoomTileUpperHeight) {
             if (x <= zoomTileWidth / 2) {
-                if (inHex(x, y, true)) {
+                if (inHex(x, y, true,world)) {
                     return new Point(tileX, tileY);
                 } else {
                     if (uneven) {
@@ -162,7 +162,7 @@ public abstract class MapPanel extends JPanel {
                     }
                 }
             } else {
-                if (inHex(x - zoomTileWidth / 2, y, false)) {
+                if (inHex(x - zoomTileWidth / 2, y, false,world)) {
                     return new Point(tileX, tileY);
                 } else {
                     if (uneven) {
@@ -176,16 +176,16 @@ public abstract class MapPanel extends JPanel {
         return new Point(tileX, tileY);
     }
 
-    private Boolean inHex(int x, int y, boolean up) {
+    private Boolean inHex(int x, int y, boolean up,DrawWorld world) {
         int x0, x1, y0, y1;
         x0 = 0;
-        x1 = (int) (HexagonWars.WORLD_TILE_WIDTH * HexagonWars.PLACEHOLDER_ZOOM) / 2;
+        x1 = (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()) / 2;
         if (up) {
-            y0 = (int) (HexagonWars.WORLD_TILE_UPPERHEIGHT * HexagonWars.PLACEHOLDER_ZOOM);
+            y0 = (int) (HexagonWars.WORLD_TILE_UPPERHEIGHT * world.getZoomLevel());
             y1 = 0;
         } else {
             y0 = 0;
-            y1 = (int) (HexagonWars.WORLD_TILE_UPPERHEIGHT * HexagonWars.PLACEHOLDER_ZOOM);
+            y1 = (int) (HexagonWars.WORLD_TILE_UPPERHEIGHT * world.getZoomLevel());
         }
 
         int dx = Math.abs(x1 - x0);

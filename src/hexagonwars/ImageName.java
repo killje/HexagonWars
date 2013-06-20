@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package hexagonwars;
 
 import java.awt.Image;
@@ -13,19 +12,20 @@ import java.awt.Image;
  * @author Timo Smit (s2337789)
  */
 public class ImageName {
+
     private String name;
     private Image image;
-    
-    public ImageName(String name, Image image){
+
+    public ImageName(String name, Image image) {
         this.name = name;
         this.image = image;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    
-    public Image getImage(){
+
+    public Image getImage() {
         return image;
     }
 }

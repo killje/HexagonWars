@@ -8,8 +8,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.Observable;
-import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
