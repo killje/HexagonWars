@@ -10,8 +10,8 @@ import java.io.Serializable;
  */
 public abstract class Tile implements Serializable {
 
-    Entity entity;
-    int entitiesAmounth=0;
+    private Entity entity;
+    private int entitiesAmounth=0;
 
     public Tile() {
     }

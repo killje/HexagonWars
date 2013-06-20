@@ -1,6 +1,7 @@
 package hexagonwars;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -48,5 +49,9 @@ public abstract class Entity {
                 y++;
             }
         }
+    }
+
+    void clicked(Point p) {
+        throw new UnsupportedOperationException("Not supported yet. at: hexagonwars.Entity:clicked();");
     }
 }

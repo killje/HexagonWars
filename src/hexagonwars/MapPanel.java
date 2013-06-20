@@ -66,9 +66,13 @@ public abstract class MapPanel extends JPanel {
     protected void clicked(MouseEvent me) {
         boolean hasFoundTile = false;
         if (selectedTile != null) {
-            Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
-            if (rect.contains(rect)) {
-                return;
+            if (selectedTile.isOccupied() != 0) {
+                Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
+                if (rect.contains(me.getPoint())) {
+                    Point p = new Point(me.getPoint().x - getSize().width + 506, me.getPoint().y - getSize().height + 207);
+                    selectedTile.getEntity().clicked(p);
+                    return;
+                }
             }
         }
         for (DrawWorld world : worlds) {
