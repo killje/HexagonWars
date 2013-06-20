@@ -13,8 +13,8 @@ import java.awt.Image;
  */
 public class ImageWithAction {
 
-    Image image;
-    UIAction action;
+    private Image image;
+    private UIAction action;
 
     public ImageWithAction(Image image, UIAction action) {
         this.image = image;

@@ -20,4 +20,8 @@ public class NewUIAction extends UIAction {
     public void addIcon(String iconName,UIAction action){
         ui.addAction(iconName,action);
     }
+
+    public UserInterface getUI() {
+        return ui;
+    }
 }

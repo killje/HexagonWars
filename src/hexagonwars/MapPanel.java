@@ -71,6 +71,8 @@ public abstract class MapPanel extends JPanel {
                 if (rect.contains(me.getPoint())) {
                     Point p = new Point(me.getPoint().x - getSize().width + 506, me.getPoint().y - getSize().height + 207);
                     selectedTile.getEntity().clicked(p);
+                    repaint();
+                    validate();
                     return;
                 }
             }
