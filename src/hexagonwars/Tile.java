@@ -76,6 +76,12 @@ public abstract class Tile implements Serializable {
             case World.GOLD:
                 tile = new hexagonwars.tiles.Gold();
                 break;
+            case World.SHALLOWS:
+                tile = new hexagonwars.tiles.Shallows();
+                break;
+            case World.FOREST:
+                tile = new hexagonwars.tiles.Forest();
+                break;
             default:
                 tile = new hexagonwars.tiles.Plain();
                 break;

@@ -13,6 +13,8 @@ public class World {
     public static final int MOUNTAIN = 2;
     public static final int WATER = 3;
     public static final int GOLD = 4;
+    public static final int SHALLOWS = 5;
+    public static final int FOREST = 6;
     
     private int width;
     private int height;
