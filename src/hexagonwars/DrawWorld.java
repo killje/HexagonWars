@@ -20,7 +20,9 @@ public class DrawWorld extends Component {
     private int worldLocationY;
     private String referenceName;
     private double zoomLevel = 1;
-    private boolean zoomEnabled = true;
+    private boolean CameraEnebled = true;
+    private int cameraX = 0;
+    private int cameraY = 0;
 
     public DrawWorld(World worldInput, int x, int y) {
         worldLocationX = x;
@@ -84,8 +86,8 @@ public class DrawWorld extends Component {
     public boolean inWorld(int x, int y) {
         if (x >= worldLocationX * zoomLevel
                 && y >= worldLocationY * zoomLevel
-                && x < (int) ((worldWidth * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * zoomLevel) + worldLocationX
-                && y < (int) ((worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * zoomLevel) + worldLocationY) {
+                && x < (int) ((worldWidth * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * zoomLevel) + worldLocationX-cameraX
+                && y < (int) ((worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * zoomLevel) + worldLocationY-cameraY) {
             return true;
         }
         return false;
@@ -104,13 +106,13 @@ public class DrawWorld extends Component {
     }
 
     public void changeZoomLevel(double zoomChange) {
-        if (zoomEnabled) {
+        if (CameraEnebled) {
             zoomLevel -= zoomChange;
         }
     }
 
     public void resetZoomLevel() {
-        if (zoomEnabled) {
+        if (CameraEnebled) {
             zoomLevel = 1;
         }
     }
@@ -120,6 +122,26 @@ public class DrawWorld extends Component {
     }
 
     public void setZoomEnabled(boolean b) {
-        zoomEnabled = b;
+        CameraEnebled = b;
+    }
+    
+    public int getCameraX() {
+        return cameraX;
+    }
+
+    public int getCameraY() {
+        return cameraY;
+    }
+
+    public void changeCameraX(int amounth) {
+        if (CameraEnebled) {
+            cameraX += amounth;
+        }
+    }
+
+    public void changeCameraY(int amounth) {
+        if (CameraEnebled) {
+            cameraY += amounth;
+        }
     }
 }

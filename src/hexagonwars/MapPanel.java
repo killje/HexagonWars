@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
@@ -23,8 +24,11 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -40,6 +44,19 @@ public abstract class MapPanel extends JPanel {
         addMouseListener(new WorldPointer());
         addMouseWheelListener(new ZoomListner());
         setLayout(new FlowLayout(FlowLayout.LEFT));
+        KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0);
+        InputMap inputMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(keyStroke, "up");
+        getActionMap().put("up", new ArrowAction(ArrowAction.ARROW_UP));
+        keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0);
+        inputMap.put(keyStroke, "down");
+        getActionMap().put("down", new ArrowAction(ArrowAction.ARROW_DOWN));
+        keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0);
+        inputMap.put(keyStroke, "left");
+        getActionMap().put("left", new ArrowAction(ArrowAction.ARROW_LEFT));
+        keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0);
+        inputMap.put(keyStroke, "right");
+        getActionMap().put("right", new ArrowAction(ArrowAction.ARROW_RIGHT));
     }
 
     protected abstract void tileClick(DrawWorld world, Point TileCoordinate);
@@ -79,7 +96,7 @@ public abstract class MapPanel extends JPanel {
         }
         for (DrawWorld world : worlds) {
             if (world.inWorld(me.getX(), me.getY())) {
-                Point pointInWorld = new Point(me.getX() - (int) (world.getXLocation() * world.getZoomLevel()), me.getY() - (int) (world.getYLocation() * world.getZoomLevel()));
+                Point pointInWorld = new Point(me.getX() - world.getXLocation(), me.getY() - world.getYLocation());
                 Point TileCoordinate = getTileCoordinate(pointInWorld, world);
                 tileClick(world, TileCoordinate);
                 hasFoundTile = true;
@@ -116,8 +133,8 @@ public abstract class MapPanel extends JPanel {
         for (int y = 0; y < world.worldHeight(); y++) {
             for (int x = 0; x < world.worldWidth(); x++) {
                 g.drawImage(world.getWorld()[x][y].getImage(),
-                        x * (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()) + y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * world.getZoomLevel()) - HexagonWars.PLACEHOLDER_CAMARA_X + panelShiftX,
-                        y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * world.getZoomLevel()) - HexagonWars.PLACEHOLDER_CAMARA_X + panelShiftY,
+                        x * (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()) + y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * world.getZoomLevel()) - world.getCameraX() + panelShiftX,
+                        y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * world.getZoomLevel()) - world.getCameraY() + panelShiftY,
                         (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()),
                         (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * world.getZoomLevel()),
                         null);
@@ -156,8 +173,8 @@ public abstract class MapPanel extends JPanel {
     }
 
     private Point getTileCoordinate(Point p, DrawWorld world) {
-        int x = (int) p.getX() + HexagonWars.PLACEHOLDER_CAMARA_X;
-        int y = (int) p.getY() + HexagonWars.PLACEHOLDER_CAMARA_Y;
+        int x = (int) p.getX() + world.getCameraX();
+        int y = (int) p.getY() + world.getCameraY();
         int tileX;
         int tileY;
         boolean uneven = false;
@@ -336,6 +353,53 @@ public abstract class MapPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent ae) {
             System.exit(0);
+        }
+    }
+
+    protected class ArrowAction extends AbstractAction {
+
+        public static final int ARROW_UP = 0;
+        public static final int ARROW_DOWN = 1;
+        public static final int ARROW_LEFT = 2;
+        public static final int ARROW_RIGHT = 3;
+        private int direction;
+
+        private ArrowAction(int direction) {
+            this.direction = direction;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            switch (direction) {
+                case ARROW_UP:
+                    for (DrawWorld world : worlds) {
+                        world.changeCameraY(-30);
+                    }
+                    repaint();
+                    validate();
+                    break;
+                case ARROW_DOWN:
+                    for (DrawWorld world : worlds) {
+                        world.changeCameraY(30);
+                    }
+                    repaint();
+                    validate();
+                    break;
+                case ARROW_LEFT:
+                    for (DrawWorld world : worlds) {
+                        world.changeCameraX(-30);
+                    }
+                    repaint();
+                    validate();
+                    break;
+                case ARROW_RIGHT:
+                    for (DrawWorld world : worlds) {
+                        world.changeCameraX(30);
+                    }
+                    repaint();
+                    validate();
+                    break;
+            }
         }
     }
 }
