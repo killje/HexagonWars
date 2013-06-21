@@ -5,24 +5,25 @@
 package hexagonwars;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class ImageWithAction {
+public class ImageWithAction implements Serializable{
 
-    private Image image;
+    private String imageName;
     private UIAction action;
 
-    public ImageWithAction(Image image, UIAction action) {
-        this.image = image;
+    public ImageWithAction(String imageName, UIAction action) {
+        this.imageName = imageName;
         this.action = action;
     }
 
     public Image getIcon() {
-        return image;
+        return HWImage.getImage(1, 1, UserInterface.ICON_WIDTH, UserInterface.ICON_HEIGHT, imageName);
     }
 
     public UIAction getAction() {

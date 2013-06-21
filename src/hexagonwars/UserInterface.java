@@ -1,5 +1,6 @@
 package hexagonwars;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class UserInterface {
+public class UserInterface implements Serializable {
 
     public static final int ICON_WIDTH = 50;
     public static final int ICON_HEIGHT = 50;
@@ -41,6 +42,6 @@ public class UserInterface {
     }
 
     public void addAction(String actionName, UIAction action) {
-        actionList.add(new ImageWithAction(HWImage.getImage(1, 1, ICON_WIDTH, ICON_HEIGHT, actionName), action));
+        actionList.add(new ImageWithAction(actionName, action));
     }
 }

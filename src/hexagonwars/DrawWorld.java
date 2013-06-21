@@ -121,7 +121,7 @@ public class DrawWorld extends Component {
         return zoomLevel;
     }
 
-    public void setZoomEnabled(boolean b) {
+    public void setCameraEnabled(boolean b) {
         CameraEnebled = b;
     }
     

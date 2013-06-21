@@ -3,6 +3,7 @@ package hexagonwars;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public abstract class Entity {
+public abstract class Entity implements Serializable{
 
     //UNITS
     public static final int ENTITY_UNIT_WORKER = 1;
