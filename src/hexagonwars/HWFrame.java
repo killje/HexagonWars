@@ -43,7 +43,6 @@ public class HWFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setVisible(true);
-        setSize(900, 900);
     }
 
     public void addMainPanel() {

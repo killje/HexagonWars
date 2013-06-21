@@ -45,13 +45,6 @@ public class DrawWorld extends Component {
         return referenceName;
     }
 
-    /**
-     *
-     * @param im as bufferdImage; this is the image you want the transparent
-     * color in
-     * @param color as Color; this is the color you wand to make transparent
-     * @return image with color replaced with transparency in im
-     */
     public Point getSelectedTileCoordinate() {
         return selectedTileCoordinate;
     }

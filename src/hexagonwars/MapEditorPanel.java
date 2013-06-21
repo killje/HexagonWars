@@ -55,12 +55,12 @@ public class MapEditorPanel extends MapPanel {
         add(inputHeightText);
         add(go);
         add(save);
-        tileChoser();
+        tileChooser();
         repaint();
         revalidate();
     }
 
-    private void tileChoser() {
+    private void tileChooser() {
         World world = new World(6, 1);
         Tile[][] tiles = new Tile[6][1];
         tiles[0][0] = Tile.getType(World.PLAIN);

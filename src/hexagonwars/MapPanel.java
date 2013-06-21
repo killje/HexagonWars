@@ -113,9 +113,6 @@ public abstract class MapPanel extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
-        Color yellow = new Color(255, 255, 0);
-        g.setColor(yellow);
         for (int i = 0; i < worlds.size(); i++) {
             DrawWorld world = worlds.get(i);
             drawWorld(g, world, (int) (world.getXLocation()), (int) (world.getYLocation()));
