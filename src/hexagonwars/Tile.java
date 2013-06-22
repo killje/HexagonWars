@@ -60,6 +60,10 @@ public abstract class Tile implements Serializable {
         return entity;
     }
 
+    public int getEntityAmount() {
+        return entitiesAmount;
+    }
+
     public static Tile getType(int type) {
         Tile tile;
         switch (type) {
