@@ -34,7 +34,13 @@ public class HWImage {
             File file = new File(Tile.class.getResource("images" + File.separator + filename + ".png").toURI());
             image = ImageIO.read(file);
             image = image.getSubimage(imX, imY, width, height);
-            img = makeColorTransparent(image, new Color(255, 0, 255), new Color(127, 0, 55));
+            // the color we are looking for... Alpha bits are set to opaque
+            int transparentRGB = new Color(127, 0, 55).getRGB() | 0xFF000000;
+            int transparentRGB2 = new Color(255, 0, 255).getRGB() | 0xFF000000;
+            ArrayList<Integer> colors = new ArrayList<>();
+            colors.add(transparentRGB);
+            colors.add(transparentRGB2);
+            img = makeColorTransparent(image, colors);
         } catch (URISyntaxException e) {
             System.err.println("problems converting resources");
             System.err.println(e.getStackTrace());
@@ -50,15 +56,12 @@ public class HWImage {
         return newImage;
     }
 
-    private static Image makeColorTransparent(BufferedImage im, final Color color, final Color color2) {
+    private static Image makeColorTransparent(BufferedImage im, final ArrayList<Integer> colors) {
         ImageFilter filter = new RGBImageFilter() {
-            // the color we are looking for... Alpha bits are set to opaque
-            public int transparentRGB = color.getRGB() | 0xFF000000;
-            public int transparentRGB2 = color2.getRGB() | 0xFF000000;
-
             @Override
             public final int filterRGB(int x, int y, int rgb) {
-                if ((rgb | 0xFF000000) == transparentRGB || ((rgb | 0xFF000000) == transparentRGB2)) {
+
+                if (colors.contains((rgb | 0xFF000000))) {
                     // Mark the alpha bits as zero - transparent
                     return 0x00FFFFFF & rgb;
                 } else {

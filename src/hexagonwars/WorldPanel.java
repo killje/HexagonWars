@@ -99,8 +99,7 @@ public class WorldPanel extends MapPanel implements Observer {
     private void initGame() {
         Player green = new Player(Color.GREEN);
         Player blue = new Player(Color.BLUE);
-        game = new GameOperator();
-        game.addPlayer(green);
+        game = new GameOperator(green);
         game.addPlayer(blue);
         game.addObserver(this);
     }
@@ -127,5 +126,9 @@ public class WorldPanel extends MapPanel implements Observer {
             super.clicked(me);
         }
 
+    }
+    
+    public GameOperator getGameOperator(){
+        return game;
     }
 }

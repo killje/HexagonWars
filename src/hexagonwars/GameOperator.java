@@ -17,12 +17,13 @@ public class GameOperator extends Observable {
     private ArrayList<Player> players = new ArrayList<>();
     private Player currentPlayer;
 
-    public GameOperator() {
+    public GameOperator(Player player) {
+        players.add(player);
+        currentPlayer = player;
     }
 
     public void addPlayer(Player player) {
         players.add(player);
-        currentPlayer = player;
     }
 
     public void nextTurn() {
