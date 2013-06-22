@@ -5,24 +5,24 @@
 package hexagonwars;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class GameOperator {
+public class GameOperator extends Observable {
 
     private ArrayList<Player> players = new ArrayList<>();
     private Player currentPlayer;
-    private WorldPanel gameWorld;
 
-    public GameOperator(WorldPanel gameWorld) {
-        this.gameWorld = gameWorld;
+    public GameOperator() {
     }
 
     public void addPlayer(Player player) {
         players.add(player);
+        currentPlayer = player;
     }
 
     public void nextTurn() {
@@ -33,6 +33,11 @@ public class GameOperator {
             currentPlayerIndex++;
         }
         currentPlayer = players.get(currentPlayerIndex);
-        gameWorld.nextTurn(currentPlayer);
+        this.setChanged();
+        this.notifyObservers();
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 }

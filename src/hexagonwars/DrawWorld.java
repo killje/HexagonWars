@@ -18,11 +18,11 @@ public class DrawWorld extends Component {
     private Point selectedTileCoordinate;
     private int worldLocationX;
     private int worldLocationY;
-    private String referenceName;
     private double zoomLevel = 1;
     private boolean CameraEnebled = true;
     private int cameraX = 0;
     private int cameraY = 0;
+    private boolean savable = true;
 
     public DrawWorld(World worldInput, int x, int y) {
         worldLocationX = x;
@@ -36,15 +36,7 @@ public class DrawWorld extends Component {
         this.setMinimumSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * zoomLevel), (int) (worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * zoomLevel)));
 
     }
-
-    public void setReferenceName(String name) {
-        referenceName = name;
-    }
-
-    public String getRefrenceName() {
-        return referenceName;
-    }
-
+    
     public Point getSelectedTileCoordinate() {
         return selectedTileCoordinate;
     }
@@ -136,5 +128,13 @@ public class DrawWorld extends Component {
         if (CameraEnebled) {
             cameraY += amounth;
         }
+    }
+    
+    public void setSavable(boolean b){
+        savable = b;
+    }
+
+    public boolean isSavable() {
+        return savable;
     }
 }

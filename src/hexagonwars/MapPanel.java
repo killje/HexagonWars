@@ -73,11 +73,15 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
-    protected void saveWorld(DrawWorld world) {
-        String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
-        File file = new File(path);
+    protected void saveWorld() {
+        for (DrawWorld world : worlds) {
+            if (world.isSavable()) {
+                String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
+                File file = new File(path);
 
-        store(file, world);
+                store(file, world);
+            }
+        }
     }
 
     protected void clicked(MouseEvent me) {
@@ -267,19 +271,9 @@ public abstract class MapPanel extends JPanel {
 
     protected class SaveWorld extends AbstractAction {
 
-        String referenceName;
-
-        protected SaveWorld(String referenceName) {
-            this.referenceName = referenceName;
-        }
-
         @Override
         public void actionPerformed(ActionEvent ae) {
-            for (DrawWorld world : worlds) {
-                if (world.getRefrenceName() != null && world.getRefrenceName().equals(referenceName)) {
-                    saveWorld(world);
-                }
-            }
+            saveWorld();
         }
     }
 

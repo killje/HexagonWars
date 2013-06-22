@@ -4,7 +4,6 @@
  */
 package hexagonwars;
 
-import hexagonwars.entities.Worker;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.text.NumberFormat;
@@ -46,7 +45,7 @@ public class MapEditorPanel extends MapPanel {
 
         JButton go = new JButton("Go");
         go.addActionListener(new SetInputSize());
-        save.addActionListener(new SaveWorld("worldMap"));
+        save.addActionListener(new SaveWorld());
         save.setEnabled(false);
 
         add(inputWidthLabel);
@@ -72,6 +71,7 @@ public class MapEditorPanel extends MapPanel {
         world.setWorld(tiles);
         tileSelector = addWorld(world, 70, 40);
         tileSelector.setCameraEnabled(false);
+        tileSelector.setSavable(false);
     }
 
     private void newBoard() {
@@ -86,7 +86,6 @@ public class MapEditorPanel extends MapPanel {
         
         world.setWorld(tiles);
         newWorld = addWorld(world, 0, 180);
-        newWorld.setReferenceName("worldMap");
         save.setEnabled(true);
         repaint();
         validate();
