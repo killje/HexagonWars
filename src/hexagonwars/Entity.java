@@ -30,6 +30,7 @@ public abstract class Entity {
     public static final int ENTITY_BUILDING_PRODUCER_WORKSHOP = 154;
     //VARIABLES
     protected int type = 0;
+    protected int defenseStrength;
     protected int health;
     protected UserInterface ui = new UserInterface(getClass().getSimpleName());
 
@@ -44,6 +45,10 @@ public abstract class Entity {
 
     public int getHealth() {
         return this.health;
+    }
+
+    public int getDefenseStrength() {
+        return defenseStrength;
     }
 
     protected void addUIElement(String actionName, UIAction action) {
