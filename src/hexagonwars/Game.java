@@ -3,8 +3,6 @@ package hexagonwars;
 import hexagonwars.entities.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  *
@@ -31,14 +29,13 @@ public class Game {
             if (building.isBeingBuilt()) {
                 building.upgradeBuild();
             } else {
+                building.finishBuild();
                 buildingConstructions.remove(building);
             }
         }
     }
 
     private void build(Building building) {
-        Timer timer = new Timer();
-
         building.startBuild();
 
         switchSide();
