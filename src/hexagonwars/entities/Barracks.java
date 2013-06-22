@@ -4,6 +4,7 @@
  */
 package hexagonwars.entities;
 
+import hexagonwars.Player;
 import hexagonwars.ProduceAction;
 import hexagonwars.UpgradeAction;
 
@@ -19,12 +20,13 @@ public class Barracks extends Producer {
     UpgradeAction soldierUpgrade = new UpgradeAction(this, UPGRADE_MORE_SOLDIERS);
     UpgradeAction archerUpgrade = new UpgradeAction(this, UPGRADE_ARCHERS);
 
-    public Barracks() {
+    public Barracks(Player team) {
+        super(team);
         addUI();
     }
 
     private void addUI() {
-        ProduceAction produceSoldier = new ProduceAction(new Soldier());
+        ProduceAction produceSoldier = new ProduceAction(new Soldier(team));
         addUIElement("PRODUCE_SOLDIER", produceSoldier);
         addUIElement("UPGRADE_MORE_SOLDIER", soldierUpgrade);
         addUIElement("UPGRADE_MAKE_ARCHER", archerUpgrade);
@@ -34,7 +36,7 @@ public class Barracks extends Producer {
     public void upgrade(int upgrade) {
         ui.removeAction(soldierUpgrade);
         ui.removeAction(archerUpgrade);
-        ProduceAction produceArchers = new ProduceAction(new Archer());
+        ProduceAction produceArchers = new ProduceAction(new Archer(team));
         addUIElement("PRODUCE_ARCHER", produceArchers);
     }
 }

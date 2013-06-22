@@ -33,7 +33,12 @@ public abstract class Entity implements Serializable{
     protected int type = 0;
     protected int health;
     protected UserInterface ui = new UserInterface(getClass().getSimpleName());
+    protected Player team;
 
+    public Entity(Player team){
+        this.team = team;
+    }
+    
     public void damage(int damage) {
         health -= damage;
         ui.setHealth(health);

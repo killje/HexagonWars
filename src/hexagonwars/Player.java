@@ -2,19 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hexagonwars.entities;
+package hexagonwars;
 
-import hexagonwars.Player;
+import java.awt.Color;
 
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class Horseman extends Unit{
+public class Player {
+    
+    private int recourceWood;
+    private int recourceGold;
+    private Color playerColor;
+    
 
-    public Horseman(Player team){
-        super(team);
-        // TODO code application logic here
+    public Player(){
     }
 }

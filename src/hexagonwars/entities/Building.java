@@ -1,6 +1,7 @@
 package hexagonwars.entities;
 
 import hexagonwars.Entity;
+import hexagonwars.Player;
 import java.io.Serializable;
 
 /**
@@ -14,6 +15,11 @@ public abstract class Building extends Entity implements Serializable{
     protected int spawnAmount;
     protected int spawnInterval;
     
+    public Building(Player team){
+        super(team);
+    }
+    
     public abstract void upgrade();
     public abstract void upgrade(int upgrade);
+    public abstract void turnUpdate(Player player);
 }

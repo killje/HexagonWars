@@ -4,6 +4,7 @@
  */
 package hexagonwars.entities;
 
+import hexagonwars.Player;
 import hexagonwars.ProduceAction;
 
 /**
@@ -13,13 +14,14 @@ import hexagonwars.ProduceAction;
  */
 public class Castle extends Building {
 
-    public Castle() {
+    public Castle(Player team) {
+        super(team);
         type = ENTITY_BUILDING_CASTLE;
         addUI();
     }
 
     private void addUI() {
-        ProduceAction action = new ProduceAction(new Worker());
+        ProduceAction action = new ProduceAction(new Worker(team));
         addUIElement("PRODUCE_WORKER", action);
     }
 
@@ -29,5 +31,10 @@ public class Castle extends Building {
 
     @Override
     public void upgrade(int upgrade) {
+    }
+
+    @Override
+    public void turnUpdate(Player player) {
+        throw new UnsupportedOperationException("Not supported yet. at: hexagonwars.entities.Castle:turnUpdate();");
     }
 }

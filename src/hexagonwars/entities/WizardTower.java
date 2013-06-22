@@ -4,6 +4,8 @@
  */
 package hexagonwars.entities;
 
+import hexagonwars.Player;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -11,7 +13,8 @@ package hexagonwars.entities;
  */
 public class WizardTower extends Producer{
 
-    public WizardTower(){
+    public WizardTower(Player team){
+        super(team);
         // TODO code application logic here
     }
 }

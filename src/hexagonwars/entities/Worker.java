@@ -6,6 +6,7 @@ package hexagonwars.entities;
 
 import hexagonwars.DummyAction;
 import hexagonwars.NewUIAction;
+import hexagonwars.Player;
 
 /**
  *
@@ -14,7 +15,8 @@ import hexagonwars.NewUIAction;
  */
 public class Worker extends Unit{
 
-    public Worker() {
+    public Worker(Player team) {
+        super(team);
         type = ENTITY_UNIT_WORKER;
         addUI();
     }

@@ -4,6 +4,7 @@
  */
 package hexagonwars.entities;
 
+import hexagonwars.Player;
 import hexagonwars.UpgradeAction;
 
 /**
@@ -13,7 +14,8 @@ import hexagonwars.UpgradeAction;
  */
 public class GoldMine extends Gatherer {
 
-    public GoldMine() {
+    public GoldMine(Player team) {
+        super(team);
         type = ENTITY_BUILDING_GATHERER_GOLDMINE;
         addUI();
     }

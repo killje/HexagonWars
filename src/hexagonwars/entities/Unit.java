@@ -1,6 +1,7 @@
 package hexagonwars.entities;
 
 import hexagonwars.Entity;
+import hexagonwars.Player;
 import java.io.Serializable;
 
 /**
@@ -14,6 +15,10 @@ public abstract class Unit extends Entity implements Serializable{
     protected int attackRatio;
     protected int defenseStrength;
 
+    public Unit(Player team){
+        super(team);
+    }
+    
     public int getAttackDamage() {
         return attackDamage;
     }

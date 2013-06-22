@@ -4,6 +4,8 @@
  */
 package hexagonwars.entities;
 
+import hexagonwars.Player;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -11,8 +13,8 @@ package hexagonwars.entities;
  */
 public class Producer extends Building{
 
-    public Producer(){
-        // TODO code application logic here
+    public Producer(Player team){
+        super(team);
     }
 
     @Override
@@ -21,5 +23,10 @@ public class Producer extends Building{
 
     @Override
     public void upgrade(int upgrade) {
+    }
+
+    @Override
+    public void turnUpdate(Player player) {
+        throw new UnsupportedOperationException("Not supported yet. at: hexagonwars.entities.Producer:turnUpdate();");
     }
 }
