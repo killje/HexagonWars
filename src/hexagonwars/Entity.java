@@ -32,7 +32,7 @@ public abstract class Entity implements Serializable{
     //VARIABLES
     protected int type = 0;
     protected int health;
-    protected UserInterface ui = new UserInterface(getClass().getSimpleName());
+    protected EnityUI ui = new EnityUI(getClass().getSimpleName());
     protected Player team;
 
     public Entity(Player team){
@@ -64,7 +64,7 @@ public abstract class Entity implements Serializable{
         ArrayList<ImageWithAction> list = ui.getActions();
         for (int i = 0; i < list.size(); i++) {
             ImageWithAction imageWithAction = list.get(i);
-            g.drawImage(imageWithAction.getIcon(), rect.x + 200 + x * UserInterface.ICON_WIDTH, rect.y + y * UserInterface.ICON_HEIGHT + 1, null);
+            g.drawImage(imageWithAction.getIcon(), rect.x + 200 + x * EnityUI.ICON_WIDTH, rect.y + y * EnityUI.ICON_HEIGHT + 1, null);
             if (x < 5) {
                 x++;
             } else {
@@ -80,8 +80,8 @@ public abstract class Entity implements Serializable{
         if (p.x >= 200 && p.y >= 1) {
             actionPoint.x = p.x - 200;
             actionPoint.y = p.y - 1;
-            x = actionPoint.x / UserInterface.ICON_WIDTH;
-            y = actionPoint.y / UserInterface.ICON_HEIGHT;
+            x = actionPoint.x / EnityUI.ICON_WIDTH;
+            y = actionPoint.y / EnityUI.ICON_HEIGHT;
             int elementIndex = y * 6 + x;
             if (ui.getActions().size() > elementIndex) {
                 ArrayList<ImageWithAction> list = ui.getActions();

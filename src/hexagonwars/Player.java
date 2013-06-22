@@ -19,5 +19,10 @@ public class Player {
     
 
     public Player(){
+        this(new Color(255,255,255));
+    }
+    
+    public Player(Color color){
+        playerColor = color;
     }
 }

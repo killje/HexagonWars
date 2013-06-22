@@ -23,7 +23,7 @@ public class ImageWithAction implements Serializable{
     }
 
     public Image getIcon() {
-        return HWImage.getImage(1, 1, UserInterface.ICON_WIDTH, UserInterface.ICON_HEIGHT, imageName);
+        return HWImage.getImage(1, 1, EnityUI.ICON_WIDTH, EnityUI.ICON_HEIGHT, imageName);
     }
 
     public UIAction getAction() {

@@ -1,5 +1,6 @@
 package hexagonwars;
 
+import hexagonwars.entities.Building;
 import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Point;
@@ -19,10 +20,9 @@ import javax.swing.KeyStroke;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class WorldPanel extends MapPanel{
+public class WorldPanel extends MapPanel {
 
-    Tile[][] tiles;
-    DrawWorld worldMap;
+    private DrawWorld worldMap;
 
     public WorldPanel() {
         File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
@@ -73,5 +73,17 @@ public class WorldPanel extends MapPanel{
     @Override
     protected void tileClick(DrawWorld world, Point TileCoordinate) {
         throw new UnsupportedOperationException("Not supported yet. at: hexagonwars.WorldPanel:tileClick();");
+    }
+
+    public void nextTurn(Player currentPlayer) {
+        for (Tile[] tileRow : worldMap.getWorld()) {
+            for (Tile tile : tileRow) {
+                Entity tileEntity = tile.getEntity();
+                if (tileEntity instanceof Building) {
+                    Building tileBuilding = (Building) tileEntity;
+                    tileBuilding.turnUpdate(currentPlayer);
+                }
+            }
+        }
     }
 }
