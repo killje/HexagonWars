@@ -55,23 +55,23 @@ public class MapEditorPanel extends MapPanel {
         add(inputHeightText);
         add(go);
         add(save);
-        tileChoser();
+        tileChooser();
         repaint();
         revalidate();
     }
 
-    private void tileChoser() {
-        World world = new World(4, 1);
-        Tile[][] tiles = new Tile[4][1];
+    private void tileChooser() {
+        World world = new World(6, 1);
+        Tile[][] tiles = new Tile[6][1];
         tiles[0][0] = Tile.getType(World.PLAIN);
         tiles[1][0] = Tile.getType(World.MOUNTAIN);
         tiles[2][0] = Tile.getType(World.WATER);
         tiles[3][0] = Tile.getType(World.GOLD);
+        tiles[4][0] = Tile.getType(World.SHALLOWS);
+        tiles[5][0] = Tile.getType(World.FOREST);
         world.setWorld(tiles);
         tileSelector = addWorld(world, 70, 40);
-        tileSelector.setZoomEnabled(false);
-        Worker worker = new hexagonwars.entities.Worker();
-        tileSelector.getWorld()[0][0].addEntity(worker);
+        tileSelector.setCameraEnabled(false);
     }
 
     private void newBoard() {
