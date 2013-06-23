@@ -9,7 +9,6 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
@@ -23,10 +22,10 @@ import javax.swing.KeyStroke;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class WorldPanel extends MapPanel{
+public class WorldPanel extends MapPanel {
 
-    Tile[][] tiles;
-    WorldModel worldMap;
+    private WorldModel worldMap;
+    private GameUI gameUI = new GameUI(this);
 
     public WorldPanel() {
         File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
@@ -77,30 +76,15 @@ public class WorldPanel extends MapPanel{
     protected void tileClick(WorldModel world, Point TileCoordinate) {
         throw new UnsupportedOperationException("Not supported yet. at: hexagonwars.WorldPanel:tileClick();");
     }
-    
+
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
-        if (selectedTile != null) {
-            if (selectedTile.isOccupied() != 0) {
-                g.setColor(Color.BLACK);
-                Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
-                int x = 0;
-                int y = 0;
-                g.drawRect(rect.x, rect.y, rect.width, rect.height);
-                g.drawLine(rect.x + 199, rect.y, rect.x + 199, rect.y + rect.height);
-                ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
-                for (int i = 0; i < list.size(); i++) {
-                    ImageWithAction imageWithAction = list.get(i);
-                    g.drawImage(imageWithAction.getIcon(), rect.x + 200 + x * EntityUI.ICON_WIDTH, rect.y + y * EntityUI.ICON_HEIGHT + 1, null);
-                    if (x < 5) {
-                        x++;
-                    } else {
-                        x = 0;
-                        y++;
-                    }
-                }
-            }
-        }
+        Rectangle uiRect = new Rectangle(0, this.getSize().height - 207, 500, 201);
+        gameUI.drawUI(g, uiRect);
+    }
+
+    public WorldModel getWorldModel() {
+        return this.worldMap;
     }
 }

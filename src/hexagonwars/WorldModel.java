@@ -23,6 +23,7 @@ public class WorldModel extends Component {
     private boolean savable = true;
     private int cameraX = 0;
     private int cameraY = 0;
+    private GameHandler gameHandler;
 
     public WorldModel(WorldTiles worldInput, int x, int y) {
         worldLocationX = x;
@@ -136,5 +137,13 @@ public class WorldModel extends Component {
     
     public boolean isSavable(){
         return savable;
+    }
+    
+    public void setGameHandler(GameHandler gameHandler){
+        this.gameHandler = gameHandler;
+    }
+    
+    public GameHandler getGameHandler(){
+        return gameHandler;
     }
 }

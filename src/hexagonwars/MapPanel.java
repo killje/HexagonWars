@@ -171,6 +171,27 @@ public abstract class MapPanel extends JPanel {
             WorldModel world = worlds.get(i);
             drawWorld(g, world, (int) (world.getXLocation()), (int) (world.getYLocation()));
         }
+        if (selectedTile != null) {
+            if (selectedTile.isOccupied() != 0) {
+                g.setColor(Color.BLACK);
+                Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
+                int x = 0;
+                int y = 0;
+                g.drawRect(rect.x, rect.y, rect.width, rect.height);
+                g.drawLine(rect.x + 199, rect.y, rect.x + 199, rect.y + rect.height);
+                ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
+                for (int i = 0; i < list.size(); i++) {
+                    ImageWithAction imageWithAction = list.get(i);
+                    g.drawImage(imageWithAction.getIcon(), rect.x + 200 + x * EntityUI.ICON_WIDTH, rect.y + y * EntityUI.ICON_HEIGHT + 1, null);
+                    if (x < 5) {
+                        x++;
+                    } else {
+                        x = 0;
+                        y++;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -190,12 +211,14 @@ public abstract class MapPanel extends JPanel {
                         (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()),
                         (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * world.getZoomLevel()),
                         null);
-                g.drawImage(world.getWorld()[x][y].getEntity().getImage(),
-                        x * (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()) + y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * world.getZoomLevel()) - world.getCameraX() + panelShiftX,
-                        y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * world.getZoomLevel()) - world.getCameraY() + panelShiftY,
-                        (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()),
-                        (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * world.getZoomLevel()),
-                        null);
+                if (world.getWorld()[x][y].isOccupied() != 0) {
+                    g.drawImage(world.getWorld()[x][y].getEntity().getImage(),
+                            x * (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()) + y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * world.getZoomLevel()) - world.getCameraX() + panelShiftX,
+                            y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * world.getZoomLevel()) - world.getCameraY() + panelShiftY,
+                            (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()),
+                            (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * world.getZoomLevel()),
+                            null);
+                }
             }
         }
     }

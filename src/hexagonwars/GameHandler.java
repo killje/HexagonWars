@@ -9,13 +9,13 @@ import java.util.Random;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class Game {
+public class GameHandler {
 
     private int turn;
     private ArrayList<Player> players;
     private ArrayList<Building> buildingConstructions;
     
-    public Game() {
+    public GameHandler() {
         turn = 1; /* player one */
     }
     
@@ -23,7 +23,7 @@ public class Game {
         return players.get(turn);
     }
 
-    private void nextTurn() {
+    public void nextTurn() {
         turn++;
 
         for (Building building : buildingConstructions) {
