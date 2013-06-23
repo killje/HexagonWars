@@ -148,23 +148,27 @@ public class WorldModel extends Component {
         return gameHandler;
     }
 
-    public ArrayList<Tile> getMoves(Tile[] posibleTiles, Point p, int moves) {
+    public ArrayList<Tile> getMoves(Tile[] possibleTiles, Point p, int moves) {
         ArrayList<Tile> tilesToMoveOn = new ArrayList<>();
+        
         if (p.x < 0 || p.x >= world.getWidth() || p.y < 0 || p.y >= world.getHeight()) {
             return tilesToMoveOn;
         }
-        if (moves==0) {
+        
+        if (moves == 0) {
             return tilesToMoveOn;
         } else {
             tilesToMoveOn.add(world.getTile(p));
             getTilePosition(world.getTile(p));
         }
+        
         Point[] points = new Point[6];
 
         points[0] = new Point(p.x, p.y - 1);
         points[1] = new Point(p.x, p.y + 1);
         points[2] = new Point(p.x - 1, p.y);
         points[3] = new Point(p.x + 1, p.y);
+        
         if (p.y % 2 == 0) {
             points[4] = new Point(p.x - 1, p.y - 1);
             points[5] = new Point(p.x - 1, p.y + 1);
@@ -172,14 +176,16 @@ public class WorldModel extends Component {
             points[4] = new Point(p.x + 1, p.y - 1);
             points[5] = new Point(p.x + 1, p.y + 1);
         }
+        
         for (int i = 0; i < 6; i++) {
-            ArrayList<Tile> reductieTiles = getMoves(posibleTiles, points[i], moves - 1);
-            for (Tile tile : reductieTiles) {
+            ArrayList<Tile> recursiveTiles = getMoves(possibleTiles, points[i], moves - 1);
+            for (Tile tile : recursiveTiles) {
                 if (!tilesToMoveOn.contains(tile)) {
                     tilesToMoveOn.add(tile);
                 }
             }
         }
+        
         return tilesToMoveOn;
     }
 
@@ -192,6 +198,7 @@ public class WorldModel extends Component {
                 }
             }
         }
+        
         return null;
     }
 }
