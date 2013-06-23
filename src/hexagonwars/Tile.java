@@ -12,8 +12,10 @@ public abstract class Tile implements Serializable {
 
     private Entity entity;
     private int entitiesAmount = 0;
+    protected int type;
 
     public Tile() {
+        type = 0;
     }
 
     public void addEntity(Entity Entity) {
@@ -64,7 +66,7 @@ public abstract class Tile implements Serializable {
         return entitiesAmount;
     }
 
-    public static Tile getType(int type) {
+    public static Tile getTileFromType(int type) {
         Tile tile;
         switch (type) {
             case WorldTiles.PLAIN:
@@ -90,5 +92,9 @@ public abstract class Tile implements Serializable {
                 break;
         }
         return tile;
+    }
+    
+    public int getType(){
+        return type;
     }
 }

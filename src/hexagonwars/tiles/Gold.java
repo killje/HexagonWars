@@ -1,5 +1,7 @@
 package hexagonwars.tiles;
 
+import hexagonwars.World;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -8,5 +10,6 @@ package hexagonwars.tiles;
 public class Gold extends Mountain {
 
     public Gold() {
+        type = World.GOLD;
     }
 }

@@ -1,6 +1,7 @@
 package hexagonwars.tiles;
 
 import hexagonwars.Tile;
+import hexagonwars.World;
 
 /**
  *
@@ -10,5 +11,6 @@ import hexagonwars.Tile;
 public class Water extends Tile {
 
     public Water() {
+        type = World.WATER;
     }
 }
