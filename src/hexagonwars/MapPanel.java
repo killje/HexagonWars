@@ -123,8 +123,8 @@ public abstract class MapPanel extends JPanel {
                     if (p.x >= 200 && p.y >= 1) {
                         actionPoint.x = p.x - 200;
                         actionPoint.y = p.y - 1;
-                        x = actionPoint.x / UserInterface.ICON_WIDTH;
-                        y = actionPoint.y / UserInterface.ICON_HEIGHT;
+                        x = actionPoint.x / EntityUI.ICON_WIDTH;
+                        y = actionPoint.y / EntityUI.ICON_HEIGHT;
                         int elementIndex = y * 6 + x;
                         if (selectedTile.getEntity().getEntityUI().getActions().size() > elementIndex) {
                             ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
@@ -175,7 +175,21 @@ public abstract class MapPanel extends JPanel {
             if (selectedTile.isOccupied() != 0) {
                 g.setColor(Color.BLACK);
                 Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
-                selectedTile.getEntity().drawUI(g, rect);
+                int x = 0;
+                int y = 0;
+                g.drawRect(rect.x, rect.y, rect.width, rect.height);
+                g.drawLine(rect.x + 199, rect.y, rect.x + 199, rect.y + rect.height);
+                ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
+                for (int i = 0; i < list.size(); i++) {
+                    ImageWithAction imageWithAction = list.get(i);
+                    g.drawImage(imageWithAction.getIcon(), rect.x + 200 + x * EntityUI.ICON_WIDTH, rect.y + y * EntityUI.ICON_HEIGHT + 1, null);
+                    if (x < 5) {
+                        x++;
+                    } else {
+                        x = 0;
+                        y++;
+                    }
+                }
             }
         }
     }

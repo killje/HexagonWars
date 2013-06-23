@@ -13,17 +13,17 @@ import java.io.Serializable;
  */
 public class NewUIAction extends UIAction implements Serializable{
 
-    protected UserInterface ui;
+    protected EntityUI ui;
 
     public NewUIAction(String uiName) {
-        ui = new UserInterface(uiName);
+        ui = new EntityUI(uiName);
     }
     
     public void addIcon(String iconName,UIAction action){
         ui.addAction(iconName,action);
     }
 
-    public UserInterface getUI() {
+    public EntityUI getUI() {
         return ui;
     }
 }

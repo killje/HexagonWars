@@ -33,7 +33,7 @@ public abstract class Entity implements Serializable{
     protected int type = 0;
     protected int defenseStrength;
     protected int health;
-    protected UserInterface ui = new UserInterface(getClass().getSimpleName());
+    protected EntityUI ui = new EntityUI(getClass().getSimpleName());
 
     public void damage(int damage) {
         health -= damage;
@@ -55,30 +55,12 @@ public abstract class Entity implements Serializable{
     protected void addUIElement(String actionName, UIAction action) {
         ui.addAction(actionName, action);
     }
-
-    public void drawUI(Graphics g, Rectangle rect) {
-        int x = 0;
-        int y = 0;
-        g.drawRect(rect.x, rect.y, rect.width, rect.height);
-        g.drawLine(rect.x + 199, rect.y, rect.x + 199, rect.y + rect.height);
-        ArrayList<ImageWithAction> list = ui.getActions();
-        for (int i = 0; i < list.size(); i++) {
-            ImageWithAction imageWithAction = list.get(i);
-            g.drawImage(imageWithAction.getIcon(), rect.x + 200 + x * UserInterface.ICON_WIDTH, rect.y + y * UserInterface.ICON_HEIGHT + 1, null);
-            if (x < 5) {
-                x++;
-            } else {
-                x = 0;
-                y++;
-            }
-        }
-    }
     
-    public UserInterface getEntityUI(){
+    public EntityUI getEntityUI(){
         return ui;
     }
 
-    void setEntityUI(UserInterface ui) {
+    void setEntityUI(EntityUI ui) {
         this.ui = ui;
     }
 }

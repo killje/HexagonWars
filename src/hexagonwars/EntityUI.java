@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class UserInterface implements Serializable {
+public class EntityUI implements Serializable {
 
     public static final int ICON_WIDTH = 50;
     public static final int ICON_HEIGHT = 50;
@@ -16,7 +16,7 @@ public class UserInterface implements Serializable {
     private ArrayList<ImageWithAction> actionList = new ArrayList<>();
     private int health;
 
-    public UserInterface(String name) {
+    public EntityUI(String name) {
         this.name = name;
     }
 
