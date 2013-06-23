@@ -3,6 +3,7 @@ package hexagonwars;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.ArrayList;
 
 /**
  *
@@ -72,8 +73,8 @@ public class WorldModel extends Component {
     public boolean inWorld(int x, int y) {
         if (x >= worldLocationX * zoomLevel
                 && y >= worldLocationY * zoomLevel
-                && x < (int) ((worldWidth * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * zoomLevel) + worldLocationX-cameraX
-                && y < (int) ((worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * zoomLevel) + worldLocationY-cameraY) {
+                && x < (int) ((worldWidth * HexagonWars.WORLD_TILE_WIDTH + HexagonWars.WORLD_TILE_WIDTH / 2) * zoomLevel) + worldLocationX - cameraX
+                && y < (int) ((worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MIN + HexagonWars.WORLD_TILE_UPPERHEIGHT) * zoomLevel) + worldLocationY - cameraY) {
             return true;
         }
         return false;
@@ -110,7 +111,7 @@ public class WorldModel extends Component {
     public void setCameraEnabled(boolean b) {
         CameraEnebled = b;
     }
-    
+
     public int getCameraX() {
         return cameraX;
     }
@@ -134,16 +135,65 @@ public class WorldModel extends Component {
     public void setSavable(boolean b) {
         savable = b;
     }
-    
-    public boolean isSavable(){
+
+    public boolean isSavable() {
         return savable;
     }
-    
-    public void setGameHandler(GameHandler gameHandler){
+
+    public void setGameHandler(GameHandler gameHandler) {
         this.gameHandler = gameHandler;
     }
-    
-    public GameHandler getGameHandler(){
+
+    public GameHandler getGameHandler() {
         return gameHandler;
+    }
+
+    public ArrayList<Tile> getMoves(Tile[] posibleTiles, Point p, int minMoves, int maxMoves, int currentMove) {
+        ArrayList<Tile> tilesToMoveOn = new ArrayList<>();
+        if (p.x < 0 || p.x >= world.getWidth() || p.y < 0 || p.y >= world.getHeight()) {
+            return tilesToMoveOn;
+        }
+        if (currentMove > maxMoves) {
+            return tilesToMoveOn;
+        }
+        Point[] points = new Point[6];
+
+        points[0] = new Point(p.x, p.y - 1);
+        points[1] = new Point(p.x, p.y + 1);
+        points[2] = new Point(p.x - 1, p.y);
+        points[3] = new Point(p.x + 1, p.y);
+        if (p.y % 2 == 0) {
+            points[4] = new Point(p.x - 1, p.y - 1);
+            points[5] = new Point(p.x - 1, p.y + 1);
+        } else {
+            points[4] = new Point(p.x + 1, p.y - 1);
+            points[5] = new Point(p.x + 1, p.y + 1);
+        }
+        for (int i = 0; i < 6; i++) {
+            ArrayList<Tile> reductieTiles = getMoves(posibleTiles, points[i], minMoves, maxMoves, currentMove + 1);
+            for (Tile tile : reductieTiles) {
+                if (!tilesToMoveOn.contains(tile)) {
+                    tilesToMoveOn.add(tile);
+                }
+            }
+        }
+        if (minMoves > currentMove) {
+            tilesToMoveOn.remove(world.getTile(p));
+        } else {
+            tilesToMoveOn.add(world.getTile(p));
+        }
+        return tilesToMoveOn;
+    }
+    
+    public Point getTilePosition(Tile tile) {
+        for (int x = 0; x < r.length; x++) {
+            Tile[] tileRow = r[x];
+            for (int y = 0; y < tileRow.length; y++) {
+                if (r[x][y] == tile) {
+                    return new Point(x,y);
+                }
+            }
+        }
+        return null;
     }
 }

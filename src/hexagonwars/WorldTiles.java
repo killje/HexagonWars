@@ -1,5 +1,6 @@
 package hexagonwars;
 
+import java.awt.Point;
 import java.io.*;
 
 /**
@@ -8,14 +9,13 @@ import java.io.*;
  * @author Timo Smit (s2337789)
  */
 public class WorldTiles {
-    
+
     public static final int PLAIN = 1;
     public static final int MOUNTAIN = 2;
     public static final int WATER = 3;
     public static final int GOLD = 4;
     public static final int SHALLOWS = 5;
     public static final int FOREST = 6;
-    
     private int width;
     private int height;
     private Tile[][] tiles;
@@ -91,5 +91,9 @@ public class WorldTiles {
             returnString = returnString + "\n";
         }
         return returnString;
+    }
+
+    public Tile getTile(Point p) {
+        return this.getTile(p.x, p.y);
     }
 }
