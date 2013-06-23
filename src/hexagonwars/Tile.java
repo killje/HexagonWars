@@ -11,7 +11,7 @@ import java.io.Serializable;
 public abstract class Tile implements Serializable {
 
     private Entity entity;
-    private int entitiesAmounth = 0;
+    private int entitiesAmount = 0;
 
     public Tile() {
     }
@@ -19,29 +19,28 @@ public abstract class Tile implements Serializable {
     public void addEntity(Entity Entity) {
         if (entity == null) {
             entity = Entity;
-            entitiesAmounth = 1;
+            entitiesAmount = 1;
         } else {
-            entitiesAmounth++;
+            entitiesAmount++;
         }
     }
 
     public void removeEntity(int amount) {
-        for (int i = 0; i < amount; i++) {
-            if (entitiesAmounth <= 0) {
-                entity = null;
-                break;
-            }
-            entitiesAmounth--;
+        entitiesAmount -= amount;
+        
+        if (entitiesAmount <= 0) {
+            entity = null;
+            amount = 0;
         }
     }
 
     public void removeAllEntities() {
         entity = null;
-        entitiesAmounth = 0;
+        entitiesAmount = 0;
     }
 
     public int isOccupied() {
-        if (entitiesAmounth <= 0) {
+        if (entitiesAmount <= 0) {
             return 0;
         } else {
             return entity.getType();
@@ -61,25 +60,29 @@ public abstract class Tile implements Serializable {
         return entity;
     }
 
+    public int getEntityAmount() {
+        return entitiesAmount;
+    }
+
     public static Tile getType(int type) {
         Tile tile;
         switch (type) {
-            case World.PLAIN:
+            case WorldTiles.PLAIN:
                 tile = new hexagonwars.tiles.Plain();
                 break;
-            case World.MOUNTAIN:
+            case WorldTiles.MOUNTAIN:
                 tile = new hexagonwars.tiles.Mountain();
                 break;
-            case World.WATER:
+            case WorldTiles.WATER:
                 tile = new hexagonwars.tiles.Water();
                 break;
-            case World.GOLD:
+            case WorldTiles.GOLD:
                 tile = new hexagonwars.tiles.Gold();
                 break;
-            case World.SHALLOWS:
+            case WorldTiles.SHALLOWS:
                 tile = new hexagonwars.tiles.Shallows();
                 break;
-            case World.FOREST:
+            case WorldTiles.FOREST:
                 tile = new hexagonwars.tiles.Forest();
                 break;
             default:

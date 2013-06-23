@@ -37,9 +37,12 @@ import javax.swing.KeyStroke;
  */
 public abstract class MapPanel extends JPanel {
 
-    private ArrayList<DrawWorld> worlds = new ArrayList<>();
+    private ArrayList<WorldModel> worlds = new ArrayList<>();
     private Tile selectedTile = null;
 
+    /**
+     * mapPanel is both the view and the controller for the most part
+     */
     public MapPanel() {
         addMouseListener(new WorldPointer());
         addMouseWheelListener(new ZoomListner());
@@ -59,27 +62,54 @@ public abstract class MapPanel extends JPanel {
         getActionMap().put("right", new ArrowAction(ArrowAction.ARROW_RIGHT));
     }
 
-    protected abstract void tileClick(DrawWorld world, Point TileCoordinate);
+    /**
+     *
+     * @param world sends the worldModel that has been clicked
+     * @param TileCoordinate sends on witch tile there has been clicked on
+     */
+    protected abstract void tileClick(WorldModel world, Point TileCoordinate);
 
-    protected DrawWorld addWorld(World world, int x, int y) {
-        DrawWorld newWorld = new DrawWorld(world, x, y);
+    /**
+     *
+     * @param world the WorldTiles of the new WorldModel
+     * @param xShift the position on the x-axel in the panel
+     * @param yShift the position on the y-axel in the panel
+     * @return returns the created WorldModel
+     */
+    protected WorldModel addWorld(WorldTiles world, int xShift, int yShift) {
+        WorldModel newWorld = new WorldModel(world, xShift, yShift);
         worlds.add(newWorld);
         return newWorld;
     }
 
-    protected void removeWorld(DrawWorld world) {
+    /**
+     *
+     * @param world removes the given world from the array
+     */
+    protected void removeWorld(WorldModel world) {
         if (worlds.contains(world)) {
             worlds.remove(world);
         }
     }
 
-    protected void saveWorld(DrawWorld world) {
+    /**
+     *
+     * @param world saves the given world
+     */
+    protected void saveWorld(WorldModel world) {
         String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
         File file = new File(path);
 
         store(file, world);
     }
 
+    /**
+     * First looks if the mouse has clicked inside a UI then if not, looks where
+     * you have clicked in the world and acts on that
+     *
+     * @param me MouseEvent that comes from the MouseListner
+     */
+    //!!!!!!!!!!!!!!!!---------------------------------edit when game.java is done----------------------------!!!!!!!!!!!!!!!!!!!!!!!!
     protected void clicked(MouseEvent me) {
         boolean hasFoundTile = false;
         if (selectedTile != null) {
@@ -87,14 +117,38 @@ public abstract class MapPanel extends JPanel {
                 Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
                 if (rect.contains(me.getPoint())) {
                     Point p = new Point(me.getPoint().x - getSize().width + 506, me.getPoint().y - getSize().height + 207);
-                    selectedTile.getEntity().clicked(p, selectedTile);
+                    //from here edit
+                    int x, y;
+                    Point actionPoint = new Point();
+                    if (p.x >= 200 && p.y >= 1) {
+                        actionPoint.x = p.x - 200;
+                        actionPoint.y = p.y - 1;
+                        x = actionPoint.x / UserInterface.ICON_WIDTH;
+                        y = actionPoint.y / UserInterface.ICON_HEIGHT;
+                        int elementIndex = y * 6 + x;
+                        if (selectedTile.getEntity().getEntityUI().getActions().size() > elementIndex) {
+                            ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
+                            UIAction action = list.get(elementIndex).getAction();
+                            if (action instanceof NewUIAction) {
+                                NewUIAction newUIAction = (NewUIAction) action;
+                                selectedTile.getEntity().setEntityUI(newUIAction.getUI());
+                            } else if (action instanceof BuildAction) {
+                                BuildAction buildAction = (BuildAction) action;
+                                selectedTile.removeAllEntities();
+                                selectedTile.addEntity(buildAction.getBuilding());
+                            } else if (action instanceof DummyAction) {
+                                DummyAction dummyAction = (DummyAction) action;
+                            }
+                        }
+                    }
+                    //to here
                     repaint();
                     validate();
                     return;
                 }
             }
         }
-        for (DrawWorld world : worlds) {
+        for (WorldModel world : worlds) {
             if (world.inWorld(me.getX(), me.getY())) {
                 Point pointInWorld = new Point(me.getX() - world.getXLocation(), me.getY() - world.getYLocation());
                 Point TileCoordinate = getTileCoordinate(pointInWorld, world);
@@ -114,7 +168,7 @@ public abstract class MapPanel extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         for (int i = 0; i < worlds.size(); i++) {
-            DrawWorld world = worlds.get(i);
+            WorldModel world = worlds.get(i);
             drawWorld(g, world, (int) (world.getXLocation()), (int) (world.getYLocation()));
         }
         if (selectedTile != null) {
@@ -126,7 +180,15 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
-    private void drawWorld(Graphics g, DrawWorld world, int panelShiftX, int panelShiftY) {
+    /**
+     * draws the given world in the panel at the given x and y
+     *
+     * @param g the paint graphics
+     * @param world the world you wand to draw
+     * @param panelShiftX where on the x-axel to start to draw
+     * @param panelShiftY where on the y-axel to start to draw
+     */
+    private void drawWorld(Graphics g, WorldModel world, int panelShiftX, int panelShiftY) {
         for (int y = 0; y < world.worldHeight(); y++) {
             for (int x = 0; x < world.worldWidth(); x++) {
                 g.drawImage(world.getWorld()[x][y].getImage(),
@@ -139,7 +201,13 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
-    private void store(File file, DrawWorld world) {
+    /**
+     * function to store the world
+     *
+     * @param file stores the given world at this location
+     * @param world the world to store
+     */
+    private void store(File file, WorldModel world) {
         try {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
@@ -169,7 +237,13 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
-    private Point getTileCoordinate(Point p, DrawWorld world) {
+    /**
+     * converts the given mouse point into a usable tile coordinate
+     *
+     * @param p the mouse position
+     * @param world the world where is clicked on
+     */
+    private Point getTileCoordinate(Point p, WorldModel world) {
         int x = (int) p.getX() + world.getCameraX();
         int y = (int) p.getY() + world.getCameraY();
         int tileX;
@@ -220,7 +294,16 @@ public abstract class MapPanel extends JPanel {
         return new Point(tileX, tileY);
     }
 
-    private Boolean inHex(int x, int y, boolean up, DrawWorld world) {
+    /**
+     * this function returns true if if the mouse is under the lie other wise
+     * false.
+     *
+     * @param x the x of the mouse in the corner
+     * @param y the y of the mouse in the corner
+     * @param if the line of the hexagon moves up or down
+     * @param world the world where is clicked on
+     */
+    private Boolean inHex(int x, int y, boolean up, WorldModel world) {
         int x0, x1, y0, y1;
         x0 = 0;
         x1 = (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()) / 2;
@@ -265,18 +348,15 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
+    /**
+     * lister for if the save button is hit
+     */
     protected class SaveWorld extends AbstractAction {
-
-        String referenceName;
-
-        protected SaveWorld(String referenceName) {
-            this.referenceName = referenceName;
-        }
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            for (DrawWorld world : worlds) {
-                if (world.getRefrenceName() != null && world.getRefrenceName().equals(referenceName)) {
+            for (WorldModel world : worlds) {
+                if (world.isSavable()) {
                     saveWorld(world);
                 }
             }
@@ -315,7 +395,7 @@ public abstract class MapPanel extends JPanel {
 
         @Override
         public void mouseWheelMoved(MouseWheelEvent mwe) {
-            for (DrawWorld world : worlds) {
+            for (WorldModel world : worlds) {
                 if (world.inWorld(mwe.getPoint())) {
                     if (world.getZoomLevel() - (mwe.getPreciseWheelRotation() * 0.05) >= 0.1 && world.getZoomLevel() - (mwe.getPreciseWheelRotation() * 0.05) <= 1.9) {
                         world.changeZoomLevel(mwe.getPreciseWheelRotation() * 0.05);
@@ -327,18 +407,25 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
+    /**
+     * opens a new map
+     */
     protected class OpenWorld extends AbstractAction {
 
-        DrawWorld world;
+        WorldModel world;
 
-        public OpenWorld(DrawWorld inputWorld) {
+        /**
+         *
+         * @param inputWorld
+         */
+        public OpenWorld(WorldModel inputWorld) {
             world = inputWorld;
         }
 
         @Override
         public void actionPerformed(ActionEvent ae) {
             String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
-            World newWorld = new World(new File(path));
+            WorldTiles newWorld = new WorldTiles(new File(path));
             world.setWorld(newWorld);
             repaint();
             revalidate();
@@ -353,6 +440,9 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
+    /**
+     * listens to the keyboard if an arrow has been hit and shifts the map
+     */
     protected class ArrowAction extends AbstractAction {
 
         public static final int ARROW_UP = 0;
@@ -369,28 +459,28 @@ public abstract class MapPanel extends JPanel {
         public void actionPerformed(ActionEvent ae) {
             switch (direction) {
                 case ARROW_UP:
-                    for (DrawWorld world : worlds) {
+                    for (WorldModel world : worlds) {
                         world.changeCameraY(-30);
                     }
                     repaint();
                     validate();
                     break;
                 case ARROW_DOWN:
-                    for (DrawWorld world : worlds) {
+                    for (WorldModel world : worlds) {
                         world.changeCameraY(30);
                     }
                     repaint();
                     validate();
                     break;
                 case ARROW_LEFT:
-                    for (DrawWorld world : worlds) {
+                    for (WorldModel world : worlds) {
                         world.changeCameraX(-30);
                     }
                     repaint();
                     validate();
                     break;
                 case ARROW_RIGHT:
-                    for (DrawWorld world : worlds) {
+                    for (WorldModel world : worlds) {
                         world.changeCameraX(30);
                     }
                     repaint();

@@ -12,7 +12,6 @@ public abstract class Unit extends Entity implements Serializable{
 
     protected int attackDamage;
     protected int attackRatio;
-    protected int defenseStrength;
 
     public int getAttackDamage() {
         return attackDamage;
@@ -20,9 +19,5 @@ public abstract class Unit extends Entity implements Serializable{
 
     public int getAttackRatio() {
         return attackRatio;
-    }
-
-    public int getDefenseStrength() {
-        return defenseStrength;
     }
 }

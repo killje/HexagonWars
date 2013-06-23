@@ -31,6 +31,7 @@ public abstract class Entity implements Serializable{
     public static final int ENTITY_BUILDING_PRODUCER_WORKSHOP = 154;
     //VARIABLES
     protected int type = 0;
+    protected int defenseStrength;
     protected int health;
     protected UserInterface ui = new UserInterface(getClass().getSimpleName());
 
@@ -45,6 +46,10 @@ public abstract class Entity implements Serializable{
 
     public int getHealth() {
         return this.health;
+    }
+
+    public int getDefenseStrength() {
+        return defenseStrength;
     }
 
     protected void addUIElement(String actionName, UIAction action) {
@@ -68,30 +73,12 @@ public abstract class Entity implements Serializable{
             }
         }
     }
+    
+    public UserInterface getEntityUI(){
+        return ui;
+    }
 
-    public void clicked(Point p, Tile tile) {
-        int x, y;
-        Point actionPoint = new Point();
-        if (p.x >= 200 && p.y >= 1) {
-            actionPoint.x = p.x - 200;
-            actionPoint.y = p.y - 1;
-            x = actionPoint.x / UserInterface.ICON_WIDTH;
-            y = actionPoint.y / UserInterface.ICON_HEIGHT;
-            int elementIndex = y * 6 + x;
-            if (ui.getActions().size() > elementIndex) {
-                ArrayList<ImageWithAction> list = ui.getActions();
-                UIAction action = list.get(elementIndex).getAction();
-                if (action instanceof NewUIAction) {
-                    NewUIAction newUIAction = (NewUIAction) action;
-                    ui = newUIAction.getUI();
-                } else if (action instanceof BuildAction) {
-                    BuildAction buildAction = (BuildAction) action;
-                    tile.removeAllEntities();
-                    tile.addEntity(buildAction.getBuilding());
-                } else if (action instanceof DummyAction) {
-                    DummyAction dummyAction = (DummyAction) action;
-                }
-            }
-        }
+    void setEntityUI(UserInterface ui) {
+        this.ui = ui;
     }
 }
