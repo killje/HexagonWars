@@ -81,7 +81,6 @@ public class WorldPanel extends MapPanel{
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        
         if (selectedTile != null) {
             if (selectedTile.isOccupied() != 0) {
                 g.setColor(Color.BLACK);

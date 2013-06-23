@@ -1,6 +1,9 @@
 package hexagonwars;
 
+import java.awt.Color;
+import java.awt.Image;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -62,7 +65,13 @@ public abstract class Entity implements Serializable {
         return ui;
     }
 
-    void setEntityUI(EntityUI ui) {
+    public void setEntityUI(EntityUI ui) {
         this.ui = ui;
+    }
+
+    public Image getImage() {
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(new Color(55, 171, 200).getRGB());
+        return HWImage.getImage(this.getClass().getSimpleName(), colors, playerColor);
     }
 }

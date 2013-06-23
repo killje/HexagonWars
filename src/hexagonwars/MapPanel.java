@@ -190,6 +190,12 @@ public abstract class MapPanel extends JPanel {
                         (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()),
                         (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * world.getZoomLevel()),
                         null);
+                g.drawImage(world.getWorld()[x][y].getEntity().getImage(),
+                        x * (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()) + y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * world.getZoomLevel()) - world.getCameraX() + panelShiftX,
+                        y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * world.getZoomLevel()) - world.getCameraY() + panelShiftY,
+                        (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel()),
+                        (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * world.getZoomLevel()),
+                        null);
             }
         }
     }
