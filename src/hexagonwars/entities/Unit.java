@@ -8,12 +8,12 @@ import java.io.Serializable;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public abstract class Unit extends Entity implements Serializable{
+public abstract class Unit extends Entity implements Serializable {
 
     protected int attackDamage;
     protected int attackRatio;
-    
-    public Unit(int playerColor){
+
+    public Unit(int playerColor) {
         super(playerColor);
     }
 

@@ -29,6 +29,7 @@ public class HWImage {
         Image img;
         ImageName newImage;
         BufferedImage image;
+        
         try {
             File file = new File(Tile.class.getResource("images" + File.separator + filename + ".png").toURI());
             image = ImageIO.read(file);
@@ -38,14 +39,18 @@ public class HWImage {
             System.err.println("problems converting resources");
             System.err.println(e.getStackTrace());
             System.exit(1);
+            
             return null;
         } catch (IOException ex) {
             System.err.println("The program has encountered a problem when opeing file");
             System.err.println(ex);
             System.exit(1);
+            
             return null;
         }
+        
         newImage = new ImageName(filename + colorTo, img);
+        
         return newImage;
     }
 
@@ -56,17 +61,16 @@ public class HWImage {
                 if (defaultColors.contains((rgb | 0xFF000000))) {
                     return TRANSPARENTCOLOR & rgb;
                 } else if (colorsFrom.contains((rgb | 0xFF000000))) {
-                    // Mark the alpha bits as zero - transparent
-                    return colorTo & rgb;
+                    return colorTo & rgb; // make alpha bits zero - transparent
                 } else {
-                    // nothing to do
                     return rgb;
                 }
             }
         };
+        
         ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
+        
         return Toolkit.getDefaultToolkit().createImage(ip);
-
     }
 
     public static Image getImage(String imageName, ArrayList<Integer> colorsFrom, int colorTo) {
@@ -76,13 +80,16 @@ public class HWImage {
             defaultColors.add(transparentRGB);
             defaultColors.add(transparentRGB2);
         }
+        
         for (ImageName image : images) {
             if (image.getName().equals(imageName + colorTo)) {
                 return image.getImage();
             }
         }
+        
         ImageName image = getTile(imageName, colorsFrom, colorTo);
         images.add(image);
+        
         return image.getImage();
     }
 

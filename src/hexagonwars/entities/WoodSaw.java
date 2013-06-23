@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hexagonwars.entities;
 
 import hexagonwars.UpgradeAction;
@@ -13,7 +9,7 @@ import hexagonwars.UpgradeAction;
  */
 public class WoodSaw extends Gatherer {
 
-    public WoodSaw(int playerColor){
+    public WoodSaw(int playerColor) {
         super(playerColor);
         addUI();
         type = ENTITY_BUILDING_GATHERER_SAWMILL;

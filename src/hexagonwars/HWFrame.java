@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hexagonwars;
 
 import java.awt.Dimension;
@@ -54,7 +50,8 @@ public class HWFrame extends JFrame {
     }
 
     /**
-     * function to add the main panel witch has 2 buttons to open the other two panels
+     * function to add the main panel witch has 2 buttons to open the other two
+     * panels
      */
     public void addMainPanel() {
         removeAllPanels();
@@ -67,7 +64,7 @@ public class HWFrame extends JFrame {
     }
 
     /**
-     *  opens the editor
+     * opens the editor
      */
     public void addEditorPanel() {
         removeAllPanels();
@@ -95,7 +92,6 @@ public class HWFrame extends JFrame {
     /**
      * removes the panels currently open
      */
-    
     private void removeAllPanels() {
         for (int i = 0; i < this.getContentPane().getComponents().length; i++) {
             if (this.getContentPane().getComponents()[i] == mainPanel) {

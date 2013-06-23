@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package hexagonwars;
 
 import java.awt.event.ActionEvent;
@@ -16,14 +11,15 @@ import javax.swing.JPanel;
  * @author Timo Smit (s2337789)
  */
 public class MainPanel extends JPanel {
-    
+
     HWFrame frame;
-    
+
     /**
      *
-     * @param hwframe has the frame as parameter to open the other two frames when hit a button
+     * @param hwframe has the frame as parameter to open the other two frames
+     * when hit a button
      */
-    public MainPanel(HWFrame hwframe){
+    public MainPanel(HWFrame hwframe) {
         frame = hwframe;
         JButton loadMap = new JButton("Open map");
         JButton openEditor = new JButton("Open editor");
@@ -32,18 +28,16 @@ public class MainPanel extends JPanel {
         add(loadMap);
         add(openEditor);
     }
-    
-    
-    private class OpenWorldAction extends AbstractAction{
+
+    private class OpenWorldAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
             frame.addWorldPanel();
         }
-        
     }
-    
-    private class OpenWorldeditorAction extends AbstractAction{
+
+    private class OpenWorldeditorAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent ae) {

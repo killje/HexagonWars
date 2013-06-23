@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hexagonwars;
 
 import java.awt.Point;
@@ -25,6 +21,7 @@ public class GameUI {
         Rectangle exitButton = new Rectangle(51, 51, 100, 100);
         Rectangle saveButton = new Rectangle(101, 101, 150, 150);
         Rectangle loadButton = new Rectangle(151, 151, 200, 200);
+
         if (exitButton.contains(p)) {
             System.exit(0);
         } else if (saveButton.contains(p)) {
