@@ -20,16 +20,7 @@ public class GameUI {
     public GameUI(WorldPanel gameWorld) {
         this.gameWorld = gameWorld;
     }
-
-    public void drawUI(Graphics g, Rectangle uiRect) {
-        g.drawRect(uiRect.x, uiRect.y, uiRect.width, uiRect.height);
-        g.drawLine(uiRect.x +51, uiRect.y, uiRect.x +51, uiRect.width+uiRect.y);
-        g.drawImage(HWImage.getImageWithDefaultTransparensy("nextTurn"), uiRect.x+1, uiRect.y+1, null);
-        g.drawImage(HWImage.getImageWithDefaultTransparensy("exitButton"), uiRect.x+1, uiRect.y+51, null);
-        g.drawImage(HWImage.getImageWithDefaultTransparensy("saveButton"), uiRect.x+1, uiRect.y+101, null);
-        g.drawImage(HWImage.getImageWithDefaultTransparensy("loadButton"), uiRect.x+1, uiRect.y+151, null);
-    }
-
+    
     public void clicked(Point p) {
         Rectangle nextTurn = new Rectangle(1,1,50,50);
         Rectangle exitButton = new Rectangle(51,51,100,100);

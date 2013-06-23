@@ -32,44 +32,6 @@ public class WorldPanel extends MapPanel {
         WorldTiles world = new WorldTiles(file);
 
         worldMap = addWorld(world, 50, 30);
-        add(addMenuBar());
-    }
-
-    private JMenuBar addMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setMaximumSize(new Dimension(50, 25));
-        JMenu menuFile = addMenu("File", KeyEvent.VK_F);
-        menuFile.add(addMenuItem("Load", KeyEvent.VK_L, KeyEvent.VK_O, new OpenWorld(worldMap)));
-        menuFile.add(addMenuItem("Save", KeyEvent.VK_S, KeyEvent.VK_S, new SaveWorld()));
-        menuFile.addSeparator();
-        menuFile.add(addMenuItem("Quit", KeyEvent.VK_Q, new QuitAction()));
-        menuBar.add(menuFile);
-
-        return menuBar;
-    }
-
-    private JMenu addMenu(String name, int shortKey) {
-        JMenu menu = new JMenu(name);
-        menu.setMnemonic(shortKey);
-
-        return menu;
-    }
-
-    private JMenuItem addMenuItem(String name, int shortKey, AbstractAction actionListener) {
-        JMenuItem menuItem = new JMenuItem(name);
-        menuItem.addActionListener(actionListener);
-        menuItem.setMnemonic(shortKey);
-
-        return menuItem;
-    }
-
-    private JMenuItem addMenuItem(String name, int shortKey, int keyBindings, AbstractAction actionListener) {
-        KeyStroke keyStroke = KeyStroke.getKeyStroke(keyBindings, Event.CTRL_MASK);
-        InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        inputMap.put(keyStroke, name);
-        this.getActionMap().put(name, actionListener);
-
-        return addMenuItem(name, shortKey, actionListener);
     }
 
     @Override
@@ -80,8 +42,11 @@ public class WorldPanel extends MapPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        Rectangle uiRect = new Rectangle(0, this.getSize().height - 207, 500, 201);
-        gameUI.drawUI(g, uiRect);
+        Rectangle uiRect = new Rectangle(0, this.getSize().height - 55, 50, 200);
+        g.drawImage(HWImage.getImageWithDefaultTransparensy("nextTurn"), uiRect.x, uiRect.y, null);
+        g.drawImage(HWImage.getImageWithDefaultTransparensy("exitButton"), uiRect.x+50, uiRect.y, null);
+        g.drawImage(HWImage.getImageWithDefaultTransparensy("saveButton"), uiRect.x+100, uiRect.y, null);
+        g.drawImage(HWImage.getImageWithDefaultTransparensy("loadButton"), uiRect.x+150, uiRect.y, null);
     }
 
     public WorldModel getWorldModel() {
