@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class ImageWithAction implements Serializable{
+public class ImageWithAction implements Serializable {
 
     private String imageName;
     private UIAction action;
@@ -23,7 +23,7 @@ public class ImageWithAction implements Serializable{
     }
 
     public Image getIcon() {
-        return HWImage.getImage(1, 1, UserInterface.ICON_WIDTH, UserInterface.ICON_HEIGHT, imageName);
+        return HWImage.getImageWithDefaultTransparensy(imageName);
     }
 
     public UIAction getAction() {

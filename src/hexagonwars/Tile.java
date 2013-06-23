@@ -54,7 +54,7 @@ public abstract class Tile implements Serializable {
     }
 
     public Image getImage() {
-        return HWImage.getImage(1, 1, HexagonWars.WORLD_TILE_WIDTH, HexagonWars.WORLD_TILE_HEIGHT_MAX, this.getClass().getSimpleName());
+        return HWImage.getImageWithDefaultTransparensy(this.getClass().getSimpleName());
     }
 
     public Entity getEntity() {

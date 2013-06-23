@@ -21,20 +21,19 @@ import javax.imageio.ImageIO;
  */
 public class HWImage {
 
+    private static final int TRANSPARENTCOLOR = 0xFF000000;
     private static ArrayList<ImageName> images = new ArrayList<>();
+    private static ArrayList<Integer> defaultColors = new ArrayList<>();
 
-    private static ImageName getTile(int imX, int imY, int width, int height, String filename) {
+    private static ImageName getTile(String filename, ArrayList<Integer> colorsFrom, int colorTo) {
         Image img;
         ImageName newImage;
-        imX = (imX - 1) * width;
-        imY = (imY - 1) * height;
-
         BufferedImage image;
         try {
             File file = new File(Tile.class.getResource("images" + File.separator + filename + ".png").toURI());
             image = ImageIO.read(file);
-            image = image.getSubimage(imX, imY, width, height);
-            img = makeColorTransparent(image, new Color(255, 0, 255), new Color(127, 0, 55));
+            // the color we are looking for... Alpha bits are set to opaque
+            img = makeColorTransparent(image, colorsFrom, colorTo);
         } catch (URISyntaxException e) {
             System.err.println("problems converting resources");
             System.err.println(e.getStackTrace());
@@ -46,21 +45,18 @@ public class HWImage {
             System.exit(1);
             return null;
         }
-        newImage = new ImageName(filename, img);
+        newImage = new ImageName(filename + colorTo, img);
         return newImage;
     }
 
-    private static Image makeColorTransparent(BufferedImage im, final Color color, final Color color2) {
+    private static Image makeColorTransparent(BufferedImage im, final ArrayList<Integer> colorsFrom, final int colorTo) {
         ImageFilter filter = new RGBImageFilter() {
-            // the color we are looking for... Alpha bits are set to opaque
-            public int transparentRGB = color.getRGB() | 0xFF000000;
-            public int transparentRGB2 = color2.getRGB() | 0xFF000000;
-
             @Override
             public final int filterRGB(int x, int y, int rgb) {
-                if ((rgb | 0xFF000000) == transparentRGB || ((rgb | 0xFF000000) == transparentRGB2)) {
+
+                if (colorsFrom.contains((rgb | 0xFF000000))) {
                     // Mark the alpha bits as zero - transparent
-                    return 0x00FFFFFF & rgb;
+                    return colorTo & rgb;
                 } else {
                     // nothing to do
                     return rgb;
@@ -72,14 +68,25 @@ public class HWImage {
 
     }
 
-    public static Image getImage(int imX, int imY, int width, int height, String imageName) {
+    public static Image getImage(String imageName, ArrayList<Integer> colorsFrom, int colorTo) {
         for (ImageName image : images) {
-            if (image.getName().equals(imageName)) {
+            if (image.getName().equals(imageName + colorTo)) {
                 return image.getImage();
             }
         }
-        ImageName image = getTile(imX, imY, width, height, imageName);
+        ImageName image = getTile(imageName, colorsFrom, colorTo);
         images.add(image);
         return image.getImage();
+    }
+
+    public static Image getImageWithDefaultTransparensy(String imageName) {
+
+        if (defaultColors.isEmpty()) {
+            int transparentRGB = new Color(127, 0, 55).getRGB() | 0xFF000000;
+            int transparentRGB2 = new Color(255, 0, 255).getRGB() | 0xFF000000;
+            defaultColors.add(transparentRGB);
+            defaultColors.add(transparentRGB2);
+        }
+        return getImage(imageName, defaultColors, TRANSPARENTCOLOR);
     }
 }
