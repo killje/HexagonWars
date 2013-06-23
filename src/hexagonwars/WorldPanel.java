@@ -17,7 +17,7 @@ public class WorldPanel extends MapPanel {
 
     private WorldModel worldMap;
     private GameUI gameUI = new GameUI(this);
-    private final Tile[] posibleTiles;
+    private final Tile[] possibleTiles;
     private ArrayList<Tile> tiles;
     private boolean drawMoves = false;
 

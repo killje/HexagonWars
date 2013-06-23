@@ -93,7 +93,7 @@ public class HWImage {
         return image.getImage();
     }
 
-    public static Image getImageWithDefaultTransparensy(String imageName) {
+    public static Image getImageWithDefaultTransparency(String imageName) {
         return getImage(imageName, defaultColors, TRANSPARENTCOLOR);
     }
 }
