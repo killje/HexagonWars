@@ -4,6 +4,8 @@
  */
 package hexagonwars.entities;
 
+import java.awt.Color;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -11,7 +13,7 @@ package hexagonwars.entities;
  */
 public class Soldier extends Infantry{
 
-    public Soldier(){
-        // TODO code application logic here
+    public Soldier(Color playerColor){
+        super(playerColor);
     }
 }

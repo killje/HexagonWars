@@ -5,6 +5,7 @@
 package hexagonwars.entities;
 
 import hexagonwars.UpgradeAction;
+import java.awt.Color;
 
 /**
  *
@@ -13,7 +14,8 @@ import hexagonwars.UpgradeAction;
  */
 public class GoldMine extends Gatherer {
 
-    public GoldMine() {
+    public GoldMine(Color playerColor) {
+        super(playerColor);
         type = ENTITY_BUILDING_GATHERER_GOLDMINE;
         addUI();
     }

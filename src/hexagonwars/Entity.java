@@ -1,10 +1,7 @@
 package hexagonwars;
 
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.Color;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *
@@ -34,6 +31,11 @@ public abstract class Entity implements Serializable{
     protected int defenseStrength;
     protected int health;
     protected EntityUI ui = new EntityUI(getClass().getSimpleName());
+    protected Color playerColor;
+    
+    public Entity(Color playerColor){
+        this.playerColor = playerColor;
+    }
 
     public void damage(int damage) {
         health -= damage;

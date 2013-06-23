@@ -4,14 +4,16 @@
  */
 package hexagonwars.entities;
 
+import java.awt.Color;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class BatteringRam extends Mechanic{
+public class BatteringRam extends Mechanic {
 
-    public BatteringRam(){
-        // TODO code application logic here
+    public BatteringRam(Color playerColor) {
+        super(playerColor);
     }
 }

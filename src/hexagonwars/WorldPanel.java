@@ -1,11 +1,15 @@
 package hexagonwars;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Event;
+import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
@@ -72,5 +76,32 @@ public class WorldPanel extends MapPanel{
     @Override
     protected void tileClick(WorldModel world, Point TileCoordinate) {
         throw new UnsupportedOperationException("Not supported yet. at: hexagonwars.WorldPanel:tileClick();");
+    }
+    
+    @Override
+    public void paint(Graphics g){
+        super.paint(g);
+        
+        if (selectedTile != null) {
+            if (selectedTile.isOccupied() != 0) {
+                g.setColor(Color.BLACK);
+                Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
+                int x = 0;
+                int y = 0;
+                g.drawRect(rect.x, rect.y, rect.width, rect.height);
+                g.drawLine(rect.x + 199, rect.y, rect.x + 199, rect.y + rect.height);
+                ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
+                for (int i = 0; i < list.size(); i++) {
+                    ImageWithAction imageWithAction = list.get(i);
+                    g.drawImage(imageWithAction.getIcon(), rect.x + 200 + x * EntityUI.ICON_WIDTH, rect.y + y * EntityUI.ICON_HEIGHT + 1, null);
+                    if (x < 5) {
+                        x++;
+                    } else {
+                        x = 0;
+                        y++;
+                    }
+                }
+            }
+        }
     }
 }

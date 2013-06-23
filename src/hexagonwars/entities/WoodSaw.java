@@ -5,6 +5,7 @@
 package hexagonwars.entities;
 
 import hexagonwars.UpgradeAction;
+import java.awt.Color;
 
 /**
  *
@@ -13,9 +14,10 @@ import hexagonwars.UpgradeAction;
  */
 public class WoodSaw extends Gatherer {
 
-    public WoodSaw() {
-        type = ENTITY_BUILDING_GATHERER_SAWMILL;
+    public WoodSaw(Color playerColor){
+        super(playerColor);
         addUI();
+        type = ENTITY_BUILDING_GATHERER_SAWMILL;
     }
 
     private void addUI() {

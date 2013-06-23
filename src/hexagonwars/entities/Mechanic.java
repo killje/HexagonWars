@@ -1,5 +1,7 @@
 package hexagonwars.entities;
 
+import java.awt.Color;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -7,7 +9,7 @@ package hexagonwars.entities;
  */
 public abstract class Mechanic extends Unit {
 
-    public Mechanic() {
-        this.type = hexagonwars.HexagonWars.ENTITY_UNIT_MECHANIC;
+    public Mechanic(Color playerColor){
+        super(playerColor);
     }
 }

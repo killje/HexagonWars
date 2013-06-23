@@ -4,6 +4,8 @@
  */
 package hexagonwars.entities;
 
+import java.awt.Color;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -11,7 +13,7 @@ package hexagonwars.entities;
  */
 public class Horseman extends Unit{
 
-    public Horseman(){
-        // TODO code application logic here
+    public Horseman(Color playerColor){
+        super(playerColor);
     }
 }

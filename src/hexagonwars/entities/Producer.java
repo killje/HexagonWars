@@ -4,6 +4,8 @@
  */
 package hexagonwars.entities;
 
+import java.awt.Color;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -11,8 +13,8 @@ package hexagonwars.entities;
  */
 public class Producer extends Building{
 
-    public Producer(){
-        // TODO code application logic here
+    public Producer(Color playerColor){
+        super(playerColor);
     }
 
     @Override

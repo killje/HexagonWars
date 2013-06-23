@@ -1,6 +1,7 @@
 package hexagonwars.entities;
 
 import hexagonwars.Entity;
+import java.awt.Color;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,10 @@ public abstract class Building extends Entity implements Serializable{
     protected Unit spawnUnit;
     protected int spawnAmount;
     protected int spawnInterval;
+    
+    public Building(Color playerColor){
+        super(playerColor);
+    }
     
     public void disableSpawn() {
         this.enableSpawn = false;
