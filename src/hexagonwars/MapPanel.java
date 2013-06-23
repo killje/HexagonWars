@@ -372,7 +372,7 @@ public abstract class MapPanel extends JPanel {
 
         @Override
         public void mousePressed(MouseEvent me) {
-            // not implemented
+            clicked(me);
         }
 
         @Override
