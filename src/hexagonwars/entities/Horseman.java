@@ -4,7 +4,6 @@
  */
 package hexagonwars.entities;
 
-import java.awt.Color;
 
 /**
  *
@@ -13,7 +12,7 @@ import java.awt.Color;
  */
 public class Horseman extends Unit{
 
-    public Horseman(Color playerColor){
+    public Horseman(int playerColor){
         super(playerColor);
     }
 }

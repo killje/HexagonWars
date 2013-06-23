@@ -4,7 +4,6 @@
  */
 package hexagonwars.entities;
 
-import java.awt.Color;
 
 /**
  *
@@ -13,7 +12,7 @@ import java.awt.Color;
  */
 public class Gatherer extends Building{
 
-    public Gatherer(Color playerColor){
+    public Gatherer(int playerColor){
         super(playerColor);
     }
 

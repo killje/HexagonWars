@@ -4,7 +4,6 @@
  */
 package hexagonwars.entities;
 
-import java.awt.Color;
 
 /**
  *
@@ -13,7 +12,7 @@ import java.awt.Color;
  */
 public class BatteringRam extends Mechanic {
 
-    public BatteringRam(Color playerColor) {
+    public BatteringRam(int playerColor) {
         super(playerColor);
     }
 }

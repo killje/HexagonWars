@@ -4,7 +4,6 @@
  */
 package hexagonwars.entities;
 
-import java.awt.Color;
 
 /**
  *
@@ -13,7 +12,7 @@ import java.awt.Color;
  */
 public class Catapult extends Mechanic{
 
-    public Catapult(Color playerColor) {
+    public Catapult(int playerColor) {
         super(playerColor);
     }
 }

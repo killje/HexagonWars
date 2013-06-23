@@ -4,7 +4,6 @@
  */
 package hexagonwars.entities;
 
-import java.awt.Color;
 
 /**
  *
@@ -13,7 +12,7 @@ import java.awt.Color;
  */
 public class WizardTower extends Producer{
 
-    public WizardTower(Color playerColor){
+    public WizardTower(int playerColor){
         super(playerColor);
     }
 }

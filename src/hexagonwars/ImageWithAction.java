@@ -4,8 +4,10 @@
  */
 package hexagonwars;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,14 +18,18 @@ public class ImageWithAction implements Serializable {
 
     private String imageName;
     private UIAction action;
+    private int playerColor;
 
-    public ImageWithAction(String imageName, UIAction action) {
+    public ImageWithAction(String imageName, UIAction action, int playerColor) {
         this.imageName = imageName;
         this.action = action;
+        this.playerColor = playerColor;
     }
 
     public Image getIcon() {
-        return HWImage.getImageWithDefaultTransparensy(imageName);
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(new Color(55, 171, 200).getRGB());
+        return HWImage.getImage(imageName, colors, playerColor);
     }
 
     public UIAction getAction() {

@@ -4,7 +4,6 @@
  */
 package hexagonwars.entities;
 
-import java.awt.Color;
 
 /**
  *
@@ -13,7 +12,7 @@ import java.awt.Color;
  */
 public class WorkShop extends Producer{
 
-    public WorkShop(Color playerColor){
+    public WorkShop(int playerColor){
         super(playerColor);
     }
 }

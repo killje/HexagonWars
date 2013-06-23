@@ -1,6 +1,5 @@
 package hexagonwars;
 
-import java.awt.Color;
 import java.io.Serializable;
 
 /**
@@ -8,7 +7,7 @@ import java.io.Serializable;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public abstract class Entity implements Serializable{
+public abstract class Entity implements Serializable {
 
     //UNITS
     public static final int ENTITY_UNIT_WORKER = 1;
@@ -30,11 +29,12 @@ public abstract class Entity implements Serializable{
     protected int type = 0;
     protected int defenseStrength;
     protected int health;
-    protected EntityUI ui = new EntityUI(getClass().getSimpleName());
-    protected Color playerColor;
-    
-    public Entity(Color playerColor){
+    protected EntityUI ui;
+    protected int playerColor;
+
+    public Entity(int playerColor) {
         this.playerColor = playerColor;
+        ui = new EntityUI(getClass().getSimpleName(), playerColor);
     }
 
     public void damage(int damage) {
@@ -57,8 +57,8 @@ public abstract class Entity implements Serializable{
     protected void addUIElement(String actionName, UIAction action) {
         ui.addAction(actionName, action);
     }
-    
-    public EntityUI getEntityUI(){
+
+    public EntityUI getEntityUI() {
         return ui;
     }
 

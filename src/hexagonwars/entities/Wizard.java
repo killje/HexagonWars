@@ -9,7 +9,7 @@ import java.awt.Color;
  */
 public abstract class Wizard extends Infantry {
 
-    public Wizard(Color playerColor) {
+    public Wizard(int playerColor) {
         super(playerColor);
         this.type = hexagonwars.HexagonWars.ENTITY_UNIT_MAGIC;
     }

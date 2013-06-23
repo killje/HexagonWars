@@ -6,7 +6,6 @@ package hexagonwars.entities;
 
 import hexagonwars.ProduceAction;
 import hexagonwars.UpgradeAction;
-import java.awt.Color;
 
 /**
  *
@@ -20,7 +19,7 @@ public class Barracks extends Producer {
     UpgradeAction soldierUpgrade = new UpgradeAction(this, UPGRADE_MORE_SOLDIERS);
     UpgradeAction archerUpgrade = new UpgradeAction(this, UPGRADE_ARCHERS);
 
-    public Barracks(Color playerColor) {
+    public Barracks(int playerColor) {
         super(playerColor);
         addUI();
     }

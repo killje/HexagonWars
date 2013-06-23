@@ -1,6 +1,5 @@
 package hexagonwars.entities;
 
-import java.awt.Color;
 
 /**
  *
@@ -9,7 +8,7 @@ import java.awt.Color;
  */
 public abstract class Mechanic extends Unit {
 
-    public Mechanic(Color playerColor){
+    public Mechanic(int playerColor){
         super(playerColor);
     }
 }

@@ -6,24 +6,23 @@ package hexagonwars.entities;
 
 import hexagonwars.DummyAction;
 import hexagonwars.NewUIAction;
-import java.awt.Color;
 
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class Worker extends Unit{
+public class Worker extends Unit {
 
-    public Worker(Color playerColor){
+    public Worker(int playerColor) {
         super(playerColor);
         type = ENTITY_UNIT_WORKER;
         addUI();
     }
 
     private void addUI() {
-        NewUIAction action = new NewUIAction(ui.getName());
-        action.addIcon("test2",new DummyAction());
-        addUIElement("test",action);
+        NewUIAction action = new NewUIAction(ui.getName(), playerColor);
+        action.addIcon("test2", new DummyAction());
+        addUIElement("test", action);
     }
 }

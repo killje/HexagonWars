@@ -15,9 +15,11 @@ public class EntityUI implements Serializable {
     private String name;
     private ArrayList<ImageWithAction> actionList = new ArrayList<>();
     private int health;
+    private int playerColor;
 
-    public EntityUI(String name) {
+    public EntityUI(String name, int playerColor) {
         this.name = name;
+        this.playerColor = playerColor;
     }
 
     public ArrayList<ImageWithAction> getActions() {
@@ -42,6 +44,6 @@ public class EntityUI implements Serializable {
     }
 
     public void addAction(String actionName, UIAction action) {
-        actionList.add(new ImageWithAction(actionName, action));
+        actionList.add(new ImageWithAction(actionName, action, playerColor));
     }
 }

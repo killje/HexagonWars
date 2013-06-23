@@ -1,6 +1,5 @@
 package hexagonwars.entities;
 
-import java.awt.Color;
 
 /**
  *
@@ -9,7 +8,7 @@ import java.awt.Color;
  */
 public abstract class Infantry extends Unit {
 
-    public Infantry(Color playerColor){
+    public Infantry(int playerColor){
         super(playerColor);
     }
 }

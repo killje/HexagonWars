@@ -13,7 +13,7 @@ import java.awt.Color;
  */
 public class Soldier extends Infantry{
 
-    public Soldier(Color playerColor){
+    public Soldier(int playerColor){
         super(playerColor);
     }
 }

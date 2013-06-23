@@ -1,7 +1,6 @@
 package hexagonwars.entities;
 
 import hexagonwars.Entity;
-import java.awt.Color;
 import java.io.Serializable;
 
 /**
@@ -14,7 +13,7 @@ public abstract class Unit extends Entity implements Serializable{
     protected int attackDamage;
     protected int attackRatio;
     
-    public Unit(Color playerColor){
+    public Unit(int playerColor){
         super(playerColor);
     }
 

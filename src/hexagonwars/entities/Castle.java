@@ -5,7 +5,6 @@
 package hexagonwars.entities;
 
 import hexagonwars.ProduceAction;
-import java.awt.Color;
 
 /**
  *
@@ -14,7 +13,7 @@ import java.awt.Color;
  */
 public class Castle extends Building {
 
-    public Castle(Color playerColor) {
+    public Castle(int playerColor) {
         super(playerColor);
         type = ENTITY_BUILDING_CASTLE;
         addUI();

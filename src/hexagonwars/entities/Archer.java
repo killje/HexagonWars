@@ -4,7 +4,6 @@
  */
 package hexagonwars.entities;
 
-import java.awt.Color;
 
 /**
  *
@@ -13,7 +12,7 @@ import java.awt.Color;
  */
 public class Archer extends Infantry{
 
-    public Archer(Color playerColor){
+    public Archer(int playerColor){
         super(playerColor);
     }
 }
