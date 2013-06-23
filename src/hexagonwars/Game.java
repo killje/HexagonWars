@@ -12,17 +12,18 @@ import java.util.Random;
 public class Game {
 
     private int turn;
+    private ArrayList<Player> players;
     private ArrayList<Building> buildingConstructions;
     
     public Game() {
         turn = 1; /* player one */
     }
-
-    private int whosTurn() {
-        return turn % 2;
+    
+    public Player getCurrentPlayer() {
+        return players.get(turn);
     }
 
-    private void switchSide() {
+    private void nextTurn() {
         turn++;
 
         for (Building building : buildingConstructions) {
@@ -36,9 +37,9 @@ public class Game {
     }
 
     private void build(Building building) {
+        getCurrentPlayer().addPlayerEntity(building);
+        
         building.startBuild();
-
-        switchSide();
     }
 
     private void attack(Tile tileAttacker, Tile tileDefender) throws Exception {
@@ -64,7 +65,5 @@ public class Game {
                 tileDefender.removeEntity(remove);
             }
         }
-
-        switchSide();
     }
 }
