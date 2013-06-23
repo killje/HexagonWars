@@ -132,7 +132,7 @@ public class WorldModel extends Component {
         }
     }
 
-    public void setSavable(boolean b) {
+    public void setSaveable(boolean b) {
         saveable = b;
     }
 
