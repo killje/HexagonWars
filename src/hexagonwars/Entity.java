@@ -72,6 +72,6 @@ public abstract class Entity implements Serializable {
     public Image getImage() {
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(new Color(55, 171, 200).getRGB());
-        return HWImage.getImage(this.getClass().getSimpleName(), colors, playerColor);
+        return HWImage.getImage("Medium" + this.getClass().getSimpleName(), colors, playerColor);
     }
 }

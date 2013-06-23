@@ -53,8 +53,9 @@ public class HWImage {
         ImageFilter filter = new RGBImageFilter() {
             @Override
             public final int filterRGB(int x, int y, int rgb) {
-
-                if (colorsFrom.contains((rgb | 0xFF000000))) {
+                if (defaultColors.contains((rgb | 0xFF000000))) {
+                    return TRANSPARENTCOLOR & rgb;
+                } else if (colorsFrom.contains((rgb | 0xFF000000))) {
                     // Mark the alpha bits as zero - transparent
                     return colorTo & rgb;
                 } else {
@@ -69,6 +70,12 @@ public class HWImage {
     }
 
     public static Image getImage(String imageName, ArrayList<Integer> colorsFrom, int colorTo) {
+        if (defaultColors.isEmpty()) {
+            int transparentRGB = new Color(127, 0, 55).getRGB() | 0xFF000000;
+            int transparentRGB2 = new Color(255, 0, 255).getRGB() | 0xFF000000;
+            defaultColors.add(transparentRGB);
+            defaultColors.add(transparentRGB2);
+        }
         for (ImageName image : images) {
             if (image.getName().equals(imageName + colorTo)) {
                 return image.getImage();
@@ -80,13 +87,6 @@ public class HWImage {
     }
 
     public static Image getImageWithDefaultTransparensy(String imageName) {
-
-        if (defaultColors.isEmpty()) {
-            int transparentRGB = new Color(127, 0, 55).getRGB() | 0xFF000000;
-            int transparentRGB2 = new Color(255, 0, 255).getRGB() | 0xFF000000;
-            defaultColors.add(transparentRGB);
-            defaultColors.add(transparentRGB2);
-        }
         return getImage(imageName, defaultColors, TRANSPARENTCOLOR);
     }
 }

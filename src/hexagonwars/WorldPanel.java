@@ -36,7 +36,6 @@ public class WorldPanel extends MapPanel {
 
     @Override
     protected void tileClick(WorldModel world, Point TileCoordinate) {
-        throw new UnsupportedOperationException("Not supported yet. at: hexagonwars.WorldPanel:tileClick();");
     }
 
     @Override
