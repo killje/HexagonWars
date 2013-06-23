@@ -39,13 +39,20 @@ public class GameHandler {
         }
     }
 
-    private void build(Building building) {
+    public void move(Unit unit, int amount, Tile currentTile, Tile newTile) {
+        currentTile.removeEntity(amount);
+        for (int i = 0; i < amount; i++) {
+            newTile.addEntity(unit);
+        }
+    }
+
+    public void build(Building building) {
         getCurrentPlayer().addPlayerEntity(building);
 
         building.startBuild();
     }
 
-    private void attack(Tile tileAttacker, Tile tileDefender) throws Exception {
+    public void attack(Tile tileAttacker, Tile tileDefender) throws Exception {
         if (!(tileAttacker.getEntity() instanceof Unit)) {
             throw new Exception("The provided attacking entity was not of type Unit");
         } else if (!(tileDefender.getEntity() instanceof Building || (tileDefender.getEntity() instanceof Unit))) {
