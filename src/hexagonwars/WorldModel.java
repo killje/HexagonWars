@@ -20,8 +20,8 @@ public class WorldModel extends Component {
     private int worldLocationX;
     private int worldLocationY;
     private double zoomLevel = 1;
-    private boolean CameraEnebled = true;
-    private boolean savable = true;
+    private boolean cameraEnabled = true;
+    private boolean saveable = true;
     private int cameraX = 0;
     private int cameraY = 0;
     private GameHandler gameHandler;
@@ -93,13 +93,13 @@ public class WorldModel extends Component {
     }
 
     public void changeZoomLevel(double zoomChange) {
-        if (CameraEnebled) {
+        if (cameraEnabled) {
             zoomLevel -= zoomChange;
         }
     }
 
     public void resetZoomLevel() {
-        if (CameraEnebled) {
+        if (cameraEnabled) {
             zoomLevel = 1;
         }
     }
@@ -109,7 +109,7 @@ public class WorldModel extends Component {
     }
 
     public void setCameraEnabled(boolean b) {
-        CameraEnebled = b;
+        cameraEnabled = b;
     }
 
     public int getCameraX() {
@@ -120,24 +120,24 @@ public class WorldModel extends Component {
         return cameraY;
     }
 
-    public void changeCameraX(int amounth) {
-        if (CameraEnebled) {
-            cameraX += amounth;
+    public void changeCameraX(int amount) {
+        if (cameraEnabled) {
+            cameraX += amount;
         }
     }
 
-    public void changeCameraY(int amounth) {
-        if (CameraEnebled) {
-            cameraY += amounth;
+    public void changeCameraY(int amount) {
+        if (cameraEnabled) {
+            cameraY += amount;
         }
     }
 
     public void setSavable(boolean b) {
-        savable = b;
+        saveable = b;
     }
 
     public boolean isSavable() {
-        return savable;
+        return saveable;
     }
 
     public void setGameHandler(GameHandler gameHandler) {
@@ -184,13 +184,13 @@ public class WorldModel extends Component {
         }
         return tilesToMoveOn;
     }
-    
+
     public Point getTilePosition(Tile tile) {
         for (int x = 0; x < r.length; x++) {
             Tile[] tileRow = r[x];
             for (int y = 0; y < tileRow.length; y++) {
                 if (r[x][y] == tile) {
-                    return new Point(x,y);
+                    return new Point(x, y);
                 }
             }
         }

@@ -13,9 +13,18 @@ public abstract class Tile implements Serializable {
     private Entity entity;
     private int entitiesAmount = 0;
 
+    /**
+     * empty constructor
+     */
     public Tile() {
     }
 
+    /**
+     * adds an entity
+     * @param Entity adds an entity to the tile instance when it was previously
+     * empty. In case there were already entities on the tile, it just raises
+     * the entity counter.
+     */
     public void addEntity(Entity Entity) {
         if (entity == null) {
             entity = Entity;
@@ -25,6 +34,10 @@ public abstract class Tile implements Serializable {
         }
     }
 
+    /**
+     * removes a certain amount of entities.
+     * @param amount the amount of entities to be removed.
+     */
     public void removeEntity(int amount) {
         entitiesAmount -= amount;
 
@@ -34,11 +47,18 @@ public abstract class Tile implements Serializable {
         }
     }
 
+    /**
+     * removes all entities
+     */
     public void removeAllEntities() {
         entity = null;
         entitiesAmount = 0;
     }
 
+    /**
+     *
+     * @return whether the tile is occupied
+     */
     public boolean isOccupied() {
         if (entitiesAmount > 0) {
             return true;
@@ -52,18 +72,35 @@ public abstract class Tile implements Serializable {
         return this.getClass().getSimpleName();
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getImage() {
-        return HWImage.getImageWithDefaultTransparensy(this.getClass().getSimpleName());
+        return HWImage.getImageWithDefaultTransparency(this.getClass().getSimpleName());
     }
 
+    /**
+     *
+     * @return the current entity type on the tile
+     */
     public Entity getEntity() {
         return entity;
     }
 
+    /**
+     *
+     * @return the amount of entities on the tile
+     */
     public int getEntityAmount() {
         return entitiesAmount;
     }
 
+    /**
+     *
+     * @param type the type to be used for the new instance
+     * @return a new instance of type type
+     */
     public static Tile getType(int type) {
         Tile tile;
         switch (type) {
