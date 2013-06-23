@@ -223,6 +223,27 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
+    protected void drawHex(Graphics g, int x, int y, Color color, WorldModel world) {
+        Color oldColor = g.getColor();
+        g.setColor(color);
+        int[] xPoints = new int[6];
+        int[] yPoints = new int[6];
+        xPoints[0] = x + (int) ((HexagonWars.WORLD_TILE_WIDTH / 2) * world.getZoomLevel());
+        yPoints[0] = y;
+        xPoints[1] = x;
+        yPoints[1] = y + (int) (HexagonWars.WORLD_TILE_UPPERHEIGHT * world.getZoomLevel());
+        xPoints[5] = x + (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel());
+        yPoints[5] = y + (int) (HexagonWars.WORLD_TILE_UPPERHEIGHT * world.getZoomLevel());
+        xPoints[2] = x;
+        yPoints[2] = y + (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * world.getZoomLevel());
+        xPoints[4] = x + (int) (HexagonWars.WORLD_TILE_WIDTH * world.getZoomLevel());
+        yPoints[4] = y + (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * world.getZoomLevel());
+        xPoints[3] = x + (int) ((HexagonWars.WORLD_TILE_WIDTH / 2) * world.getZoomLevel());
+        yPoints[3] = y + (int) (HexagonWars.WORLD_TILE_HEIGHT_MAX * world.getZoomLevel());
+        g.fillPolygon(xPoints, yPoints, 6);
+        g.setColor(oldColor);
+    }
+
     /**
      * function to store the world
      *

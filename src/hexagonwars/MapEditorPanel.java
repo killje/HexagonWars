@@ -4,6 +4,8 @@
  */
 package hexagonwars;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.text.NumberFormat;
@@ -119,6 +121,14 @@ public class MapEditorPanel extends MapPanel {
             validate();
         }else{
             selectedTileCoordinate = TileCoordinate;
+        }
+    }
+    
+    @Override
+    public void paint(Graphics g){
+        super.paint(g);
+        if (selectedTileCoordinate!=null) {
+            drawHex(g, selectedTileCoordinate.x * HexagonWars.WORLD_TILE_WIDTH+tileSelector.getXLocation(), tileSelector.getYLocation(), new Color(255,255,0,50), tileSelector);
         }
     }
 
