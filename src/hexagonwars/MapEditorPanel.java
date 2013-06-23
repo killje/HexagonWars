@@ -4,7 +4,6 @@
  */
 package hexagonwars;
 
-import hexagonwars.entities.Worker;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.text.NumberFormat;
@@ -24,10 +23,13 @@ public class MapEditorPanel extends MapPanel {
     private JFormattedTextField inputHeightText;
     private JButton save = new JButton("Save");
     private int boardWidth, boardHeight;
-    private DrawWorld newWorld;
-    private DrawWorld tileSelector;
+    private WorldModel newWorld;
+    private WorldModel tileSelector;
     private Point selectedTileCoordinate;
 
+    /**
+     * opens a panel with functions to edit a x*x world
+     */
     public MapEditorPanel() {
         init();
     }
@@ -46,7 +48,7 @@ public class MapEditorPanel extends MapPanel {
 
         JButton go = new JButton("Go");
         go.addActionListener(new SetInputSize());
-        save.addActionListener(new SaveWorld("worldMap"));
+        save.addActionListener(new SaveWorld());
         save.setEnabled(false);
 
         add(inputWidthLabel);
@@ -60,40 +62,55 @@ public class MapEditorPanel extends MapPanel {
         revalidate();
     }
 
+    /**
+     * creates a world in where you can select a tile to later use on the board.
+     */
     private void tileChooser() {
-        World world = new World(6, 1);
+        WorldTiles world = new WorldTiles(6, 1);
         Tile[][] tiles = new Tile[6][1];
-        tiles[0][0] = Tile.getType(World.PLAIN);
-        tiles[1][0] = Tile.getType(World.MOUNTAIN);
-        tiles[2][0] = Tile.getType(World.WATER);
-        tiles[3][0] = Tile.getType(World.GOLD);
-        tiles[4][0] = Tile.getType(World.SHALLOWS);
-        tiles[5][0] = Tile.getType(World.FOREST);
+        tiles[0][0] = Tile.getType(WorldTiles.PLAIN);
+        tiles[1][0] = Tile.getType(WorldTiles.MOUNTAIN);
+        tiles[2][0] = Tile.getType(WorldTiles.WATER);
+        tiles[3][0] = Tile.getType(WorldTiles.GOLD);
+        tiles[4][0] = Tile.getType(WorldTiles.SHALLOWS);
+        tiles[5][0] = Tile.getType(WorldTiles.FOREST);
         world.setWorld(tiles);
         tileSelector = addWorld(world, 70, 40);
         tileSelector.setCameraEnabled(false);
+        tileSelector.setSavable(false);
     }
-
+    
+    /**
+     * creates a x*x witch you can edit and later save
+     */
     private void newBoard() {
         removeWorld(newWorld);
-        World world = new World(boardWidth, boardHeight);
+        WorldTiles world = new WorldTiles(boardWidth, boardHeight);
         Tile[][] tiles = new Tile[boardWidth][boardHeight];
         for (int i = 0; i < boardWidth; i++) {
             for (int j = 0; j < boardHeight; j++) {
-                tiles[i][j] = Tile.getType(World.PLAIN);
+                tiles[i][j] = Tile.getType(WorldTiles.PLAIN);
             }
         }
         
         world.setWorld(tiles);
         newWorld = addWorld(world, 0, 180);
-        newWorld.setReferenceName("worldMap");
         save.setEnabled(true);
         repaint();
         validate();
     }
 
+    /**
+     * if the mouse has clicked on tileSelector then the current selectedTile
+     * is replaced with the clicked one,
+     * if the mouse has clicked on the newWorld then that tile is replaced to 
+     * the previous selected tile in tileSelector
+     * 
+     * @param world the world that the mouse has clicked in
+     * @param TileCoordinate the coordinate of the tile of the world
+     */
     @Override
-    protected void tileClick(DrawWorld world, Point TileCoordinate) {
+    protected void tileClick(WorldModel world, Point TileCoordinate) {
         if (world == newWorld) {
             Point worldTile = TileCoordinate;
             Tile tile = tileSelector.getTile(selectedTileCoordinate.x, selectedTileCoordinate.y);
@@ -105,6 +122,9 @@ public class MapEditorPanel extends MapPanel {
         }
     }
 
+    /**
+     * class to see if someone clicks on the go button
+     */
     private class SetInputSize extends AbstractAction {
 
         @Override

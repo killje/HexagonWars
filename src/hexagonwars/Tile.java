@@ -67,22 +67,22 @@ public abstract class Tile implements Serializable {
     public static Tile getType(int type) {
         Tile tile;
         switch (type) {
-            case World.PLAIN:
+            case WorldTiles.PLAIN:
                 tile = new hexagonwars.tiles.Plain();
                 break;
-            case World.MOUNTAIN:
+            case WorldTiles.MOUNTAIN:
                 tile = new hexagonwars.tiles.Mountain();
                 break;
-            case World.WATER:
+            case WorldTiles.WATER:
                 tile = new hexagonwars.tiles.Water();
                 break;
-            case World.GOLD:
+            case WorldTiles.GOLD:
                 tile = new hexagonwars.tiles.Gold();
                 break;
-            case World.SHALLOWS:
+            case WorldTiles.SHALLOWS:
                 tile = new hexagonwars.tiles.Shallows();
                 break;
-            case World.FOREST:
+            case WorldTiles.FOREST:
                 tile = new hexagonwars.tiles.Forest();
                 break;
             default:

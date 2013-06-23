@@ -22,14 +22,13 @@ import javax.swing.KeyStroke;
 public class WorldPanel extends MapPanel{
 
     Tile[][] tiles;
-    DrawWorld worldMap;
+    WorldModel worldMap;
 
     public WorldPanel() {
         File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
-        World world = new World(file);
+        WorldTiles world = new WorldTiles(file);
 
         worldMap = addWorld(world, 50, 30);
-        worldMap.setReferenceName("worldMap");
         add(addMenuBar());
     }
 
@@ -38,7 +37,7 @@ public class WorldPanel extends MapPanel{
         menuBar.setMaximumSize(new Dimension(50, 25));
         JMenu menuFile = addMenu("File", KeyEvent.VK_F);
         menuFile.add(addMenuItem("Load", KeyEvent.VK_L, KeyEvent.VK_O, new OpenWorld(worldMap)));
-        menuFile.add(addMenuItem("Save", KeyEvent.VK_S, KeyEvent.VK_S, new SaveWorld("worldMap")));
+        menuFile.add(addMenuItem("Save", KeyEvent.VK_S, KeyEvent.VK_S, new SaveWorld()));
         menuFile.addSeparator();
         menuFile.add(addMenuItem("Quit", KeyEvent.VK_Q, new QuitAction()));
         menuBar.add(menuFile);
@@ -71,7 +70,7 @@ public class WorldPanel extends MapPanel{
     }
 
     @Override
-    protected void tileClick(DrawWorld world, Point TileCoordinate) {
+    protected void tileClick(WorldModel world, Point TileCoordinate) {
         throw new UnsupportedOperationException("Not supported yet. at: hexagonwars.WorldPanel:tileClick();");
     }
 }

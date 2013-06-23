@@ -7,7 +7,7 @@ import java.io.*;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class World {
+public class WorldTiles {
     
     public static final int PLAIN = 1;
     public static final int MOUNTAIN = 2;
@@ -20,12 +20,12 @@ public class World {
     private int height;
     private Tile[][] tiles;
 
-    public World(int w, int h) {
+    public WorldTiles(int w, int h) {
         width = w;
         height = h;
     }
 
-    public World(File file) {
+    public WorldTiles(File file) {
         read(file);
     }
 

@@ -19,6 +19,10 @@ public class MainPanel extends JPanel {
     
     HWFrame frame;
     
+    /**
+     *
+     * @param hwframe has the frame as parameter to open the other two frames when hit a button
+     */
     public MainPanel(HWFrame hwframe){
         frame = hwframe;
         JButton loadMap = new JButton("Open map");

@@ -23,6 +23,11 @@ public class HWFrame extends JFrame {
     private WorldPanel worldPanel;
     private JPanel currentPanel;
 
+    /**
+     * this class creates a frame witch can hold one of the tree main panels.
+     * MainPanel.java witch makes the buttons to go to the other 2 panels, this
+     * one is called
+     */
     public HWFrame() {
         createFrame();
         addMainPanel();
@@ -37,6 +42,9 @@ public class HWFrame extends JFrame {
         });
     }
 
+    /**
+     * initializing of the frame
+     */
     private void createFrame() {
         setTitle("HexagonWars");
         setSize(HexagonWars.FRAME_WIDTH, HexagonWars.FRAME_HEIGHT);
@@ -45,6 +53,9 @@ public class HWFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * function to add the main panel witch has 2 buttons to open the other two panels
+     */
     public void addMainPanel() {
         removeAllPanels();
         mainPanel = new MainPanel(this);
@@ -55,6 +66,9 @@ public class HWFrame extends JFrame {
         validate();
     }
 
+    /**
+     *  opens the editor
+     */
     public void addEditorPanel() {
         removeAllPanels();
         mapPanel = new MapEditorPanel();
@@ -65,6 +79,9 @@ public class HWFrame extends JFrame {
         validate();
     }
 
+    /**
+     * opens the game itself
+     */
     public void addWorldPanel() {
         removeAllPanels();
         worldPanel = new WorldPanel();
@@ -75,6 +92,10 @@ public class HWFrame extends JFrame {
         validate();
     }
 
+    /**
+     * removes the panels currently open
+     */
+    
     private void removeAllPanels() {
         for (int i = 0; i < this.getContentPane().getComponents().length; i++) {
             if (this.getContentPane().getComponents()[i] == mainPanel) {

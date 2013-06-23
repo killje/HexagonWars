@@ -9,22 +9,22 @@ import java.awt.Point;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class DrawWorld extends Component {
+public class WorldModel extends Component {
 
-    private World world;
+    private WorldTiles world;
     private int worldWidth;
     private int worldHeight;
     private Tile[][] r;
     private Point selectedTileCoordinate;
     private int worldLocationX;
     private int worldLocationY;
-    private String referenceName;
     private double zoomLevel = 1;
     private boolean CameraEnebled = true;
+    private boolean savable = true;
     private int cameraX = 0;
     private int cameraY = 0;
 
-    public DrawWorld(World worldInput, int x, int y) {
+    public WorldModel(WorldTiles worldInput, int x, int y) {
         worldLocationX = x;
         worldLocationY = y;
         world = worldInput;
@@ -35,14 +35,6 @@ public class DrawWorld extends Component {
         this.setMaximumSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * zoomLevel), (int) (worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * zoomLevel)));
         this.setMinimumSize(new Dimension((int) (worldWidth * HexagonWars.WORLD_TILE_WIDTH * zoomLevel), (int) (worldHeight * HexagonWars.WORLD_TILE_HEIGHT_MAX * zoomLevel)));
 
-    }
-
-    public void setReferenceName(String name) {
-        referenceName = name;
-    }
-
-    public String getRefrenceName() {
-        return referenceName;
     }
 
     public Point getSelectedTileCoordinate() {
@@ -69,7 +61,7 @@ public class DrawWorld extends Component {
         return worldWidth;
     }
 
-    public void setWorld(World worldInput) {
+    public void setWorld(WorldTiles worldInput) {
         world = worldInput;
         r = world.getTiles();
         worldHeight = world.getHeight();
@@ -136,5 +128,13 @@ public class DrawWorld extends Component {
         if (CameraEnebled) {
             cameraY += amounth;
         }
+    }
+
+    public void setSavable(boolean b) {
+        savable = b;
+    }
+    
+    public boolean isSavable(){
+        return savable;
     }
 }
