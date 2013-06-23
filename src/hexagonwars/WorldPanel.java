@@ -26,13 +26,13 @@ public class WorldPanel extends MapPanel {
         WorldTiles world = new WorldTiles(file);
 
         worldMap = addWorld(world, 50, 30);
-        posibleTiles = new Tile[6];
-        posibleTiles[0] = Tile.getTileFromType(WorldTiles.PLAIN);
-        posibleTiles[1] = Tile.getTileFromType(WorldTiles.MOUNTAIN);
-        posibleTiles[2] = Tile.getTileFromType(WorldTiles.WATER);
-        posibleTiles[3] = Tile.getTileFromType(WorldTiles.GOLD);
-        posibleTiles[4] = Tile.getTileFromType(WorldTiles.SHALLOWS);
-        posibleTiles[5] = Tile.getTileFromType(WorldTiles.FOREST);
+        possibleTiles = new Tile[6];
+        possibleTiles[0] = Tile.getTileFromType(WorldTiles.PLAIN);
+        possibleTiles[1] = Tile.getTileFromType(WorldTiles.MOUNTAIN);
+        possibleTiles[2] = Tile.getTileFromType(WorldTiles.WATER);
+        possibleTiles[3] = Tile.getTileFromType(WorldTiles.GOLD);
+        possibleTiles[4] = Tile.getTileFromType(WorldTiles.SHALLOWS);
+        possibleTiles[5] = Tile.getTileFromType(WorldTiles.FOREST);
 
     }
 
@@ -41,7 +41,7 @@ public class WorldPanel extends MapPanel {
         selectedTile = world.getTile(TileCoordinate.x, TileCoordinate.y);
         drawMoves = true;
         if (drawMoves) {
-            tiles = worldMap.getMoves(posibleTiles, worldMap.getTilePosition(selectedTile), 3);
+            tiles = worldMap.getMoves(possibleTiles, worldMap.getTilePosition(selectedTile), 6);
         }
     }
 
@@ -49,10 +49,10 @@ public class WorldPanel extends MapPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Rectangle uiRect = new Rectangle(0, this.getSize().height - 55, 50, 200);
-        g.drawImage(HWImage.getImageWithDefaultTransparensy("nextTurn"), uiRect.x, uiRect.y, null);
-        g.drawImage(HWImage.getImageWithDefaultTransparensy("exitButton"), uiRect.x + 50, uiRect.y, null);
-        g.drawImage(HWImage.getImageWithDefaultTransparensy("saveButton"), uiRect.x + 100, uiRect.y, null);
-        g.drawImage(HWImage.getImageWithDefaultTransparensy("loadButton"), uiRect.x + 150, uiRect.y, null);
+        g.drawImage(HWImage.getImageWithDefaultTransparency("nextTurn"), uiRect.x, uiRect.y, null);
+        g.drawImage(HWImage.getImageWithDefaultTransparency("exitButton"), uiRect.x + 50, uiRect.y, null);
+        g.drawImage(HWImage.getImageWithDefaultTransparency("saveButton"), uiRect.x + 100, uiRect.y, null);
+        g.drawImage(HWImage.getImageWithDefaultTransparency("loadButton"), uiRect.x + 150, uiRect.y, null);
         if (drawMoves) {
             for (Tile tile : tiles) {
                 System.out.println(worldMap.getTilePosition(tile));
