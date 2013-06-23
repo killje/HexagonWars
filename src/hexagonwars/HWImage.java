@@ -21,7 +21,7 @@ import javax.imageio.ImageIO;
  */
 public class HWImage {
 
-    private static final int TRANSPARENTCOLOR = 0xFF000000;
+    private static final int TRANSPARENTCOLOR = 0x00FFFFFF;
     private static ArrayList<ImageName> images = new ArrayList<>();
     private static ArrayList<Integer> defaultColors = new ArrayList<>();
 
