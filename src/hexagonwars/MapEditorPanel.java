@@ -78,7 +78,7 @@ public class MapEditorPanel extends MapPanel {
         world.setWorld(tiles);
         tileSelector = addWorld(world, 70, 40);
         tileSelector.setCameraEnabled(false);
-        tileSelector.setSavable(false);
+        tileSelector.setSaveable(false);
     }
 
     /**
