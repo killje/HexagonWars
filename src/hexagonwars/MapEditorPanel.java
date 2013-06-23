@@ -67,13 +67,13 @@ public class MapEditorPanel extends MapPanel {
     private void tileChooser() {
         WorldTiles world = new WorldTiles(7, 1);
         Tile[][] tiles = new Tile[7][1];
-        tiles[0][0] = Tile.getType(WorldTiles.PLAIN);
-        tiles[1][0] = Tile.getType(WorldTiles.MOUNTAIN);
-        tiles[2][0] = Tile.getType(WorldTiles.WATER);
-        tiles[3][0] = Tile.getType(WorldTiles.GOLD);
-        tiles[4][0] = Tile.getType(WorldTiles.SHALLOWS);
-        tiles[5][0] = Tile.getType(WorldTiles.FOREST);
-        tiles[6][0] = Tile.getType(WorldTiles.PLAIN);
+        tiles[0][0] = Tile.getTileFromType(WorldTiles.PLAIN);
+        tiles[1][0] = Tile.getTileFromType(WorldTiles.MOUNTAIN);
+        tiles[2][0] = Tile.getTileFromType(WorldTiles.WATER);
+        tiles[3][0] = Tile.getTileFromType(WorldTiles.GOLD);
+        tiles[4][0] = Tile.getTileFromType(WorldTiles.SHALLOWS);
+        tiles[5][0] = Tile.getTileFromType(WorldTiles.FOREST);
+        tiles[6][0] = Tile.getTileFromType(WorldTiles.PLAIN);
         tiles[6][0].addEntity(new Worker(new Color(55, 55, 55).getRGB()));
         world.setWorld(tiles);
         tileSelector = addWorld(world, 70, 40);
@@ -90,7 +90,7 @@ public class MapEditorPanel extends MapPanel {
         Tile[][] tiles = new Tile[boardWidth][boardHeight];
         for (int i = 0; i < boardWidth; i++) {
             for (int j = 0; j < boardHeight; j++) {
-                tiles[i][j] = Tile.getType(WorldTiles.PLAIN);
+                tiles[i][j] = Tile.getTileFromType(WorldTiles.PLAIN);
             }
         }
 
@@ -114,7 +114,7 @@ public class MapEditorPanel extends MapPanel {
         if (world == newWorld) {
             Point worldTile = TileCoordinate;
             Tile tile = tileSelector.getTile(selectedTileCoordinate.x, selectedTileCoordinate.y);
-            newWorld.setTile(worldTile.x, worldTile.y, tile);
+            newWorld.setTile(worldTile.x, worldTile.y,tile);
             repaint();
             validate();
         } else {
