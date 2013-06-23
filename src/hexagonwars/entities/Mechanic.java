@@ -1,6 +1,5 @@
 package hexagonwars.entities;
 
-
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -8,7 +7,7 @@ package hexagonwars.entities;
  */
 public abstract class Mechanic extends Unit {
 
-    public Mechanic(int playerColor){
+    public Mechanic(int playerColor) {
         super(playerColor);
     }
 }

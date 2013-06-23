@@ -27,7 +27,7 @@ public abstract class Tile implements Serializable {
 
     public void removeEntity(int amount) {
         entitiesAmount -= amount;
-        
+
         if (entitiesAmount <= 0) {
             entity = null;
             amount = 0;
@@ -39,12 +39,12 @@ public abstract class Tile implements Serializable {
         entitiesAmount = 0;
     }
 
-    public int isOccupied() {
-        if (entitiesAmount <= 0) {
-            return 0;
-        } else {
-            return entity.getType();
+    public boolean isOccupied() {
+        if (entitiesAmount > 0) {
+            return true;
         }
+
+        return false;
     }
 
     @Override

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hexagonwars;
 
 import hexagonwars.entities.Worker;
@@ -36,8 +32,8 @@ public class MapEditorPanel extends MapPanel {
     public MapEditorPanel() {
         init();
     }
-    
-    private void init(){
+
+    private void init() {
         NumberFormat numberFormat;
         JLabel inputWidthLabel = new JLabel("Width");
         numberFormat = NumberFormat.getIntegerInstance();
@@ -78,13 +74,13 @@ public class MapEditorPanel extends MapPanel {
         tiles[4][0] = Tile.getType(WorldTiles.SHALLOWS);
         tiles[5][0] = Tile.getType(WorldTiles.FOREST);
         tiles[6][0] = Tile.getType(WorldTiles.PLAIN);
-        tiles[6][0].addEntity(new Worker(new Color(55,55,55).getRGB()));
+        tiles[6][0].addEntity(new Worker(new Color(55, 55, 55).getRGB()));
         world.setWorld(tiles);
         tileSelector = addWorld(world, 70, 40);
         tileSelector.setCameraEnabled(false);
         tileSelector.setSavable(false);
     }
-    
+
     /**
      * creates a x*x witch you can edit and later save
      */
@@ -97,7 +93,7 @@ public class MapEditorPanel extends MapPanel {
                 tiles[i][j] = Tile.getType(WorldTiles.PLAIN);
             }
         }
-        
+
         world.setWorld(tiles);
         newWorld = addWorld(world, 0, 180);
         save.setEnabled(true);
@@ -106,11 +102,10 @@ public class MapEditorPanel extends MapPanel {
     }
 
     /**
-     * if the mouse has clicked on tileSelector then the current selectedTile
-     * is replaced with the clicked one,
-     * if the mouse has clicked on the newWorld then that tile is replaced to 
-     * the previous selected tile in tileSelector
-     * 
+     * if the mouse has clicked on tileSelector then the current selectedTile is
+     * replaced with the clicked one, if the mouse has clicked on the newWorld
+     * then that tile is replaced to the previous selected tile in tileSelector
+     *
      * @param world the world that the mouse has clicked in
      * @param TileCoordinate the coordinate of the tile of the world
      */
@@ -122,16 +117,16 @@ public class MapEditorPanel extends MapPanel {
             newWorld.setTile(worldTile.x, worldTile.y, tile);
             repaint();
             validate();
-        }else{
+        } else {
             selectedTileCoordinate = TileCoordinate;
         }
     }
-    
+
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
-        if (selectedTileCoordinate!=null) {
-            drawHex(g, selectedTileCoordinate.x * HexagonWars.WORLD_TILE_WIDTH+tileSelector.getXLocation(), tileSelector.getYLocation(), new Color(255,255,0,50), tileSelector);
+        if (selectedTileCoordinate != null) {
+            drawHex(g, selectedTileCoordinate.x * HexagonWars.WORLD_TILE_WIDTH + tileSelector.getXLocation(), tileSelector.getYLocation(), new Color(255, 255, 0, 50), tileSelector);
         }
     }
 

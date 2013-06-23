@@ -1,6 +1,5 @@
 package hexagonwars.entities;
 
-
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -8,7 +7,7 @@ package hexagonwars.entities;
  */
 public abstract class Infantry extends Unit {
 
-    public Infantry(int playerColor){
+    public Infantry(int playerColor) {
         super(playerColor);
     }
 }

@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hexagonwars.entities;
 
-import hexagonwars.DummyAction;
 import hexagonwars.NewUIAction;
 
 /**
@@ -17,12 +12,5 @@ public class Worker extends Unit {
     public Worker(int playerColor) {
         super(playerColor);
         type = ENTITY_UNIT_WORKER;
-        addUI();
-    }
-
-    private void addUI() {
-        NewUIAction action = new NewUIAction(ui.getName(), playerColor);
-        action.addIcon("test2", new DummyAction());
-        addUIElement("test", action);
     }
 }
