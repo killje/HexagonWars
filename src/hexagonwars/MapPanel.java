@@ -198,7 +198,7 @@ public abstract class MapPanel extends JPanel {
      * @param file stores the given world at this location
      * @param world the world to store
      */
-    private void store(File file, WorldModel world) {
+    public void store(File file, WorldModel world) {
         try {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
@@ -423,7 +423,7 @@ public abstract class MapPanel extends JPanel {
         }
     }
 
-    protected WorldTiles read(File file, WorldModel worldModel) {
+    public WorldTiles read(File file, WorldModel worldModel) {
         WorldTiles newWorld = new WorldTiles();
         try {
             FileInputStream fis = new FileInputStream(file);

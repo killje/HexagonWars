@@ -164,13 +164,17 @@ public class WorldModel extends Component {
         return gameHandler;
     }
 
-    public ArrayList<Tile> getMoves(Tile[] possibleTiles, Point p, int moves) {
+    public ArrayList<Tile> getMoves(ArrayList<Tile> possibleTiles, Point p, int moves) {
         ArrayList<Tile> tilesToMoveOn = new ArrayList<>();
 
         if (p.x < 0 || p.x >= world.getWidth() || p.y < 0 || p.y >= world.getHeight()) {
             return tilesToMoveOn;
         }
-
+        for (Tile tile : possibleTiles) {
+            if (tile.toString().equals(world.getTile(p).toString())) {
+                return tilesToMoveOn;
+            }
+        }
         if (moves == 0) {
             return tilesToMoveOn;
         } else {

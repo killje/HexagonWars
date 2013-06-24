@@ -31,4 +31,8 @@ public abstract class Unit extends Entity implements Serializable {
     public int getAttackRatio() {
         return attackRatio;
     }
+    
+    public ArrayList<Tile> getMoves(){
+        return possibleTiles;
+    }
 }

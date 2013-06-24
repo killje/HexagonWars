@@ -1,5 +1,6 @@
 package hexagonwars;
 
+import hexagonwars.entities.Building;
 import hexagonwars.entities.Unit;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class WorldPanel extends MapPanel {
 
     private WorldModel worldMap = new WorldModel();
-    private GameUI gameUI = new GameUI(this);
+    private GameUI gameUI = new GameUI(this, worldMap);
     private final Tile[] possibleTiles;
     private ArrayList<Tile> tiles;
     private boolean drawMoves = false;
@@ -94,9 +95,10 @@ public class WorldPanel extends MapPanel {
                             } else if (action instanceof MoveAction) {
                                 MoveAction moveAction = (MoveAction) action;
                                 currentEntity = selectedTile.getEntity();
+                                Unit unit = (Unit) currentEntity;
                                 drawMoves = true;
                                 currentPosition = selectedTile;
-                                tiles = worldMap.getMoves(possibleTiles, worldMap.getTilePosition(selectedTile), moveAction.getRange());
+                                tiles = worldMap.getMoves(unit.getMoves(), worldMap.getTilePosition(selectedTile), moveAction.getRange());
                             } else if (action instanceof ProduceAction) {
                                 ProduceAction produceAction = (ProduceAction) action;
                                 produceAction.getProducer().addUnitNextTurn(produceAction.getUnit());
@@ -105,7 +107,7 @@ public class WorldPanel extends MapPanel {
                                 currentEntity = selectedTile.getEntity();
                                 drawMoves = true;
                                 currentPosition = selectedTile;
-                                tiles = worldMap.getMoves(possibleTiles, worldMap.getTilePosition(selectedTile), moveOutAction.getRange());
+                                tiles = worldMap.getMoves(moveOutAction.getProducer().getLastUnit().getMoves(), worldMap.getTilePosition(selectedTile), moveOutAction.getRange());
                             }
                         }
                     }
