@@ -174,11 +174,9 @@ public class WorldModel extends Component {
         for (Tile tile : possibleTiles) {
             if (tile.toString().equals(world.getTile(p).toString())) {
                 hasFound = true;
-                System.out.println("hier");
             }
         }
         if (!hasFound) {
-            System.out.println("hier");
             return tilesToMoveOn;
         }
         if (moves == 0) {
