@@ -12,10 +12,10 @@ public class Castle extends Building {
     public Castle(int playerColor) {
         super(playerColor);
         type = ENTITY_BUILDING_CASTLE;
-        addUI();
     }
 
-    private void addUI() {
+    @Override
+    protected void addUIAfterFinish() {
         ProduceAction action = new ProduceAction(new Worker(playerColor));
         addUIElement("PRODUCE_WORKER", action);
     }

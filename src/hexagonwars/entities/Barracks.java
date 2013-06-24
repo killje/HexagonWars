@@ -17,10 +17,10 @@ public class Barracks extends Producer {
 
     public Barracks(int playerColor) {
         super(playerColor);
-        addUI();
     }
 
-    private void addUI() {
+    @Override
+    protected void addUIAfterFinish() {
         ProduceAction produceSoldier = new ProduceAction(new Soldier(playerColor));
         addUIElement("SmallSoldier", produceSoldier);
         addUIElement("SoldierUpgrade", soldierUpgrade);

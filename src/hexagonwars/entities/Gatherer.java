@@ -18,4 +18,8 @@ public class Gatherer extends Building {
     @Override
     public void upgrade(int upgrade) {
     }
+
+    @Override
+    protected void addUIAfterFinish() {
+    }
 }

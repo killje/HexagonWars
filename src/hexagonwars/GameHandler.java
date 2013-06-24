@@ -33,25 +33,26 @@ public class GameHandler implements Serializable{
         if (turn >= players.size()) {
             turn = 0;
         }
-
-        for (Building building : buildingConstructions) {
+        ArrayList<Building> buildings = new ArrayList(buildingConstructions);
+        for (Building building : buildings) {
             if (building.isBeingBuilt()) {
                 building.upgradeBuild();
             } else {
                 building.finishBuild();
+                System.out.println("test");
                 buildingConstructions.remove(building);
             }
         }
     }
 
-    public void move(Unit unit, int amount, Tile currentTile, Tile newTile) {
-        currentTile.removeEntity(amount);
-        for (int i = 0; i < amount; i++) {
-            newTile.addEntity(unit);
-        }
+    public void move(Unit unit, Tile currentTile, Tile newTile) {
+        currentTile.removeAllEntities();
+        newTile.addEntity(unit);
+        
     }
 
     public void build(Building building) {
+        buildingConstructions.add(building);
         getCurrentPlayer().addPlayerEntity(building);
 
         building.startBuild();

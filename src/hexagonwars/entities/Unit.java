@@ -1,6 +1,7 @@
 package hexagonwars.entities;
 
 import hexagonwars.Entity;
+import hexagonwars.MoveAction;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,8 @@ public abstract class Unit extends Entity implements Serializable {
 
     public Unit(int playerColor) {
         super(playerColor);
+        MoveAction move = new MoveAction(3);
+        ui.addAction("Move", move);
     }
 
     public int getAttackDamage() {

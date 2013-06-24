@@ -17,10 +17,10 @@ public class GameUI {
     }
 
     public void clicked(Point p) {
-        Rectangle nextTurn = new Rectangle(1, 1, 50, 50);
-        Rectangle exitButton = new Rectangle(51, 51, 100, 100);
-        Rectangle saveButton = new Rectangle(101, 101, 150, 150);
-        Rectangle loadButton = new Rectangle(151, 151, 200, 200);
+        Rectangle nextTurn = new Rectangle(0, 0, 50, 50);
+        Rectangle exitButton = new Rectangle(50, 0, 50, 50);
+        Rectangle saveButton = new Rectangle(100, 0, 50, 50);
+        Rectangle loadButton = new Rectangle(150, 0, 50, 50);
 
         if (exitButton.contains(p)) {
             System.exit(0);
@@ -28,7 +28,8 @@ public class GameUI {
         } else if (loadButton.contains(p)) {
         } else if (nextTurn.contains(p)) {
             gameWorld.getWorldModel().getGameHandler().nextTurn();
+            gameWorld.repaint();
+            gameWorld.validate();
         }
-        System.out.println(p);
     }
 }

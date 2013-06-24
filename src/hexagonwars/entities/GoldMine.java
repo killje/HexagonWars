@@ -12,10 +12,10 @@ public class GoldMine extends Gatherer {
     public GoldMine(int playerColor) {
         super(playerColor);
         type = ENTITY_BUILDING_GATHERER_GOLDMINE;
-        addUI();
     }
 
-    private void addUI() {
+    @Override
+    protected void addUIAfterFinish() {
         UpgradeAction action = new UpgradeAction();
         addUIElement("UPGRADE_GOLDMINE", action);
     }

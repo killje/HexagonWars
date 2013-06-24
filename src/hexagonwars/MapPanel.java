@@ -78,8 +78,8 @@ public abstract class MapPanel extends JPanel {
      * @param yShift the position on the y-axel in the panel
      * @return returns the created WorldModel
      */
-    protected WorldModel addWorld(WorldTiles world, int xShift, int yShift,GameHandler gameHandler) {
-        WorldModel newWorld = new WorldModel(world, xShift, yShift,gameHandler);
+    protected WorldModel addWorld(WorldTiles world, int xShift, int yShift, GameHandler gameHandler) {
+        WorldModel newWorld = new WorldModel(world, xShift, yShift, gameHandler);
         worlds.add(newWorld);
         return newWorld;
     }
@@ -378,7 +378,7 @@ public abstract class MapPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent me) {
-            clicked(me);
+            //
         }
 
         @Override

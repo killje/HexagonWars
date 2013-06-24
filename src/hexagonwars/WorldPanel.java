@@ -1,5 +1,6 @@
 package hexagonwars;
 
+import hexagonwars.entities.Unit;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -21,6 +22,8 @@ public class WorldPanel extends MapPanel {
     private final Tile[] possibleTiles;
     private ArrayList<Tile> tiles;
     private boolean drawMoves = false;
+    private Unit currentUnit;
+    private Tile currentPosition;
 
     public WorldPanel() {
         File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
@@ -40,15 +43,21 @@ public class WorldPanel extends MapPanel {
 
     @Override
     protected void tileClick(WorldModel world, Point TileCoordinate) {
-        selectedTile = world.getTile(TileCoordinate.x, TileCoordinate.y);
-        drawMoves = true;
         if (drawMoves) {
-            tiles = worldMap.getMoves(possibleTiles, worldMap.getTilePosition(selectedTile), 1);
+            worldMap.getGameHandler().move(currentUnit, currentPosition, world.getTile(TileCoordinate.x, TileCoordinate.y));
+            drawMoves = false;
         }
+        selectedTile = world.getTile(TileCoordinate.x, TileCoordinate.y);
+
     }
 
     @Override
     protected void clicked(MouseEvent me) {
+        Rectangle uiRect = new Rectangle(0, this.getSize().height - 55, 200, 50);
+        if (uiRect.contains(me.getPoint())) {
+            Point pointInUI = new Point(me.getPoint().x, me.getPoint().y - this.getSize().height + 55);
+            gameUI.clicked(pointInUI);
+        }
         if (selectedTile != null) {
             if (selectedTile.isOccupied()) {
                 Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
@@ -81,24 +90,31 @@ public class WorldPanel extends MapPanel {
                                 } else {
                                     upgradeAction.upgradedBuilding().upgrade(upgradeAction.upgradeID());
                                 }
+                            } else if (action instanceof MoveAction) {
+                                MoveAction moveAction = (MoveAction) action;
+                                currentUnit = (Unit) selectedTile.getEntity();
+                                drawMoves = true;
+                                currentPosition = selectedTile;
+                                tiles = worldMap.getMoves(possibleTiles, worldMap.getTilePosition(selectedTile), moveAction.getRange());
                             }
                         }
                     }
-                    //to here
-                    repaint();
-                    validate();
-
-                    return;
                 }
+                //to here
+                repaint();
+                validate();
+
             }
+
         }
+
         super.clicked(me);
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        Rectangle uiRect = new Rectangle(0, this.getSize().height - 55, 50, 200);
+        Rectangle uiRect = new Rectangle(0, this.getSize().height - 55, 200, 50);
         g.drawImage(HWImage.getImageWithDefaultTransparency("nextTurn"), uiRect.x, uiRect.y, null);
         g.drawImage(HWImage.getImageWithDefaultTransparency("exitButton"), uiRect.x + 50, uiRect.y, null);
         g.drawImage(HWImage.getImageWithDefaultTransparency("saveButton"), uiRect.x + 100, uiRect.y, null);

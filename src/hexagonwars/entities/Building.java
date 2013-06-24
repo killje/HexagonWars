@@ -37,14 +37,17 @@ public abstract class Building extends Entity implements Serializable {
     }
 
     public void upgradeBuild() {
-        this.buildState++;
+        this.buildState--;
     }
 
     public void finishBuild() {
         this.buildState = -1;
         this.enableSpawn();
+        this.addUIAfterFinish();
     }
-
+    
+    protected abstract void addUIAfterFinish();
+    
     public boolean isBeingBuilt() {
         return this.buildState > 0;
     }

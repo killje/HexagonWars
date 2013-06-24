@@ -11,11 +11,11 @@ public class WoodSaw extends Gatherer {
 
     public WoodSaw(int playerColor) {
         super(playerColor);
-        addUI();
         type = ENTITY_BUILDING_GATHERER_SAWMILL;
     }
 
-    private void addUI() {
+    @Override
+    protected void addUIAfterFinish() {
         UpgradeAction action = new UpgradeAction();
         addUIElement("UPGRADE_SAWMILL", action);
     }
