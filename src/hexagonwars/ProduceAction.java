@@ -22,8 +22,8 @@ public class ProduceAction extends UIAction implements Serializable {
     public Unit getUnit() {
         return unit;
     }
-    
-     public Producer getProducer() {
+
+    public Producer getProducer() {
         return building;
     }
 }

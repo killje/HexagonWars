@@ -40,9 +40,9 @@ public class Barracks extends Producer {
     public void startBuild() {
         this.buildState = 2;
     }
-    
+
     @Override
-     public void nextTurn() {
+    public void nextTurn() {
         System.out.println(units);
         hasAction = true;
         if (upgrade == 1) {

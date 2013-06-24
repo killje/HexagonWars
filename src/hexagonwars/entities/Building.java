@@ -45,26 +45,26 @@ public abstract class Building extends Entity implements Serializable {
         this.enableSpawn();
         this.addUIAfterFinish();
     }
-    
+
     protected abstract void addUIAfterFinish();
-    
+
     public boolean isBeingBuilt() {
         return this.buildState > 0;
     }
-    
+
     public abstract void upgrade();
 
     public abstract void upgrade(int upgrade);
-    
+
     @Override
     public Image getImage() {
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(new Color(55, 171, 200).getRGB());
         if (enableSpawn) {
             return HWImage.getImage("Medium" + this.getClass().getSimpleName(), colors, playerColor);
-        }else{
+        } else {
             return HWImage.getImage("Construction", colors, playerColor);
         }
-        
+
     }
 }

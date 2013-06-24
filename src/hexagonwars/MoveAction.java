@@ -9,15 +9,15 @@ package hexagonwars;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class MoveAction extends UIAction{
-    
+public class MoveAction extends UIAction {
+
     private int range;
 
-    public MoveAction(int range){
+    public MoveAction(int range) {
         this.range = range;
     }
-    
-    public int getRange(){
+
+    public int getRange() {
         return range;
     }
 }

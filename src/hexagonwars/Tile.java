@@ -23,6 +23,7 @@ public abstract class Tile implements Serializable {
 
     /**
      * adds an entity
+     *
      * @param Entity adds an entity to the tile instance when it was previously
      * empty. In case there were already entities on the tile, it just raises
      * the entity counter.
@@ -38,6 +39,7 @@ public abstract class Tile implements Serializable {
 
     /**
      * removes a certain amount of entities.
+     *
      * @param amount the amount of entities to be removed.
      */
     public void removeEntity(int amount) {
@@ -130,8 +132,8 @@ public abstract class Tile implements Serializable {
         }
         return tile;
     }
-    
-    public int getType(){
+
+    public int getType() {
         return type;
     }
 }

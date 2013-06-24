@@ -8,14 +8,14 @@ import java.util.ArrayList;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class Player implements Serializable{
+public class Player implements Serializable {
 
     private int resourceGold;
     private int resourceForest;
     private int color;
     private String name;
     private ArrayList<Entity> playerEntities = new ArrayList<>();
-    
+
     /**
      * @return the amount of gold
      */
@@ -99,12 +99,12 @@ public class Player implements Serializable{
     public void removePlayerEntity(Entity entity) {
         playerEntities.remove(entity);
     }
-    
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 }

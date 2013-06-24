@@ -40,7 +40,7 @@ public class WorldFile implements Serializable {
     public void setWorld(Tile[][] world) {
         this.tiles = world;
     }
-    
+
     public GameHandler getGameHandler() {
         return this.gameHandler;
     }

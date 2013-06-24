@@ -44,7 +44,7 @@ public class EntityUI implements Serializable {
             }
         }
     }
-    
+
     public boolean hasAction(UIAction action) {
         for (int i = 0; i < actionList.size(); i++) {
             ImageWithAction actionImage = actionList.get(i);

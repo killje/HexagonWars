@@ -42,7 +42,7 @@ public class WorldTiles {
     public void setHeight(int height) {
         this.height = height;
     }
-    
+
     public Tile getTile(int x, int y) {
         return tiles[x][y];
     }

@@ -38,18 +38,18 @@ public class HWImage {
             System.err.println("problems converting resources");
             System.err.println(e.getStackTrace());
             System.exit(1);
-            
+
             return null;
         } catch (IOException ex) {
             System.err.println("The program has encountered a problem when opeing file");
             System.err.println(ex);
             System.exit(1);
-            
+
             return null;
         }
-        
+
         newImage = new ImageName(filename + colorTo, img);
-        
+
         return newImage;
     }
 
@@ -66,9 +66,9 @@ public class HWImage {
                 }
             }
         };
-        
+
         ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
-        
+
         return Toolkit.getDefaultToolkit().createImage(ip);
     }
 
@@ -79,16 +79,16 @@ public class HWImage {
             defaultColors.add(transparentRGB);
             defaultColors.add(transparentRGB2);
         }
-        
+
         for (ImageName image : images) {
             if (image.getName().equals(imageName + colorTo)) {
                 return image.getImage();
             }
         }
-        
+
         ImageName image = getTile(imageName, colorsFrom, colorTo);
         images.add(image);
-        
+
         return image.getImage();
     }
 

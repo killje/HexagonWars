@@ -1,5 +1,6 @@
 package hexagonwars;
 
+import hexagonwars.entities.Castle;
 import hexagonwars.entities.Worker;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -23,14 +24,14 @@ public class MapEditorPanel extends MapPanel {
     private JFormattedTextField inputWidthText;
     private JFormattedTextField inputHeightText;
     private JButton save = new JButton("Save");
-    private int boardWidth=5, boardHeight=5;
+    private int boardWidth = 5, boardHeight = 5;
     private WorldModel newWorld;
     private WorldModel tileSelector;
     private Point selectedTileCoordinate;
     private GameHandler gameHandler = new GameHandler();
-        Player player1 = new Player();
-        Player player2 = new Player();
-        Player player3 = new Player();
+    private Player player1 = new Player();
+    private Player player2 = new Player();
+    private Player player3 = new Player();
 
     /**
      * opens a panel with functions to edit a x*x world
@@ -72,8 +73,8 @@ public class MapEditorPanel extends MapPanel {
      * creates a world in where you can select a tile to later use on the board.
      */
     private void tileChooser() {
-        WorldTiles world = new WorldTiles(7, 1);
-        Tile[][] tiles = new Tile[7][1];
+        WorldTiles world = new WorldTiles(9, 1);
+        Tile[][] tiles = new Tile[9][1];
         tiles[0][0] = Tile.getTileFromType(WorldTiles.PLAIN);
         tiles[1][0] = Tile.getTileFromType(WorldTiles.MOUNTAIN);
         tiles[2][0] = Tile.getTileFromType(WorldTiles.WATER);
@@ -81,18 +82,24 @@ public class MapEditorPanel extends MapPanel {
         tiles[4][0] = Tile.getTileFromType(WorldTiles.SHALLOWS);
         tiles[5][0] = Tile.getTileFromType(WorldTiles.FOREST);
         tiles[6][0] = Tile.getTileFromType(WorldTiles.PLAIN);
-        Worker worker = new Worker(new Color(55, 55, 55).getRGB());
-        tiles[6][0].addEntity(worker);
+        tiles[7][0] = Tile.getTileFromType(WorldTiles.PLAIN);
+        tiles[8][0] = Tile.getTileFromType(WorldTiles.PLAIN);
+        Castle castlep1 = new Castle(new Color(255, 255, 0).getRGB());
+        Castle castlep2 = new Castle(new Color(0, 0, 255).getRGB());
+        Castle castlep3 = new Castle(new Color(255, 0, 0).getRGB());
+        tiles[6][0].addEntity(castlep1);
         newWorld.getGameHandler().addPlayer(player1);
         player1.setName("Patrick");
         newWorld.getGameHandler().addPlayer(player2);
         player2.setName("Floris");
         newWorld.getGameHandler().addPlayer(player3);
         player3.setName("Timo");
-        gameHandler.getCurrentPlayer().addPlayerEntity(worker);
+        player1.addPlayerEntity(castlep1);
+        player2.addPlayerEntity(castlep2);
+        player3.addPlayerEntity(castlep3);
         world.setWorld(tiles);
-        tileSelector = addWorld(world, 70, 40,new GameHandler());
-        
+        tileSelector = addWorld(world, 70, 40, new GameHandler());
+
         tileSelector.setCameraEnabled(false);
         tileSelector.setSaveable(false);
     }
@@ -138,7 +145,7 @@ public class MapEditorPanel extends MapPanel {
             selectedTileCoordinate = TileCoordinate;
         }
     }
-    
+
     @Override
     protected void clicked(MouseEvent me) {
         Rectangle uiRect = new Rectangle(0, this.getSize().height - 55, 50, 50);
@@ -157,8 +164,6 @@ public class MapEditorPanel extends MapPanel {
             drawHex(g, selectedTileCoordinate.x * HexagonWars.WORLD_TILE_WIDTH + tileSelector.getXLocation(), tileSelector.getYLocation(), new Color(255, 255, 0, 50), tileSelector);
         }
     }
-    
-    
 
     /**
      * class to see if someone clicks on the go button
