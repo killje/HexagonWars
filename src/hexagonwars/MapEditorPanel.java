@@ -86,8 +86,10 @@ public class MapEditorPanel extends MapPanel {
         tiles[8][0] = Tile.getTileFromType(WorldTiles.PLAIN);
         Castle castlep1 = new Castle(new Color(255, 255, 0).getRGB());
         Castle castlep2 = new Castle(new Color(0, 0, 255).getRGB());
-        Castle castlep3 = new Castle(new Color(255, 0, 0).getRGB());
+        Castle castlep3 = new Castle(new Color(180, 20, 0).getRGB());
         tiles[6][0].addEntity(castlep1);
+        tiles[7][0].addEntity(castlep2);
+        tiles[8][0].addEntity(castlep3);
         newWorld.getGameHandler().addPlayer(player1);
         newWorld.getGameHandler().addPlayer(player2);
         newWorld.getGameHandler().addPlayer(player3);
