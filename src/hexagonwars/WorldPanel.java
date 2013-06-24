@@ -22,7 +22,7 @@ public class WorldPanel extends MapPanel {
     private final Tile[] possibleTiles;
     private ArrayList<Tile> tiles;
     private boolean drawMoves = false;
-    private Unit currentUnit;
+    private Entity currentEntity;
     private Tile currentPosition;
 
     public WorldPanel() {
@@ -44,7 +44,11 @@ public class WorldPanel extends MapPanel {
     @Override
     protected void tileClick(WorldModel world, Point TileCoordinate) {
         if (drawMoves) {
-            worldMap.getGameHandler().move(currentUnit, currentPosition, world.getTile(TileCoordinate.x, TileCoordinate.y));
+            if (currentEntity instanceof Unit) {
+                worldMap.getGameHandler().moveUnit(currentEntity, currentPosition, world.getTile(TileCoordinate.x, TileCoordinate.y));
+            }else{
+                worldMap.getGameHandler().moveFromBuilding(currentEntity, currentPosition, world.getTile(TileCoordinate.x, TileCoordinate.y));
+            }
             drawMoves = false;
         }
         selectedTile = world.getTile(TileCoordinate.x, TileCoordinate.y);
@@ -75,10 +79,7 @@ public class WorldPanel extends MapPanel {
                         if (selectedTile.getEntity().getEntityUI().getActions().size() > elementIndex) {
                             ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
                             UIAction action = list.get(elementIndex).getAction();
-                            if (action instanceof NewUIAction) {
-                                NewUIAction newUIAction = (NewUIAction) action;
-                                selectedTile.getEntity().setEntityUI(newUIAction.getUI());
-                            } else if (action instanceof BuildAction) {
+                            if (action instanceof BuildAction) {
                                 BuildAction buildAction = (BuildAction) action;
                                 selectedTile.removeAllEntities();
                                 worldMap.getGameHandler().build(buildAction.getBuilding());
@@ -92,10 +93,19 @@ public class WorldPanel extends MapPanel {
                                 }
                             } else if (action instanceof MoveAction) {
                                 MoveAction moveAction = (MoveAction) action;
-                                currentUnit = (Unit) selectedTile.getEntity();
+                                currentEntity = selectedTile.getEntity();
                                 drawMoves = true;
                                 currentPosition = selectedTile;
                                 tiles = worldMap.getMoves(possibleTiles, worldMap.getTilePosition(selectedTile), moveAction.getRange());
+                            } else if (action instanceof ProduceAction) {
+                                ProduceAction produceAction = (ProduceAction) action;
+                                produceAction.getProducer().addUnitNextTurn(produceAction.getUnit());
+                            } else if (action instanceof MoveOutAction) {
+                                MoveOutAction moveOutAction = (MoveOutAction) action;
+                                currentEntity = selectedTile.getEntity();
+                                drawMoves = true;
+                                currentPosition = selectedTile;
+                                tiles = worldMap.getMoves(possibleTiles, worldMap.getTilePosition(selectedTile), moveOutAction.getRange());
                             }
                         }
                     }

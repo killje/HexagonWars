@@ -27,8 +27,8 @@ public class GameHandler implements Serializable {
     public Player getCurrentPlayer() {
         return players.get(turn);
     }
-    
-    public String getPlayerName(Player player){
+
+    public String getPlayerName(Player player) {
         return player.getName();
     }
 
@@ -49,12 +49,22 @@ public class GameHandler implements Serializable {
                 }
             }
         }
+        for (Entity entity : getCurrentPlayer().getPlayerEntities()) {
+            entity.nextTurn();
+            System.out.println(entity);
+        }
     }
 
-    public void move(Unit unit, Tile currentTile, Tile newTile) {
+    public void moveUnit(Entity entity, Tile currentTile, Tile newTile) {
         currentTile.removeAllEntities();
-        newTile.addEntity(unit);
-
+        newTile.addEntity(entity);
+    }
+    
+    public void moveFromBuilding(Entity entity, Tile currentTile, Tile newTile) {
+        Producer producer = (Producer) entity;
+       
+        newTile.addEntity(producer.getLastUnit());
+        producer.removeLastUnit();
     }
 
     public void build(Building building) {

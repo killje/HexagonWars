@@ -1,5 +1,6 @@
 package hexagonwars;
 
+import hexagonwars.entities.Producer;
 import hexagonwars.entities.Unit;
 import java.io.Serializable;
 
@@ -10,9 +11,19 @@ import java.io.Serializable;
  */
 public class ProduceAction extends UIAction implements Serializable {
 
-    Unit unit;
+    private Unit unit;
+    private Producer building;
 
-    public ProduceAction(Unit unit) {
+    public ProduceAction(Producer building, Unit unit) {
         this.unit = unit;
+        this.building = building;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+    
+     public Producer getProducer() {
+        return building;
     }
 }

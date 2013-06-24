@@ -7,7 +7,7 @@ import hexagonwars.ProduceAction;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class Castle extends Building {
+public class Castle extends Producer {
 
     public Castle(int playerColor) {
         super(playerColor);
@@ -16,8 +16,8 @@ public class Castle extends Building {
 
     @Override
     protected void addUIAfterFinish() {
-        ProduceAction action = new ProduceAction(new Worker(playerColor));
-        addUIElement("PRODUCE_WORKER", action);
+        ProduceAction action = new ProduceAction(this, new Worker(playerColor));
+        addUIElement("SmallWorker", action);
     }
 
     @Override

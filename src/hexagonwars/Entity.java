@@ -26,13 +26,13 @@ public abstract class Entity implements Serializable {
     public static final int ENTITY_BUILDING_PRODUCER_STABLE = 152;
     public static final int ENTITY_BUILDING_PRODUCER_WIZARDTOWER = 153;
     public static final int ENTITY_BUILDING_PRODUCER_WORKSHOP = 154;
-    
     protected int type = 0;
     protected int defenseStrength;
     protected int health;
     protected EntityUI ui;
     protected int playerColor;
     protected int startHealth;
+    protected boolean hasAction = true;
 
     /**
      *
@@ -66,7 +66,7 @@ public abstract class Entity implements Serializable {
     public int getHealth() {
         return this.health;
     }
-    
+
     /**
      *
      * @return the health
@@ -109,14 +109,26 @@ public abstract class Entity implements Serializable {
         ui.addAction(actionName, action);
     }
 
+    public void nextTurn() {
+        hasAction = true;
+    }
+
+    public void doneAction() {
+        hasAction = false;
+    }
+
     /**
      *
      * @return an Image object for the entity, used for UI purposes
      */
     public Image getImage() {
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(new Color(55, 171, 200).getRGB());
-        
-        return HWImage.getImage("Medium" + this.getClass().getSimpleName(), colors, playerColor);
+        if (hasAction) {
+            ArrayList<Integer> colors = new ArrayList<>();
+            colors.add(new Color(55, 171, 200).getRGB());
+
+            return HWImage.getImage("Medium" + this.getClass().getSimpleName(), colors, playerColor);
+
+        }
+        return null;
     }
 }

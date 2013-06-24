@@ -90,8 +90,6 @@ public class Player implements Serializable{
      * @return the all the entities for a player
      */
     public void addPlayerEntity(Entity entity) {
-        System.out.println(entity);
-        System.out.println(playerEntities);
         playerEntities.add(entity);
     }
 

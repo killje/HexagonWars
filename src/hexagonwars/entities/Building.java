@@ -51,7 +51,7 @@ public abstract class Building extends Entity implements Serializable {
     public boolean isBeingBuilt() {
         return this.buildState > 0;
     }
-
+    
     public abstract void upgrade();
 
     public abstract void upgrade(int upgrade);

@@ -12,8 +12,9 @@ public class Barracks extends Producer {
 
     private static final int UPGRADE_MORE_SOLDIERS = 1;
     private static final int UPGRADE_ARCHERS = 2;
-    UpgradeAction soldierUpgrade = new UpgradeAction(this, UPGRADE_MORE_SOLDIERS);
-    UpgradeAction archerUpgrade = new UpgradeAction(this, UPGRADE_ARCHERS);
+    private int upgrade = 0;
+    private UpgradeAction soldierUpgrade = new UpgradeAction(this, UPGRADE_MORE_SOLDIERS);
+    private UpgradeAction archerUpgrade = new UpgradeAction(this, UPGRADE_ARCHERS);
 
     public Barracks(int playerColor) {
         super(playerColor);
@@ -21,7 +22,7 @@ public class Barracks extends Producer {
 
     @Override
     protected void addUIAfterFinish() {
-        ProduceAction produceSoldier = new ProduceAction(new Soldier(playerColor));
+        ProduceAction produceSoldier = new ProduceAction(this, new Soldier(playerColor));
         addUIElement("SmallSoldier", produceSoldier);
         addUIElement("SoldierUpgrade", soldierUpgrade);
         addUIElement("ArcherUpgrade", archerUpgrade);
@@ -31,12 +32,26 @@ public class Barracks extends Producer {
     public void upgrade(int upgrade) {
         ui.removeAction(soldierUpgrade);
         ui.removeAction(archerUpgrade);
-        ProduceAction produceArchers = new ProduceAction(new Archer(playerColor));
+        ProduceAction produceArchers = new ProduceAction(this, new Archer(playerColor));
         addUIElement("SmallArcher", produceArchers);
     }
-    
+
     @Override
     public void startBuild() {
         this.buildState = 2;
+    }
+    
+    @Override
+     public void nextTurn() {
+        System.out.println(units);
+        hasAction = true;
+        if (upgrade == 1) {
+            units.addAll(unitsNextTurn);
+        }
+        units.addAll(unitsNextTurn);
+        unitsNextTurn.clear();
+        if (!units.isEmpty() && !ui.hasAction(moveOut)) {
+            ui.addAction("Move", moveOut);
+        }
     }
 }
