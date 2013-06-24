@@ -20,7 +20,6 @@ public class WorldPanel extends MapPanel {
 
     private WorldModel worldMap = new WorldModel();
     private GameUI gameUI = new GameUI(this, worldMap);
-    private final Tile[] possibleTiles;
     private ArrayList<Tile> tiles;
     private boolean drawMoves = false;
     private Entity currentEntity;
@@ -30,14 +29,7 @@ public class WorldPanel extends MapPanel {
         File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
         WorldTiles world = read(file, worldMap);
 
-        worldMap = addWorld(world, 50, 30, worldMap.getGameHandler());
-        possibleTiles = new Tile[6];
-        possibleTiles[0] = Tile.getTileFromType(WorldTiles.PLAIN);
-        possibleTiles[1] = Tile.getTileFromType(WorldTiles.MOUNTAIN);
-        possibleTiles[2] = Tile.getTileFromType(WorldTiles.WATER);
-        possibleTiles[3] = Tile.getTileFromType(WorldTiles.GOLD);
-        possibleTiles[4] = Tile.getTileFromType(WorldTiles.SHALLOWS);
-        possibleTiles[5] = Tile.getTileFromType(WorldTiles.FOREST);
+        worldMap = addWorld(world, 50, 50, worldMap.getGameHandler());
 
 
     }
@@ -163,7 +155,7 @@ public class WorldPanel extends MapPanel {
         g.drawString(worldMap.getGameHandler().getPlayerName(worldMap.getGameHandler().getCurrentPlayer()), uiRect.x + 210, uiRect.y + 12);
         if (drawMoves) {
             for (Tile tile : tiles) {
-                drawHex(g, worldMap.getTilePosition(tile).x * (int) (HexagonWars.WORLD_TILE_WIDTH * worldMap.getZoomLevel()) + worldMap.getTilePosition(tile).y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * worldMap.getZoomLevel()) + worldMap.getXLocation(), worldMap.getTilePosition(tile).y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * worldMap.getZoomLevel()) + worldMap.getYLocation(), new Color(0, 0, 255, 80), worldMap);
+                drawHex(g, worldMap.getTilePosition(tile).x * (int) (HexagonWars.WORLD_TILE_WIDTH * worldMap.getZoomLevel()) + worldMap.getTilePosition(tile).y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * worldMap.getZoomLevel()) + worldMap.getXLocation() - worldMap.getCameraX(), worldMap.getTilePosition(tile).y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * worldMap.getZoomLevel()) + worldMap.getYLocation()- worldMap.getCameraY(), new Color(0, 0, 255, 80), worldMap);
             }
         }
     }
