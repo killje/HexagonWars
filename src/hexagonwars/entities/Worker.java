@@ -12,6 +12,8 @@ public class Worker extends Unit {
     public Worker(int playerColor) {
         super(playerColor);
         type = ENTITY_UNIT_WORKER;
+        this.health = 50;
+        this.startHealth = 50;
         addUI();
     }
 

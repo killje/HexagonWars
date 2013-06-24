@@ -145,6 +145,9 @@ public abstract class MapPanel extends JPanel {
                 int y = 0;
 
                 g.drawRect(rect.x, rect.y, rect.width, rect.height);
+                g.drawString(selectedTile.getEntity().getClass().getSimpleName(), rect.x+50, rect.y+20);
+                g.drawString(Integer.toString(selectedTile.getEntity().getHealth()) + "/"+Integer.toString(selectedTile.getEntity().getStartHealth()), rect.x+50, rect.y+170);
+                g.drawImage(selectedTile.getEntity().getImage(), rect.x + 30, rect.y + 30, null);
                 g.drawLine(rect.x + 199, rect.y, rect.x + 199, rect.y + rect.height);
                 ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
 

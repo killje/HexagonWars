@@ -32,6 +32,7 @@ public abstract class Entity implements Serializable {
     protected int health;
     protected EntityUI ui;
     protected int playerColor;
+    protected int startHealth;
 
     /**
      *
@@ -39,7 +40,7 @@ public abstract class Entity implements Serializable {
      */
     public Entity(int playerColor) {
         this.playerColor = playerColor;
-        ui = new EntityUI(getClass().getSimpleName(), playerColor);
+        ui = new EntityUI(playerColor);
     }
 
     /**
@@ -48,7 +49,6 @@ public abstract class Entity implements Serializable {
      */
     public void damage(int damage) {
         health -= damage;
-        ui.setHealth(health);
     }
 
     /**
@@ -65,6 +65,14 @@ public abstract class Entity implements Serializable {
      */
     public int getHealth() {
         return this.health;
+    }
+    
+    /**
+     *
+     * @return the health
+     */
+    public int getStartHealth() {
+        return this.startHealth;
     }
 
     /**

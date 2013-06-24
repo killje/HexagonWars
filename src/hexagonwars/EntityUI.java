@@ -12,9 +12,7 @@ public class EntityUI implements Serializable {
 
     public static final int ICON_WIDTH = 50;
     public static final int ICON_HEIGHT = 50;
-    private String name;
     private ArrayList<ImageWithAction> actionList = new ArrayList<>();
-    private int health;
     private int playerColor;
 
     /**
@@ -22,8 +20,7 @@ public class EntityUI implements Serializable {
      * @param name the entity's name
      * @param playerColor the player color to be displayed
      */
-    public EntityUI(String name, int playerColor) {
-        this.name = name;
+    public EntityUI(int playerColor) {
         this.playerColor = playerColor;
     }
 
@@ -33,22 +30,6 @@ public class EntityUI implements Serializable {
      */
     public ArrayList<ImageWithAction> getActions() {
         return actionList;
-    }
-
-    /**
-     *
-     * @return the entity's name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     *
-     * @param health health of the current entity
-     */
-    public void setHealth(int health) {
-        this.health = health;
     }
 
     /**

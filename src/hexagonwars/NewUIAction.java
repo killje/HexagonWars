@@ -11,8 +11,8 @@ public class NewUIAction extends UIAction implements Serializable {
 
     protected EntityUI ui;
 
-    public NewUIAction(String uiName, int playerColor) {
-        ui = new EntityUI(uiName, playerColor);
+    public NewUIAction(int playerColor) {
+        ui = new EntityUI( playerColor);
     }
 
     public void addIcon(String iconName, UIAction action) {
