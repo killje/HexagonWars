@@ -13,12 +13,24 @@ public class UpgradeAction extends UIAction implements Serializable {
     public UpgradeAction() {
         // TODO code application logic here
     }
+    
+    private Building building;
+    private int upgrade = -1;
 
     public UpgradeAction(Building building) {
-        building.upgrade();
+        this.building = building;
     }
 
     public UpgradeAction(Building building, int upgrade) {
-        building.upgrade(upgrade);
+        this.building = building;
+        this.upgrade = upgrade;
+    }
+    
+    public Building upgradedBuilding(){
+        return building;
+    }
+    
+    public int upgradeID(){
+        return upgrade;
     }
 }

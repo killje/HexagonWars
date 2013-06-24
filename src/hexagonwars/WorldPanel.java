@@ -26,7 +26,7 @@ public class WorldPanel extends MapPanel {
         File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
         WorldTiles world = read(file, worldMap);
 
-        worldMap = addWorld(world, 50, 30,worldMap.getGameHandler());
+        worldMap = addWorld(world, 50, 30, worldMap.getGameHandler());
         possibleTiles = new Tile[6];
         possibleTiles[0] = Tile.getTileFromType(WorldTiles.PLAIN);
         possibleTiles[1] = Tile.getTileFromType(WorldTiles.MOUNTAIN);
@@ -34,8 +34,8 @@ public class WorldPanel extends MapPanel {
         possibleTiles[3] = Tile.getTileFromType(WorldTiles.GOLD);
         possibleTiles[4] = Tile.getTileFromType(WorldTiles.SHALLOWS);
         possibleTiles[5] = Tile.getTileFromType(WorldTiles.FOREST);
-        
-        
+
+
     }
 
     @Override
@@ -46,9 +46,9 @@ public class WorldPanel extends MapPanel {
             tiles = worldMap.getMoves(possibleTiles, worldMap.getTilePosition(selectedTile), 1);
         }
     }
-    
+
     @Override
-     protected void clicked(MouseEvent me) {
+    protected void clicked(MouseEvent me) {
         if (selectedTile != null) {
             if (selectedTile.isOccupied()) {
                 Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
@@ -74,6 +74,13 @@ public class WorldPanel extends MapPanel {
                                 selectedTile.removeAllEntities();
                                 worldMap.getGameHandler().build(buildAction.getBuilding());
                                 selectedTile.addEntity(buildAction.getBuilding());
+                            } else if (action instanceof UpgradeAction) {
+                                UpgradeAction upgradeAction = (UpgradeAction) action;
+                                if (upgradeAction.upgradeID() == -1) {
+                                    upgradeAction.upgradedBuilding().upgrade();
+                                } else {
+                                    upgradeAction.upgradedBuilding().upgrade(upgradeAction.upgradeID());
+                                }
                             }
                         }
                     }
@@ -98,7 +105,7 @@ public class WorldPanel extends MapPanel {
         g.drawImage(HWImage.getImageWithDefaultTransparency("loadButton"), uiRect.x + 150, uiRect.y, null);
         if (drawMoves) {
             for (Tile tile : tiles) {
-                drawHex(g, worldMap.getTilePosition(tile).x * (int) (HexagonWars.WORLD_TILE_WIDTH * worldMap.getZoomLevel()) + worldMap.getTilePosition(tile).y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * worldMap.getZoomLevel())+worldMap.getXLocation(), worldMap.getTilePosition(tile).y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * worldMap.getZoomLevel())+worldMap.getYLocation(), new Color(0, 0, 255, 80), worldMap);
+                drawHex(g, worldMap.getTilePosition(tile).x * (int) (HexagonWars.WORLD_TILE_WIDTH * worldMap.getZoomLevel()) + worldMap.getTilePosition(tile).y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * worldMap.getZoomLevel()) + worldMap.getXLocation(), worldMap.getTilePosition(tile).y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * worldMap.getZoomLevel()) + worldMap.getYLocation(), new Color(0, 0, 255, 80), worldMap);
             }
         }
     }
