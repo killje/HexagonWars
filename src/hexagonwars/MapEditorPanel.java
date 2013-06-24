@@ -23,10 +23,14 @@ public class MapEditorPanel extends MapPanel {
     private JFormattedTextField inputWidthText;
     private JFormattedTextField inputHeightText;
     private JButton save = new JButton("Save");
-    private int boardWidth, boardHeight;
+    private int boardWidth=5, boardHeight=5;
     private WorldModel newWorld;
     private WorldModel tileSelector;
     private Point selectedTileCoordinate;
+    private GameHandler gameHandler = new GameHandler();
+        Player player1 = new Player();
+        Player player2 = new Player();
+        Player player3 = new Player();
 
     /**
      * opens a panel with functions to edit a x*x world
@@ -58,6 +62,7 @@ public class MapEditorPanel extends MapPanel {
         add(inputHeightText);
         add(go);
         add(save);
+        newBoard();
         tileChooser();
         repaint();
         revalidate();
@@ -76,9 +81,18 @@ public class MapEditorPanel extends MapPanel {
         tiles[4][0] = Tile.getTileFromType(WorldTiles.SHALLOWS);
         tiles[5][0] = Tile.getTileFromType(WorldTiles.FOREST);
         tiles[6][0] = Tile.getTileFromType(WorldTiles.PLAIN);
-        tiles[6][0].addEntity(new Worker(new Color(55, 55, 55).getRGB()));
+        Worker worker = new Worker(new Color(55, 55, 55).getRGB());
+        tiles[6][0].addEntity(worker);
+        newWorld.getGameHandler().addPlayer(player1);
+        player1.setName("Patrick");
+        newWorld.getGameHandler().addPlayer(player2);
+        player2.setName("Floris");
+        newWorld.getGameHandler().addPlayer(player3);
+        player3.setName("Timo");
+        gameHandler.getCurrentPlayer().addPlayerEntity(worker);
         world.setWorld(tiles);
         tileSelector = addWorld(world, 70, 40,new GameHandler());
+        
         tileSelector.setCameraEnabled(false);
         tileSelector.setSaveable(false);
     }
@@ -98,16 +112,7 @@ public class MapEditorPanel extends MapPanel {
 
         world.setWorld(tiles);
 
-        newWorld = addWorld(world, 0, 180, new GameHandler());
-        Player player1 = new Player();
-        newWorld.getGameHandler().addPlayer(player1);
-        player1.setName("Patrick");
-        Player player2 = new Player();
-        newWorld.getGameHandler().addPlayer(player2);
-        player2.setName("Floris");
-        Player player3 = new Player();
-        newWorld.getGameHandler().addPlayer(player3);
-        player3.setName("Timo");
+        newWorld = addWorld(world, 0, 180, gameHandler);
         save.setEnabled(true);
         repaint();
         validate();

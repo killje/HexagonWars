@@ -51,7 +51,6 @@ public class GameHandler implements Serializable {
         }
         for (Entity entity : getCurrentPlayer().getPlayerEntities()) {
             entity.nextTurn();
-            System.out.println(entity);
         }
     }
 

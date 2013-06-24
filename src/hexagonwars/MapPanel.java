@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -79,7 +78,11 @@ public abstract class MapPanel extends JPanel {
      * @return returns the created WorldModel
      */
     protected WorldModel addWorld(WorldTiles world, int xShift, int yShift, GameHandler gameHandler) {
-        WorldModel newWorld = new WorldModel(world, xShift, yShift, gameHandler);
+        WorldModel newWorld = new WorldModel();
+        newWorld.setWorld(world);
+        newWorld.setXLocation(xShift);
+        newWorld.setYLocation(yShift);
+        newWorld.setGameHandler(gameHandler);
         worlds.add(newWorld);
         return newWorld;
     }
@@ -136,32 +139,6 @@ public abstract class MapPanel extends JPanel {
         for (int i = 0; i < worlds.size(); i++) {
             WorldModel world = worlds.get(i);
             drawWorld(g, world, (int) (world.getXLocation()), (int) (world.getYLocation()));
-        }
-        if (selectedTile != null) {
-            if (selectedTile.isOccupied()) {
-                g.setColor(Color.BLACK);
-                Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
-                int x = 0;
-                int y = 0;
-
-                g.drawRect(rect.x, rect.y, rect.width, rect.height);
-                g.drawString(selectedTile.getEntity().getClass().getSimpleName(), rect.x+50, rect.y+20);
-                g.drawString(Integer.toString(selectedTile.getEntity().getHealth()) + "/"+Integer.toString(selectedTile.getEntity().getStartHealth()), rect.x+50, rect.y+170);
-                g.drawImage(selectedTile.getEntity().getImage(), rect.x + 30, rect.y + 30, null);
-                g.drawLine(rect.x + 199, rect.y, rect.x + 199, rect.y + rect.height);
-                ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
-
-                for (int i = 0; i < list.size(); i++) {
-                    ImageWithAction imageWithAction = list.get(i);
-                    g.drawImage(imageWithAction.getIcon(), rect.x + 200 + x * EntityUI.ICON_WIDTH, rect.y + y * EntityUI.ICON_HEIGHT + 1, null);
-                    if (x < 5) {
-                        x++;
-                    } else {
-                        x = 0;
-                        y++;
-                    }
-                }
-            }
         }
     }
 

@@ -24,7 +24,7 @@ public class WorldModel extends Component {
     private boolean saveable = true;
     private int cameraX = 0;
     private int cameraY = 0;
-    private GameHandler gameHandler = new GameHandler();
+    private GameHandler gameHandler;
 
     public WorldModel(WorldTiles worldInput, int x, int y, GameHandler gameHandler) {
         worldLocationX = x;
@@ -86,6 +86,14 @@ public class WorldModel extends Component {
             return true;
         }
         return false;
+    }
+
+    public void setXLocation(int x) {
+        this.worldLocationX = x;
+    }
+
+    public void setYLocation(int y) {
+        this.worldLocationY = y;
     }
 
     public int getXLocation() {

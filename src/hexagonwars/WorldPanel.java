@@ -46,7 +46,7 @@ public class WorldPanel extends MapPanel {
         if (drawMoves) {
             if (currentEntity instanceof Unit) {
                 worldMap.getGameHandler().moveUnit(currentEntity, currentPosition, world.getTile(TileCoordinate.x, TileCoordinate.y));
-            }else{
+            } else {
                 worldMap.getGameHandler().moveFromBuilding(currentEntity, currentPosition, world.getTile(TileCoordinate.x, TileCoordinate.y));
             }
             drawMoves = false;
@@ -119,11 +119,40 @@ public class WorldPanel extends MapPanel {
         }
 
         super.clicked(me);
+
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        if (selectedTile != null) {
+            if (selectedTile.isOccupied()) {
+                g.setColor(Color.BLACK);
+                Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
+                int x = 0;
+                int y = 0;
+
+                g.drawRect(rect.x, rect.y, rect.width, rect.height);
+                g.drawString(selectedTile.getEntity().getClass().getSimpleName(), rect.x + 50, rect.y + 20);
+                g.drawString(Integer.toString(selectedTile.getEntity().getHealth()) + "/" + Integer.toString(selectedTile.getEntity().getStartHealth()), rect.x + 50, rect.y + 170);
+                g.drawImage(selectedTile.getEntity().getImage(), rect.x + 30, rect.y + 30, null);
+                g.drawLine(rect.x + 199, rect.y, rect.x + 199, rect.y + rect.height);
+
+                if (worldMap.getGameHandler().getCurrentPlayer().getPlayerEntities().contains(selectedTile.getEntity())) {
+                    ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
+                    for (int i = 0; i < list.size(); i++) {
+                        ImageWithAction imageWithAction = list.get(i);
+                        g.drawImage(imageWithAction.getIcon(), rect.x + 200 + x * EntityUI.ICON_WIDTH, rect.y + y * EntityUI.ICON_HEIGHT + 1, null);
+                        if (x < 5) {
+                            x++;
+                        } else {
+                            x = 0;
+                            y++;
+                        }
+                    }
+                }
+            }
+        }
         Rectangle uiRect = new Rectangle(0, this.getSize().height - 55, 200, 50);
         g.drawImage(HWImage.getImageWithDefaultTransparency("nextTurn"), uiRect.x, uiRect.y, null);
         g.drawImage(HWImage.getImageWithDefaultTransparency("exitButton"), uiRect.x + 50, uiRect.y, null);
