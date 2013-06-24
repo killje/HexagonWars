@@ -26,6 +26,14 @@ public class Worker extends Unit {
 
     private void addUI() {
         BuildAction buildBarracks = new BuildAction(new Barracks(playerColor));
+        BuildAction goldMine = new BuildAction(new GoldMine(playerColor));
+        BuildAction woodSaw = new BuildAction(new WoodSaw(playerColor));
+        BuildAction wizardTower = new BuildAction(new WizardTower(playerColor));
+        BuildAction workShop = new BuildAction(new WorkShop(playerColor));
         ui.addAction("SmallBarracks", buildBarracks);
+        ui.addAction("SmallGoldMine", goldMine);
+        ui.addAction("SmallWoodSaw", woodSaw);
+        ui.addAction("SmallWizardTower", wizardTower);
+        ui.addAction("SmallWorkShop", workShop);
     }
 }

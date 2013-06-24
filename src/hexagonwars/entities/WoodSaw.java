@@ -18,7 +18,5 @@ public class WoodSaw extends Gatherer {
 
     @Override
     protected void addUIAfterFinish() {
-        UpgradeAction action = new UpgradeAction();
-        addUIElement("UPGRADE_SAWMILL", action);
     }
 }

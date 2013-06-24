@@ -1,5 +1,7 @@
 package hexagonwars.entities;
 
+import hexagonwars.ProduceAction;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
@@ -12,4 +14,12 @@ public class WizardTower extends Producer {
         this.startHealth = 350;
         this.health = this.startHealth;
     }
+    
+    @Override
+    public void addUIAfterFinish() {
+        ProduceAction produceWizard = new ProduceAction(this, new Wizard(playerColor));
+        addUIElement("SmallWizard", produceWizard);
+
+    }
 }
+

@@ -18,7 +18,5 @@ public class GoldMine extends Gatherer {
 
     @Override
     protected void addUIAfterFinish() {
-        UpgradeAction action = new UpgradeAction();
-        addUIElement("UPGRADE_GOLDMINE", action);
     }
 }

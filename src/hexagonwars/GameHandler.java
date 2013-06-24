@@ -61,8 +61,9 @@ public class GameHandler implements Serializable {
 
     public void moveFromBuilding(Entity entity, Tile currentTile, Tile newTile) {
         Producer producer = (Producer) entity;
-
-        newTile.addEntity(producer.getLastUnit());
+        Unit unit = producer.getLastUnit();
+        getCurrentPlayer().addPlayerEntity(unit);
+        newTile.addEntity(unit);
         producer.removeLastUnit();
     }
 
