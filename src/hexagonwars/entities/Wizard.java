@@ -13,6 +13,8 @@ public abstract class Wizard extends Infantry {
 
     public Wizard(int playerColor) {
         super(playerColor);
+        this.startHealth = 60;
+        this.health = this.startHealth;
         this.possibleTiles.add(Tile.getTileFromType(WorldTiles.PLAIN));
         this.possibleTiles.add(Tile.getTileFromType(WorldTiles.FOREST));
         this.possibleTiles.add(Tile.getTileFromType(WorldTiles.SHALLOWS));

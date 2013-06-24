@@ -11,6 +11,8 @@ public class WoodSaw extends Gatherer {
 
     public WoodSaw(int playerColor) {
         super(playerColor);
+        this.startHealth = 350;
+        this.health = this.startHealth;
         type = ENTITY_BUILDING_GATHERER_SAWMILL;
     }
 

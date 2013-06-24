@@ -11,6 +11,8 @@ public class Castle extends Producer {
 
     public Castle(int playerColor) {
         super(playerColor);
+        this.startHealth = 1000;
+        this.health = this.startHealth;
         type = ENTITY_BUILDING_CASTLE;
     }
 
