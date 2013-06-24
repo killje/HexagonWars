@@ -12,6 +12,7 @@ public class WorldFile implements Serializable {
     private int height;
     private int width;
     private Tile[][] tiles;
+    private GameHandler gameHandler;
 
     public void WorldFile() {
     }
@@ -38,5 +39,13 @@ public class WorldFile implements Serializable {
 
     public void setWorld(Tile[][] world) {
         this.tiles = world;
+    }
+    
+    public GameHandler getGameHandler() {
+        return this.gameHandler;
+    }
+
+    public void setGameHandler(GameHandler gameHandler) {
+        this.gameHandler = gameHandler;
     }
 }

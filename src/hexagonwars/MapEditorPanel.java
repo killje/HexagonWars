@@ -76,7 +76,7 @@ public class MapEditorPanel extends MapPanel {
         tiles[6][0] = Tile.getTileFromType(WorldTiles.PLAIN);
         tiles[6][0].addEntity(new Worker(new Color(55, 55, 55).getRGB()));
         world.setWorld(tiles);
-        tileSelector = addWorld(world, 70, 40);
+        tileSelector = addWorld(world, 70, 40,new GameHandler());
         tileSelector.setCameraEnabled(false);
         tileSelector.setSaveable(false);
     }
@@ -95,7 +95,14 @@ public class MapEditorPanel extends MapPanel {
         }
 
         world.setWorld(tiles);
-        newWorld = addWorld(world, 0, 180);
+
+        newWorld = addWorld(world, 0, 180, new GameHandler());
+        Player player1 = new Player();
+        newWorld.getGameHandler().addPlayer(player1);
+        Player player2 = new Player();
+        newWorld.getGameHandler().addPlayer(player2);
+        Player player3 = new Player();
+        newWorld.getGameHandler().addPlayer(player3);
         save.setEnabled(true);
         repaint();
         validate();
@@ -114,7 +121,7 @@ public class MapEditorPanel extends MapPanel {
         if (world == newWorld) {
             Point worldTile = TileCoordinate;
             Tile tile = tileSelector.getTile(selectedTileCoordinate.x, selectedTileCoordinate.y);
-            newWorld.setTile(worldTile.x, worldTile.y,tile);
+            newWorld.setTile(worldTile.x, worldTile.y, tile);
             repaint();
             validate();
         } else {

@@ -1,7 +1,11 @@
 package hexagonwars.entities;
 
 import hexagonwars.Entity;
+import hexagonwars.HWImage;
+import java.awt.Color;
+import java.awt.Image;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -48,4 +52,16 @@ public abstract class Building extends Entity implements Serializable {
     public abstract void upgrade();
 
     public abstract void upgrade(int upgrade);
+    
+    @Override
+    public Image getImage() {
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(new Color(55, 171, 200).getRGB());
+        if (enableSpawn) {
+            return HWImage.getImage("Medium" + this.getClass().getSimpleName(), colors, playerColor);
+        }else{
+            return HWImage.getImage("Construction", colors, playerColor);
+        }
+        
+    }
 }

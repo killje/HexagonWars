@@ -1,6 +1,7 @@
 package hexagonwars;
 
 import hexagonwars.entities.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,14 +10,18 @@ import java.util.Random;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class GameHandler {
+public class GameHandler implements Serializable{
 
     private int turn;
-    private ArrayList<Player> players;
-    private ArrayList<Building> buildingConstructions;
+    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Building> buildingConstructions = new ArrayList<>();
 
     public GameHandler() {
         turn = 0; /* player one */
+    }
+
+    public void addPlayer(Player player) {
+        players.add(player);
     }
 
     public Player getCurrentPlayer() {

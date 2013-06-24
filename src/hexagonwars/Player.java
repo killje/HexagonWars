@@ -1,5 +1,8 @@
 package hexagonwars;
 
+import hexagonwars.entities.Worker;
+import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,13 +10,13 @@ import java.util.ArrayList;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class Player {
+public class Player implements Serializable{
 
     private int resourceGold;
     private int resourceForest;
     private int color;
-    private ArrayList<Entity> playerEntities;
-
+    private ArrayList<Entity> playerEntities = new ArrayList<>();
+    
     /**
      * @return the amount of gold
      */
@@ -88,6 +91,8 @@ public class Player {
      * @return the all the entities for a player
      */
     public void addPlayerEntity(Entity entity) {
+        System.out.println(entity);
+        System.out.println(playerEntities);
         playerEntities.add(entity);
     }
 
