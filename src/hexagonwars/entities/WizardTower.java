@@ -9,5 +9,7 @@ public class WizardTower extends Producer {
 
     public WizardTower(int playerColor) {
         super(playerColor);
+        this.startHealth = 350;
+        this.health = this.startHealth;
     }
 }

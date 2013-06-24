@@ -12,6 +12,8 @@ public class Archer extends Infantry {
 
     public Archer(int playerColor) {
         super(playerColor);
+        this.startHealth = 40;
+        this.health = this.startHealth;
         this.possibleTiles.add(Tile.getTileFromType(WorldTiles.PLAIN));
         this.possibleTiles.add(Tile.getTileFromType(WorldTiles.MOUNTAIN));
         this.possibleTiles.add(Tile.getTileFromType(WorldTiles.FOREST));

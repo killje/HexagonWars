@@ -14,8 +14,8 @@ public class Worker extends Unit {
     public Worker(int playerColor) {
         super(playerColor);
         type = ENTITY_UNIT_WORKER;
-        this.health = 50;
         this.startHealth = 50;
+        this.health = this.startHealth;
         addUI();
         this.possibleTiles.add(Tile.getTileFromType(WorldTiles.PLAIN));
         this.possibleTiles.add(Tile.getTileFromType(WorldTiles.MOUNTAIN));
