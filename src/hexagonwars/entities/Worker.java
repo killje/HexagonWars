@@ -1,7 +1,6 @@
 package hexagonwars.entities;
 
 import hexagonwars.BuildAction;
-import hexagonwars.NewUIAction;
 
 /**
  *

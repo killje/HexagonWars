@@ -25,8 +25,7 @@ public class WorldTiles {
         height = h;
     }
 
-    public WorldTiles(File file) {
-        read(file);
+    public WorldTiles() {
     }
 
     public int getWidth() {
@@ -37,6 +36,14 @@ public class WorldTiles {
         return this.height;
     }
 
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+    
     public Tile getTile(int x, int y) {
         return tiles[x][y];
     }
@@ -47,36 +54,6 @@ public class WorldTiles {
 
     public void setWorld(Tile[][] tiles) {
         this.tiles = tiles;
-    }
-
-    private void read(File file) {
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            Object object = ois.readObject();
-            if (!(object instanceof WorldFile)) {
-                throw new Exception("An illegal class type was found (" + object.getClass().getName() + ")");
-            }
-
-            WorldFile world = (WorldFile) object;
-            this.height = world.getHeight();
-            this.width = world.getWidth();
-            this.tiles = world.getWorld();
-
-            ois.close();
-            fis.close();
-        } catch (ClassNotFoundException e) {
-            System.err.println("The file could not be read.");
-        } catch (FileNotFoundException e) {
-            System.err.println("The desired file was not found.");
-        } catch (IOException e) {
-            System.err.println("An error with the I/O was reported, program closing.");
-            System.err.println(e.getMessage());
-            System.exit(-1);
-        } catch (Exception e) {
-            System.err.println("ERROR: " + e.getMessage());
-        }
     }
 
     @Override

@@ -16,10 +16,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -76,8 +78,8 @@ public abstract class MapPanel extends JPanel {
      * @param yShift the position on the y-axel in the panel
      * @return returns the created WorldModel
      */
-    protected WorldModel addWorld(WorldTiles world, int xShift, int yShift) {
-        WorldModel newWorld = new WorldModel(world, xShift, yShift);
+    protected WorldModel addWorld(WorldTiles world, int xShift, int yShift,GameHandler gameHandler) {
+        WorldModel newWorld = new WorldModel(world, xShift, yShift,gameHandler);
         worlds.add(newWorld);
         return newWorld;
     }
@@ -232,6 +234,7 @@ public abstract class MapPanel extends JPanel {
             saveWorld.setHeight(world.worldHeight());
             saveWorld.setWidth(world.worldWidth());
             saveWorld.setWorld(world.getWorld());
+            saveWorld.setGameHandler(world.getGameHandler());
             oos.writeObject(saveWorld);
 
             oos.close();
@@ -433,11 +436,45 @@ public abstract class MapPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent ae) {
             String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
-            WorldTiles newWorld = new WorldTiles(new File(path));
-            world.setWorld(newWorld);
+            File file = new File(path);
+            world.setWorld(read(file, world));
             repaint();
             revalidate();
         }
+    }
+
+    protected WorldTiles read(File file, WorldModel worldModel) {
+        WorldTiles newWorld = new WorldTiles();
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            Object object = ois.readObject();
+            if (!(object instanceof WorldFile)) {
+                throw new Exception("An illegal class type was found (" + object.getClass().getName() + ")");
+            }
+
+            WorldFile world = (WorldFile) object;
+            newWorld.setHeight(world.getHeight());
+            newWorld.setWidth(world.getWidth());
+            newWorld.setWorld(world.getWorld());
+            worldModel.setGameHandler(world.getGameHandler());
+
+
+            ois.close();
+            fis.close();
+        } catch (ClassNotFoundException e) {
+            System.err.println("The file could not be read.");
+        } catch (FileNotFoundException e) {
+            System.err.println("The desired file was not found.");
+        } catch (IOException e) {
+            System.err.println("An error with the I/O was reported, program closing.");
+            System.err.println(e.getMessage());
+            System.exit(-1);
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.getMessage());
+        }
+        return newWorld;
     }
 
     protected class QuitAction extends AbstractAction {

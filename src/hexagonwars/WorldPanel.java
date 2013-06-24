@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class WorldPanel extends MapPanel {
 
-    private WorldModel worldMap;
+    private WorldModel worldMap = new WorldModel();
     private GameUI gameUI = new GameUI(this);
     private final Tile[] possibleTiles;
     private ArrayList<Tile> tiles;
@@ -24,9 +24,9 @@ public class WorldPanel extends MapPanel {
 
     public WorldPanel() {
         File file = new File(Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");//debug
-        WorldTiles world = new WorldTiles(file);
+        WorldTiles world = read(file, worldMap);
 
-        worldMap = addWorld(world, 50, 30);
+        worldMap = addWorld(world, 50, 30,worldMap.getGameHandler());
         possibleTiles = new Tile[6];
         possibleTiles[0] = Tile.getTileFromType(WorldTiles.PLAIN);
         possibleTiles[1] = Tile.getTileFromType(WorldTiles.MOUNTAIN);
@@ -34,7 +34,8 @@ public class WorldPanel extends MapPanel {
         possibleTiles[3] = Tile.getTileFromType(WorldTiles.GOLD);
         possibleTiles[4] = Tile.getTileFromType(WorldTiles.SHALLOWS);
         possibleTiles[5] = Tile.getTileFromType(WorldTiles.FOREST);
-
+        
+        
     }
 
     @Override
@@ -71,7 +72,8 @@ public class WorldPanel extends MapPanel {
                             } else if (action instanceof BuildAction) {
                                 BuildAction buildAction = (BuildAction) action;
                                 selectedTile.removeAllEntities();
-//                                worldMap.getGameHandler().build(buildAction.getBuilding());
+                                worldMap.getGameHandler().build(buildAction.getBuilding());
+                                selectedTile.addEntity(buildAction.getBuilding());
                             }
                         }
                     }
