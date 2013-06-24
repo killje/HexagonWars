@@ -29,11 +29,10 @@ public class Barracks extends Producer {
 
     @Override
     public void upgrade(int upgrade) {
-        System.out.println("dd");
-//        ui.removeAction(soldierUpgrade);
-//        ui.removeAction(archerUpgrade);
-//        ProduceAction produceArchers = new ProduceAction(new Archer(playerColor));
-//        addUIElement("PRODUCE_ARCHER", produceArchers);
+        ui.removeAction(soldierUpgrade);
+        ui.removeAction(archerUpgrade);
+        ProduceAction produceArchers = new ProduceAction(new Archer(playerColor));
+        addUIElement("SmallArcher", produceArchers);
     }
     
     @Override
