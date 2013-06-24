@@ -29,7 +29,6 @@ public class HWImage {
         Image img;
         ImageName newImage;
         BufferedImage image;
-        
         try {
             File file = new File(Tile.class.getResource("images" + File.separator + filename + ".png").toURI());
             image = ImageIO.read(file);

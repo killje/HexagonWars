@@ -22,16 +22,22 @@ public class Barracks extends Producer {
 
     private void addUI() {
         ProduceAction produceSoldier = new ProduceAction(new Soldier(playerColor));
-        addUIElement("PRODUCE_SOLDIER", produceSoldier);
-        addUIElement("UPGRADE_MORE_SOLDIER", soldierUpgrade);
-        addUIElement("UPGRADE_MAKE_ARCHER", archerUpgrade);
+        addUIElement("SmallSoldier", produceSoldier);
+        addUIElement("SoldierUpgrade", soldierUpgrade);
+        addUIElement("ArcherUpgrade", archerUpgrade);
     }
 
     @Override
     public void upgrade(int upgrade) {
-        ui.removeAction(soldierUpgrade);
-        ui.removeAction(archerUpgrade);
-        ProduceAction produceArchers = new ProduceAction(new Archer(playerColor));
-        addUIElement("PRODUCE_ARCHER", produceArchers);
+        System.out.println("dd");
+//        ui.removeAction(soldierUpgrade);
+//        ui.removeAction(archerUpgrade);
+//        ProduceAction produceArchers = new ProduceAction(new Archer(playerColor));
+//        addUIElement("PRODUCE_ARCHER", produceArchers);
+    }
+    
+    @Override
+    public void startBuild() {
+        this.buildState = 2;
     }
 }

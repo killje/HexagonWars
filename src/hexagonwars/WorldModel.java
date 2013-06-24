@@ -45,6 +45,10 @@ public class WorldModel extends Component {
 
     public void setTile(int x, int y, Tile tile) {
         r[x][y] = Tile.getTileFromType(tile.getType());
+        if (tile.isOccupied()) {
+            r[x][y].addEntity(tile.getEntity());
+
+        }
     }
 
     public Tile getTile(int x, int y) {
@@ -153,7 +157,7 @@ public class WorldModel extends Component {
         if (p.x < 0 || p.x >= world.getWidth() || p.y < 0 || p.y >= world.getHeight()) {
             return tilesToMoveOn;
         }
-        if (moves==0) {
+        if (moves == 0) {
             return tilesToMoveOn;
         } else {
             tilesToMoveOn.add(world.getTile(p));

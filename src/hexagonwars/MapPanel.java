@@ -97,7 +97,7 @@ public abstract class MapPanel extends JPanel {
      * @param world saves the given world
      */
     protected void saveWorld(WorldModel world) {
-        String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "mapname.hwm");
+        String path = JOptionPane.showInputDialog(null, "Path Name:", Paths.get("").toAbsolutePath().toString() + File.separator + "src" + File.separator + "hexagonwars" + File.separator + "maps" + File.separator + "firstmap.hwm");
         File file = new File(path);
 
         store(file, world);
@@ -112,41 +112,6 @@ public abstract class MapPanel extends JPanel {
     //!!!!!!!!!!!!!!!!---------------------------------edit when game.java is done----------------------------!!!!!!!!!!!!!!!!!!!!!!!!
     protected void clicked(MouseEvent me) {
         boolean hasFoundTile = false;
-        if (selectedTile != null) {
-            if (selectedTile.isOccupied()) {
-                Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
-                if (rect.contains(me.getPoint())) {
-                    Point p = new Point(me.getPoint().x - getSize().width + 506, me.getPoint().y - getSize().height + 207);
-                    //from here edit
-                    int x, y;
-                    Point actionPoint = new Point();
-                    if (p.x >= 200 && p.y >= 1) {
-                        actionPoint.x = p.x - 200;
-                        actionPoint.y = p.y - 1;
-                        x = actionPoint.x / EntityUI.ICON_WIDTH;
-                        y = actionPoint.y / EntityUI.ICON_HEIGHT;
-                        int elementIndex = y * 6 + x;
-                        if (selectedTile.getEntity().getEntityUI().getActions().size() > elementIndex) {
-                            ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
-                            UIAction action = list.get(elementIndex).getAction();
-                            if (action instanceof NewUIAction) {
-                                NewUIAction newUIAction = (NewUIAction) action;
-                                selectedTile.getEntity().setEntityUI(newUIAction.getUI());
-                            } else if (action instanceof BuildAction) {
-                                BuildAction buildAction = (BuildAction) action;
-                                selectedTile.removeAllEntities();
-                                selectedTile.addEntity(buildAction.getBuilding());
-                            }
-                        }
-                    }
-                    //to here
-                    repaint();
-                    validate();
-
-                    return;
-                }
-            }
-        }
         for (WorldModel world : worlds) {
             if (world.inWorld(me.getX(), me.getY())) {
                 Point pointInWorld = new Point(me.getX() - world.getXLocation(), me.getY() - world.getYLocation());

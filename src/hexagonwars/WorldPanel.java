@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -41,8 +42,48 @@ public class WorldPanel extends MapPanel {
         selectedTile = world.getTile(TileCoordinate.x, TileCoordinate.y);
         drawMoves = true;
         if (drawMoves) {
-            tiles = worldMap.getMoves(possibleTiles, worldMap.getTilePosition(selectedTile), 6);
+            tiles = worldMap.getMoves(possibleTiles, worldMap.getTilePosition(selectedTile), 1);
         }
+    }
+    
+    @Override
+     protected void clicked(MouseEvent me) {
+        if (selectedTile != null) {
+            if (selectedTile.isOccupied()) {
+                Rectangle rect = new Rectangle(getSize().width - 506, getSize().height - 207, 500, 201);
+                if (rect.contains(me.getPoint())) {
+                    Point p = new Point(me.getPoint().x - getSize().width + 506, me.getPoint().y - getSize().height + 207);
+                    //from here edit
+                    int x, y;
+                    Point actionPoint = new Point();
+                    if (p.x >= 200 && p.y >= 1) {
+                        actionPoint.x = p.x - 200;
+                        actionPoint.y = p.y - 1;
+                        x = actionPoint.x / EntityUI.ICON_WIDTH;
+                        y = actionPoint.y / EntityUI.ICON_HEIGHT;
+                        int elementIndex = y * 6 + x;
+                        if (selectedTile.getEntity().getEntityUI().getActions().size() > elementIndex) {
+                            ArrayList<ImageWithAction> list = selectedTile.getEntity().getEntityUI().getActions();
+                            UIAction action = list.get(elementIndex).getAction();
+                            if (action instanceof NewUIAction) {
+                                NewUIAction newUIAction = (NewUIAction) action;
+                                selectedTile.getEntity().setEntityUI(newUIAction.getUI());
+                            } else if (action instanceof BuildAction) {
+                                BuildAction buildAction = (BuildAction) action;
+                                selectedTile.removeAllEntities();
+//                                worldMap.getGameHandler().build(buildAction.getBuilding());
+                            }
+                        }
+                    }
+                    //to here
+                    repaint();
+                    validate();
+
+                    return;
+                }
+            }
+        }
+        super.clicked(me);
     }
 
     @Override
@@ -55,7 +96,6 @@ public class WorldPanel extends MapPanel {
         g.drawImage(HWImage.getImageWithDefaultTransparency("loadButton"), uiRect.x + 150, uiRect.y, null);
         if (drawMoves) {
             for (Tile tile : tiles) {
-                System.out.println(worldMap.getTilePosition(tile));
                 drawHex(g, worldMap.getTilePosition(tile).x * (int) (HexagonWars.WORLD_TILE_WIDTH * worldMap.getZoomLevel()) + worldMap.getTilePosition(tile).y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * worldMap.getZoomLevel())+worldMap.getXLocation(), worldMap.getTilePosition(tile).y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * worldMap.getZoomLevel())+worldMap.getYLocation(), new Color(0, 0, 255, 80), worldMap);
             }
         }

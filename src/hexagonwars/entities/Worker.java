@@ -1,5 +1,6 @@
 package hexagonwars.entities;
 
+import hexagonwars.BuildAction;
 import hexagonwars.NewUIAction;
 
 /**
@@ -12,5 +13,11 @@ public class Worker extends Unit {
     public Worker(int playerColor) {
         super(playerColor);
         type = ENTITY_UNIT_WORKER;
+        addUI();
+    }
+
+    private void addUI() {
+        BuildAction buildBarracks = new BuildAction(new Barracks(playerColor));
+        ui.addAction("SmallBarracks", buildBarracks);
     }
 }
