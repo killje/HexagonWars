@@ -44,7 +44,6 @@ public class GameHandler implements Serializable {
                     building.upgradeBuild();
                 } else {
                     building.finishBuild();
-                    System.out.println("test");
                     buildingConstructions.remove(building);
                 }
             }

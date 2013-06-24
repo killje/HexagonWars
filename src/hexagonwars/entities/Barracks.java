@@ -43,7 +43,6 @@ public class Barracks extends Producer {
 
     @Override
     public void nextTurn() {
-        System.out.println(units);
         hasAction = true;
         if (upgrade == 1) {
             units.addAll(unitsNextTurn);
