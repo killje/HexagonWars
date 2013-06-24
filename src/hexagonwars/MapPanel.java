@@ -136,6 +136,7 @@ public abstract class MapPanel extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        g.drawImage(HWImage.getImageWithDefaultTransparency("Background"), 0, 35, this.getSize().width, this.getSize().height, this);
         for (int i = 0; i < worlds.size(); i++) {
             WorldModel world = worlds.get(i);
             drawWorld(g, world, (int) (world.getXLocation()), (int) (world.getYLocation()));

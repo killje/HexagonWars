@@ -170,10 +170,16 @@ public class WorldModel extends Component {
         if (p.x < 0 || p.x >= world.getWidth() || p.y < 0 || p.y >= world.getHeight()) {
             return tilesToMoveOn;
         }
+        boolean hasFound = false;
         for (Tile tile : possibleTiles) {
             if (tile.toString().equals(world.getTile(p).toString())) {
-                return tilesToMoveOn;
+                hasFound = true;
+                System.out.println("hier");
             }
+        }
+        if (!hasFound) {
+            System.out.println("hier");
+            return tilesToMoveOn;
         }
         if (moves == 0) {
             return tilesToMoveOn;
