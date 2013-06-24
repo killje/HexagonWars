@@ -10,7 +10,7 @@ import java.util.Random;
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
  * @author Timo Smit (s2337789)
  */
-public class GameHandler implements Serializable{
+public class GameHandler implements Serializable {
 
     private int turn;
     private ArrayList<Player> players = new ArrayList<>();
@@ -27,6 +27,10 @@ public class GameHandler implements Serializable{
     public Player getCurrentPlayer() {
         return players.get(turn);
     }
+    
+    public String getPlayerName(Player player){
+        return player.getName();
+    }
 
     public void nextTurn() {
         turn++;
@@ -35,12 +39,14 @@ public class GameHandler implements Serializable{
         }
         ArrayList<Building> buildings = new ArrayList(buildingConstructions);
         for (Building building : buildings) {
-            if (building.isBeingBuilt()) {
-                building.upgradeBuild();
-            } else {
-                building.finishBuild();
-                System.out.println("test");
-                buildingConstructions.remove(building);
+            if (getCurrentPlayer().getPlayerEntities().contains(building)) {
+                if (building.isBeingBuilt()) {
+                    building.upgradeBuild();
+                } else {
+                    building.finishBuild();
+                    System.out.println("test");
+                    buildingConstructions.remove(building);
+                }
             }
         }
     }
@@ -48,7 +54,7 @@ public class GameHandler implements Serializable{
     public void move(Unit unit, Tile currentTile, Tile newTile) {
         currentTile.removeAllEntities();
         newTile.addEntity(unit);
-        
+
     }
 
     public void build(Building building) {

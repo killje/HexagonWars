@@ -1,7 +1,5 @@
 package hexagonwars;
 
-import hexagonwars.entities.Worker;
-import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,6 +13,7 @@ public class Player implements Serializable{
     private int resourceGold;
     private int resourceForest;
     private int color;
+    private String name;
     private ArrayList<Entity> playerEntities = new ArrayList<>();
     
     /**
@@ -101,5 +100,13 @@ public class Player implements Serializable{
      */
     public void removePlayerEntity(Entity entity) {
         playerEntities.remove(entity);
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public String getName(){
+        return name;
     }
 }

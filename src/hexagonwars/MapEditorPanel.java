@@ -99,10 +99,13 @@ public class MapEditorPanel extends MapPanel {
         newWorld = addWorld(world, 0, 180, new GameHandler());
         Player player1 = new Player();
         newWorld.getGameHandler().addPlayer(player1);
+        player1.setName("Patrick");
         Player player2 = new Player();
         newWorld.getGameHandler().addPlayer(player2);
+        player2.setName("Floris");
         Player player3 = new Player();
         newWorld.getGameHandler().addPlayer(player3);
+        player3.setName("Timo");
         save.setEnabled(true);
         repaint();
         validate();
