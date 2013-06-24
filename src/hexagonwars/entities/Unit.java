@@ -2,7 +2,9 @@ package hexagonwars.entities;
 
 import hexagonwars.Entity;
 import hexagonwars.MoveAction;
+import hexagonwars.Tile;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,9 +15,11 @@ public abstract class Unit extends Entity implements Serializable {
 
     protected int attackDamage;
     protected int attackRatio;
+    protected ArrayList<Tile> possibleTiles;
 
     public Unit(int playerColor) {
         super(playerColor);
+        this.possibleTiles = new ArrayList<>();
         MoveAction move = new MoveAction(3);
         ui.addAction("Move", move);
     }

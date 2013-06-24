@@ -4,7 +4,9 @@ import hexagonwars.entities.Worker;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -131,14 +133,27 @@ public class MapEditorPanel extends MapPanel {
             selectedTileCoordinate = TileCoordinate;
         }
     }
+    
+    @Override
+    protected void clicked(MouseEvent me) {
+        Rectangle uiRect = new Rectangle(0, this.getSize().height - 55, 50, 50);
+        if (uiRect.contains(me.getPoint())) {
+            System.exit(0);
+        }
+        super.clicked(me);
+    }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        Rectangle uiRect = new Rectangle(0, this.getSize().height - 55, 50, 50);
+        g.drawImage(HWImage.getImageWithDefaultTransparency("exitButton"), uiRect.x, uiRect.y, null);
         if (selectedTileCoordinate != null) {
             drawHex(g, selectedTileCoordinate.x * HexagonWars.WORLD_TILE_WIDTH + tileSelector.getXLocation(), tileSelector.getYLocation(), new Color(255, 255, 0, 50), tileSelector);
         }
     }
+    
+    
 
     /**
      * class to see if someone clicks on the go button

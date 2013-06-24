@@ -1,5 +1,8 @@
 package hexagonwars.entities;
 
+import hexagonwars.Tile;
+import hexagonwars.WorldTiles;
+
 /**
  *
  * @author Patrick Beuks (s2288842), Floris Huizinga (s2397617) and
