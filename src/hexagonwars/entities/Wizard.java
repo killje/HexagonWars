@@ -1,5 +1,7 @@
 package hexagonwars.entities;
 
+import hexagonwars.Tile;
+import hexagonwars.WorldTiles;
 import java.awt.Color;
 
 /**
@@ -11,6 +13,9 @@ public abstract class Wizard extends Infantry {
 
     public Wizard(int playerColor) {
         super(playerColor);
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.PLAIN));
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.FOREST));
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.SHALLOWS));
         this.type = hexagonwars.HexagonWars.ENTITY_UNIT_MAGIC;
     }
 }

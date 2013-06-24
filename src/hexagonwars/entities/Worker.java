@@ -1,6 +1,8 @@
 package hexagonwars.entities;
 
 import hexagonwars.BuildAction;
+import hexagonwars.Tile;
+import hexagonwars.WorldTiles;
 
 /**
  *
@@ -15,6 +17,11 @@ public class Worker extends Unit {
         this.health = 50;
         this.startHealth = 50;
         addUI();
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.PLAIN));
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.MOUNTAIN));
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.FOREST));
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.SHALLOWS));
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.GOLD));
     }
 
     private void addUI() {

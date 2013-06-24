@@ -1,5 +1,7 @@
 package hexagonwars.entities;
 
+import hexagonwars.Tile;
+import hexagonwars.WorldTiles;
 import java.awt.Color;
 
 /**
@@ -11,5 +13,8 @@ public class Soldier extends Infantry {
 
     public Soldier(int playerColor) {
         super(playerColor);
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.PLAIN));
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.FOREST));
+        this.possibleTiles.add(Tile.getTileFromType(WorldTiles.SHALLOWS));
     }
 }
