@@ -1,6 +1,5 @@
 package hexagonwars;
 
-import hexagonwars.entities.Building;
 import hexagonwars.entities.Unit;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -37,15 +36,16 @@ public class WorldPanel extends MapPanel {
     @Override
     protected void tileClick(WorldModel world, Point TileCoordinate) {
         if (drawMoves) {
-            if (currentEntity instanceof Unit) {
-                worldMap.getGameHandler().moveUnit(currentEntity, currentPosition, world.getTile(TileCoordinate.x, TileCoordinate.y));
-            } else {
-                worldMap.getGameHandler().moveFromBuilding(currentEntity, currentPosition, world.getTile(TileCoordinate.x, TileCoordinate.y));
+            if (tiles.contains(world.getTile(TileCoordinate.x, TileCoordinate.y))) {
+                if (currentEntity instanceof Unit) {
+                    worldMap.getGameHandler().moveUnit(currentEntity, currentPosition, world.getTile(TileCoordinate.x, TileCoordinate.y));
+                } else {
+                    worldMap.getGameHandler().moveFromBuilding(currentEntity, currentPosition, world.getTile(TileCoordinate.x, TileCoordinate.y));
+                }
+                drawMoves = false;
             }
-            drawMoves = false;
         }
         selectedTile = world.getTile(TileCoordinate.x, TileCoordinate.y);
-
     }
 
     @Override
@@ -103,11 +103,12 @@ public class WorldPanel extends MapPanel {
                             }
                         }
                     }
+                    repaint();
+                    validate();
+
+                    return;
                 }
                 //to here
-                repaint();
-                validate();
-
             }
 
         }
@@ -155,7 +156,7 @@ public class WorldPanel extends MapPanel {
         g.drawString(worldMap.getGameHandler().getPlayerName(worldMap.getGameHandler().getCurrentPlayer()), uiRect.x + 210, uiRect.y + 12);
         if (drawMoves) {
             for (Tile tile : tiles) {
-                drawHex(g, worldMap.getTilePosition(tile).x * (int) (HexagonWars.WORLD_TILE_WIDTH * worldMap.getZoomLevel()) + worldMap.getTilePosition(tile).y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * worldMap.getZoomLevel()) + worldMap.getXLocation() - worldMap.getCameraX(), worldMap.getTilePosition(tile).y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * worldMap.getZoomLevel()) + worldMap.getYLocation()- worldMap.getCameraY(), new Color(0, 0, 255, 80), worldMap);
+                drawHex(g, worldMap.getTilePosition(tile).x * (int) (HexagonWars.WORLD_TILE_WIDTH * worldMap.getZoomLevel()) + worldMap.getTilePosition(tile).y % 2 * (int) (HexagonWars.WORLD_TILE_WIDTH / 2 * worldMap.getZoomLevel()) + worldMap.getXLocation() - worldMap.getCameraX(), worldMap.getTilePosition(tile).y * (int) (HexagonWars.WORLD_TILE_HEIGHT_MIN * worldMap.getZoomLevel()) + worldMap.getYLocation() - worldMap.getCameraY(), new Color(0, 0, 255, 80), worldMap);
             }
         }
     }
